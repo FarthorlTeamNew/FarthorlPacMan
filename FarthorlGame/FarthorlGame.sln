@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarthorlGame", "FarthorlGame.csproj", "{90DA51E1-BEEC-441D-BF09-3D2995DD01A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarthorlPacMan", "..\FarthorlPacMan\FarthorlPacMan.csproj", "{7A90D28F-158C-44DE-8A06-525D7672C928}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90DA51E1-BEEC-441D-BF09-3D2995DD01A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DA51E1-BEEC-441D-BF09-3D2995DD01A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DA51E1-BEEC-441D-BF09-3D2995DD01A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DA51E1-BEEC-441D-BF09-3D2995DD01A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A90D28F-158C-44DE-8A06-525D7672C928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A90D28F-158C-44DE-8A06-525D7672C928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A90D28F-158C-44DE-8A06-525D7672C928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A90D28F-158C-44DE-8A06-525D7672C928}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
