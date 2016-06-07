@@ -62,13 +62,22 @@
 
         public void stopGame()
         {
+            try
+            {
+                threadRendering.Resume();
+            }
+            catch (Exception)
+            {
+
+            }
+
             threadRendering.Abort();
         }
 
         public void PauseGame()
         {
-              this.run = false;
-              threadRendering.Suspend();
+            this.run = false;
+            threadRendering.Suspend();
         }
 
         public void ResumeGame()
@@ -170,7 +179,7 @@
                     }
 
 
-                    if (topIndex == 1 && rightIndex==1 && bottomIndex==1 && bottomIndex==1)
+                    if (topIndex == 1 && rightIndex == 1 && bottomIndex == 1 && bottomIndex == 1)
                     {
                         graphics.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
                     }
