@@ -72,29 +72,30 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 861);
+            this.ClientSize = new System.Drawing.Size(1200, 861);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(1217, 900);
-            this.MinimumSize = new System.Drawing.Size(1217, 900);
+            this.MaximumSize = new System.Drawing.Size(1216, 900);
+            this.MinimumSize = new System.Drawing.Size(1216, 900);
             this.Name = "GameWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWindow_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWindow_FormClosed);
+            this.LocationChanged += new System.EventHandler(this.GameWindow_LocationChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyDown);
+            this.Move += new System.EventHandler(this.GameWindow_Move);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pacMan;
         public System.Windows.Forms.Label ScoreLabel;
         public System.Windows.Forms.Label LeftScore;
+        public System.Windows.Forms.Panel pacMan;
     }
 }
 

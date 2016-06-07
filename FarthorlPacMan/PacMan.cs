@@ -11,7 +11,7 @@
         private int positionQuadrantY = 0;
         private const int diameter = 35;
         private const int quadrantDimension = 50;
-        private const int speedDrawing = 8;
+        private const int speedDrawing = 6;
         private Color pacManColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
@@ -73,7 +73,7 @@
                     engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
-                else if (elements[1] == "1" && positionQuadrantX > 0)
+                else if (elements[1] == "1")
                 {
                     if (movedDirection == "")
                     {
@@ -111,7 +111,7 @@
                     movedDirection = "Right";
                     engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
                 }
-                else if (elements[3] == "1" && positionQuadrantX < engine.GetMaxX() - 1)
+                else if (elements[3] == "1")
                 {
                     if (movedDirection == "")
                     {
@@ -147,7 +147,7 @@
                     engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
-                else if (elements[0] == "1" && positionQuadrantY < engine.GetMaxY())
+                else if (elements[0] == "1")
                 {
                     if (this.movedDirection == "")
                     {
@@ -186,10 +186,14 @@
                     engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
-                else if (elements[1] == "1" && positionQuadrantX > 0)
+                else if (elements[1] == "1")
                 {
                     if (movedDirection == "")
                     {
+                        if (positionQuadrantX==0)
+                        {
+                            engine.changeDirection(previousDirection);
+                        }
                         previousDirection = "";
                     }
                     movedDirection = "";
