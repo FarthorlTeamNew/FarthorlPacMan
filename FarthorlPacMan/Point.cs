@@ -16,7 +16,7 @@
             this.centerY = centerY;
         }
 
-        public void drawPoint(Graphics graphics)
+        public void DrawPoint(Graphics graphics)
         {
             if (isCollected)//Remove the point from the screen if the point is collected
             {
@@ -32,7 +32,7 @@
             }
         }
 
-        public void eatPoint()
+        public void EatPoint()
         {
             this.isCollected = true;
         }
