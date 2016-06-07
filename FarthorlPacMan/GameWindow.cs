@@ -68,5 +68,10 @@ namespace FarthorlPacMan
 
             MessageBox.Show("You Win Farthorl PacMan game!");
         }
+
+        private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }

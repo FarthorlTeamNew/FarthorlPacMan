@@ -1,0 +1,10 @@
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\bin\Debug\FarthorlPacMan.exe.config
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\bin\Debug\DataFiles\coordinates.txt
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\bin\Debug\FarthorlPacMan.exe
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\bin\Debug\FarthorlPacMan.pdb
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.csprojResolveAssemblyReference.cache
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.GameWindow.resources
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.Properties.Resources.resources
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.csproj.GenerateResource.Cache
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.exe
+C:\Users\Petar\Documents\GitHub\FarthorlPacMan\FarthorlPacMan\obj\Debug\FarthorlPacMan.pdb
