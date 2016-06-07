@@ -14,7 +14,7 @@ Features to add in the future:
 - Add sound effects - the famous Pacman Waka-Waka eating sound - https://www.youtube.com/watch?v=xbR_-kVEYQ0 . Sound speeds up when Pacman eats a Powerup. Seperate sound for eating an enemy, and for dying.
 - Some animations maybe? - For example, when Pacman dies, he shrinks into oblivion
 
-
+Feel free to add more ideas, report any bugs and work on the code to improve it.
 
 
 
