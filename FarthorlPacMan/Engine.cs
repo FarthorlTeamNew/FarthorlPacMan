@@ -12,15 +12,15 @@
         private Graphics graphics;
         private Thread threadRendering;
         private Thread threadMonsters;
-        private string[,] pathsMatrix=new string[24,16];
+        private string[,] pathsMatrix = new string[24, 16];
         private int xMax = 24;
         private int yMax = 16;
         private int leftScore;
         private bool run = true;
         private string moveDirection;
-        private Color wallColor=Color.Cyan;
+        private Color wallColor = Color.Cyan;
         private readonly GameWindow game;
-        List<Point> points=new List<Point>();
+        List<Point> points = new List<Point>();
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
@@ -35,7 +35,7 @@
             drawPaths();
             foreach (var point in points)
             {
-                point.drawPoint(graphics);
+                point.DrawPoint(graphics);
             }
             inicializeLeftScores();
             threadRendering.Start();
@@ -60,7 +60,7 @@
 
             while (run)
             {
-                pacMan.move(this.graphics,this, moveDirection);
+                pacMan.move(this.graphics, this, moveDirection);
 
                 game.UpdateScores(pacMan.getScore());
 
@@ -81,13 +81,13 @@
                 using (var fileMatrix = new StreamReader("DataFiles/coordinates.txt"))
                 {
                     string inputLine;
-                    while ((inputLine=fileMatrix.ReadLine())!=null)
+                    while ((inputLine = fileMatrix.ReadLine()) != null)
                     {
                         // Get values from the coordinates.txt example splitLine[0]=1,0 splitLine[1]=1|0|0|1|1
                         var splitLine = inputLine.Trim().Split('=');
 
                         //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
-                        var arrayXYValues = splitLine[0].Trim().Split(','); 
+                        var arrayXYValues = splitLine[0].Trim().Split(',');
                         int arrayX;
                         int arrayY;
 
@@ -110,7 +110,7 @@
                 }
             }
             catch (Exception)
-            {   
+            {
                 throw new FileLoadException();
             }
 
@@ -123,36 +123,36 @@
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    var elements = pathsMatrix[x,y].Trim().Split('|');
+                    var elements = pathsMatrix[x, y].Trim().Split('|');
                     int topIndex = int.Parse(elements[0]);
                     int rightIndex = int.Parse(elements[1]);
                     int bottomIndex = int.Parse(elements[2]);
                     int leftIndex = int.Parse(elements[3]);
                     int pointIndex = int.Parse(elements[4]);
 
-                    if (topIndex==1)
+                    if (topIndex == 1)
                     {
                         graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
                     }
 
-                    if (rightIndex==1)
+                    if (rightIndex == 1)
                     {
-                       graphics.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
+                        graphics.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
                     }
 
-                    if (bottomIndex==1)
+                    if (bottomIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50) , (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
+                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
                     }
 
-                    if (leftIndex==1)
+                    if (leftIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x*50) , (y*50), (x*50) , (y*50) + 50);
+                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
                     }
 
                     if (pointIndex == 1)
                     {
-                        Point point = new Point((x*50) + 25, (y*50) + 25);
+                        Point point = new Point((x * 50) + 25, (y * 50) + 25);
                         points.Add(point);
                     }
                     else
@@ -188,14 +188,14 @@
 
         public void EatPointAdnUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
-            var stringValue =$"{element[0]}|{element[1]}|{element[2]}|{element[3]}|{element[4]}";
+            var stringValue = $"{element[0]}|{element[1]}|{element[2]}|{element[3]}|{element[4]}";
             pathsMatrix[quadrantX, quandrantY] = stringValue;
 
             foreach (var point in points)
             {
-                if (point.getX()==(quadrantX*50)+25 && point.getY()==(quandrantY*50)+25)
+                if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
                 {
-                    point.eatPoint();
+                    point.EatPoint();
                     break;
                 }
             }
@@ -215,13 +215,13 @@
                     leftScore = leftScore + 1;
                 }
             }
-            game.updateLeftScore(leftScore);
+            game.UpdateLeftScore(leftScore);
         }
 
         private void UpdateLeftSores(int pacMandScores)
         {
-            game.updateLeftScore(leftScore - pacMandScores);
-            if (leftScore-pacMandScores==0)
+            game.UpdateLeftScore(leftScore - pacMandScores);
+            if (leftScore - pacMandScores == 0)
             {
                 pauseGame();
                 game.Win();

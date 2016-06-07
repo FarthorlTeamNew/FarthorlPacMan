@@ -1,4 +1,4 @@
-TODO:
+﻿TODO:
 Merge both projects into a single working one OR Create a single new project and CORRECTLY adding the already created classes
 
 Reported bugs:

@@ -28,34 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pacMan = new System.Windows.Forms.Panel();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.LeftScore = new System.Windows.Forms.Label();
-            this.pacMan = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // ScoreLabel
-            // 
-            this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ScoreLabel.Location = new System.Drawing.Point(3, 802);
-            this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 50);
-            this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(250, 50);
-            this.ScoreLabel.TabIndex = 1;
-            this.ScoreLabel.Text = "Scores:";
-            this.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // LeftScore
-            // 
-            this.LeftScore.AutoSize = true;
-            this.LeftScore.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftScore.Location = new System.Drawing.Point(304, 802);
-            this.LeftScore.MinimumSize = new System.Drawing.Size(250, 50);
-            this.LeftScore.Name = "LeftScore";
-            this.LeftScore.Size = new System.Drawing.Size(250, 50);
-            this.LeftScore.TabIndex = 2;
-            this.LeftScore.Text = "Left scores:";
-            this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pacMan
             // 
@@ -68,32 +44,56 @@
             this.pacMan.TabIndex = 0;
             this.pacMan.Paint += new System.Windows.Forms.PaintEventHandler(this.pacMan_Paint);
             // 
+            // ScoreLabel
+            // 
+            this.ScoreLabel.AutoSize = true;
+            this.ScoreLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ScoreLabel.Location = new System.Drawing.Point(3, 802);
+            this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 50);
+            this.ScoreLabel.Name = "ScoreLabel";
+            this.ScoreLabel.Size = new System.Drawing.Size(250, 50);
+            this.ScoreLabel.TabIndex = 2;
+            this.ScoreLabel.Text = "Scores:";
+            this.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LeftScore
+            // 
+            this.LeftScore.AutoSize = true;
+            this.LeftScore.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LeftScore.Location = new System.Drawing.Point(304, 802);
+            this.LeftScore.MinimumSize = new System.Drawing.Size(250, 50);
+            this.LeftScore.Name = "LeftScore";
+            this.LeftScore.Size = new System.Drawing.Size(250, 50);
+            this.LeftScore.TabIndex = 3;
+            this.LeftScore.Text = "Left scores:";
+            this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 861);
+            this.ClientSize = new System.Drawing.Size(1201, 862);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1217, 900);
             this.MinimumSize = new System.Drawing.Size(1217, 900);
             this.Name = "GameWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWindows_FormClosed);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindows_KeyDown);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWindow_FormClosed);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel pacMan;
         public System.Windows.Forms.Label ScoreLabel;
         public System.Windows.Forms.Label LeftScore;
-        private System.Windows.Forms.Panel pacMan;
     }
 }
 
