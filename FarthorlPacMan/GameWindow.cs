@@ -13,6 +13,7 @@ namespace FarthorlPacMan
     public partial class GameWindow : Form
     {
         private Game game = new Game();
+        private bool isInicialize = false;
         public GameWindow()
         {
             InitializeComponent();
@@ -20,8 +21,17 @@ namespace FarthorlPacMan
 
         private void pacMan_Paint(object sender, PaintEventArgs e)
         {
-            Graphics graphics = pacMan.CreateGraphics();
-            this.game.startDraw(graphics, this);
+            if (!isInicialize)
+            {
+                Graphics graphics = pacMan.CreateGraphics();
+                this.game.startDraw(graphics, this);
+                this.isInicialize = true;
+            }
+            else
+            {
+                game.Redraw();
+            }
+
         }
 
         private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -65,8 +75,21 @@ namespace FarthorlPacMan
 
         public void Win()
         {
-
             MessageBox.Show("You Win Farthorl PacMan game!");
+        }
+
+        private void GameWindow_LocationChanged(object sender, EventArgs e)
+        {
+            
+           
+        }
+
+        private void GameWindow_Move(object sender, EventArgs e)
+        {
+            if (isInicialize)
+            {
+                game.PauseGame();
+            }
         }
 
         private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
