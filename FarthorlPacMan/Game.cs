@@ -1,14 +1,22 @@
-﻿namespace FarthorlPacMan
+﻿using System.Windows.Forms;
+
+namespace FarthorlPacMan
 {
     using System.Drawing;
 
     class Game
     {
         private Engine graphicEngine;
+
         public void startDraw(Graphics graphic, GameWindow game)
         {
             this.graphicEngine = new Engine(graphic, game);
-            this.graphicEngine.Initialize();
+            this.graphicEngine.Initialize(); 
+        }
+
+        public void Redraw()
+        {
+            graphicEngine.DrawContent();
         }
 
         public void stopGame()
@@ -18,12 +26,19 @@
 
         public void Direction(string direction)
         {
+            if (graphicEngine.IsPaused())
+            {
+
+                graphicEngine.ResumeGame();
+            }
             graphicEngine.changeDirection(direction);
         }
 
-        public void pauseGame()
+        public void PauseGame()
         {
-            graphicEngine.pauseGame();
+            graphicEngine.PauseGame();
         }
+
+
     }
 }

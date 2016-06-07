@@ -20,26 +20,44 @@
         private string moveDirection;
         private Color wallColor = Color.Cyan;
         private readonly GameWindow game;
+        private bool isInicialize = false;
+        private PacMan pacMan;
         List<Point> points = new List<Point>();
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
             this.game = game;
+
         }
 
-        public void Initialize()
+        public void DrawContent()
         {
-            threadRendering = new Thread(new ThreadStart(render));
-            initializeMatrix();
             DrawFontColor();
-            drawPaths();
+            DrawPaths();
             foreach (var point in points)
             {
                 point.DrawPoint(graphics);
             }
-            inicializeLeftScores();
-            threadRendering.Start();
-            Control.CheckForIllegalCrossThreadCalls = false;
+        }
+
+        public void Initialize()
+        {
+            if (!isInicialize)
+            {
+                isInicialize = true;
+                threadRendering = new Thread(new ThreadStart(render));
+                this.initializeMatrix();
+                this.FillPoints();
+                inicializeLeftScores();
+                pacMan = new PacMan(0, 0, this.graphics, this);
+                this.DrawContent();
+                threadRendering.Start();
+                Control.CheckForIllegalCrossThreadCalls = false;
+            }
+            else
+            {
+                this.DrawContent();
+            }
         }
 
         public void stopGame()
@@ -47,31 +65,32 @@
             threadRendering.Abort();
         }
 
-        public void pauseGame()
+        public void PauseGame()
         {
-            this.run = false;
+              this.run = false;
+              threadRendering.Suspend();
+        }
+
+        public void ResumeGame()
+        {
+            this.run = true;
+            threadRendering.Resume();
+        }
+
+        public bool IsPaused()
+        {
+            return !run;
         }
 
         //Heare is the logic for gaming
         private void render()
         {
-            PacMan pacMan = new PacMan(0, 0, this.graphics, this);
-
-
             while (run)
             {
                 pacMan.move(this.graphics, this, moveDirection);
-
                 game.UpdateScores(pacMan.getScore());
-
                 UpdateLeftSores(pacMan.getScore());
-
             }
-        }
-
-        private void monstersRender()
-        {
-            MessageBox.Show("dasd");
         }
 
         private void initializeMatrix()
@@ -117,7 +136,7 @@
 
         }
 
-        private void drawPaths()
+        private void DrawPaths()
         {
             for (int y = 0; y < yMax; y++)
             {
@@ -150,12 +169,8 @@
                         graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
                     }
 
-                    if (pointIndex == 1)
-                    {
-                        Point point = new Point((x * 50) + 25, (y * 50) + 25);
-                        points.Add(point);
-                    }
-                    else
+
+                    if (topIndex == 1 && rightIndex==1 && bottomIndex==1 && bottomIndex==1)
                     {
                         graphics.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
                     }
@@ -163,6 +178,24 @@
                 }
             }
 
+        }
+
+        private void FillPoints()
+        {
+
+            for (int y = 0; y < yMax; y++)
+            {
+                for (int x = 0; x < xMax; x++)
+                {
+                    var elements = pathsMatrix[x, y].Trim().Split('|');
+                    int pointIndex = int.Parse(elements[4]);
+                    if (pointIndex == 1)
+                    {
+                        Point point = new Point((x * 50) + 25, (y * 50) + 25);
+                        points.Add(point);
+                    }
+                }
+            }
         }
 
         private void DrawFontColor()
@@ -223,7 +256,7 @@
             game.UpdateLeftScore(leftScore - pacMandScores);
             if (leftScore - pacMandScores == 0)
             {
-                pauseGame();
+                PauseGame();
                 game.Win();
             }
         }
