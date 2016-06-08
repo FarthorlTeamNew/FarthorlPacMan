@@ -78,13 +78,19 @@
         {
             this.run = false;
             threadRendering.Suspend();
-            DrawContent();
-            this.pacMan.drawPacMan(graphics);
+            DrawPauseGame();
+
+        }
+
+        public void DrawPauseGame()
+        {
+            
         }
 
         public void ResumeGame()
         {
             this.DrawContent();
+            this.pacMan.drawPacMan(graphics);
             this.run = true;
             threadRendering.Resume();
         }
