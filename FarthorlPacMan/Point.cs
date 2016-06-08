@@ -16,7 +16,7 @@
             this.centerY = centerY;
         }
 
-        public void DrawPoint(Graphics graphics, Bitmap buffer, Engine engine)
+        public void DrawPoint(Graphics graphics,Engine engine)
         {
 
                 if (isCollected)//Remove the point from the screen if the point is collected

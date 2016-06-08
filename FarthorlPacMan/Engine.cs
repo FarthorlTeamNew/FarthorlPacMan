@@ -10,7 +10,7 @@
     public class Engine
     {
         private Graphics graphics;
-        private Bitmap buffer = new Bitmap(1200, 650);
+        private Bitmap buffer;
         private Thread threadRendering;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
@@ -79,18 +79,13 @@
         {
             this.run = false;
             threadRendering.Suspend();
-            DrawPauseGame();
+            UpdateGraphics();
 
-        }
-
-        public void DrawPauseGame()
-        {
-            this.UpdateGraphics();
         }
 
         public void UpdateGraphics()
         {
-            this.game.pacMan.BackgroundImage = new Bitmap(1200,650,this.graphics);
+            game.pacMan.BackgroundImage = buffer;
         }
 
         public void ResumeGame()
@@ -114,6 +109,8 @@
                 pacMan.move(this.graphics, this, moveDirection);
                 game.UpdateScores(pacMan.getScore());
                 UpdateLeftSores(pacMan.getScore());
+
+                buffer = new Bitmap(1200, 650, this.graphics);
             }
         }
 
@@ -222,7 +219,7 @@
 
         private void DrawFontColor()
         {
-            graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 800);
+            graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
 
         }
 
