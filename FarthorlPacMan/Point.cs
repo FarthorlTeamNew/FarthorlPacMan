@@ -16,20 +16,25 @@
             this.centerY = centerY;
         }
 
-        public void DrawPoint(Graphics graphics)
+        public void DrawPoint(Graphics graphics, Bitmap buffer, Engine engine)
         {
-            if (isCollected)//Remove the point from the screen if the point is collected
+            using (graphics=Graphics.FromImage(buffer))
             {
-                graphics.FillEllipse(new SolidBrush(Color.Black), (centerX - (pointDiameter / 2) - 1),
-                    (centerY - (pointDiameter / 2) - 1), pointDiameter + 2, pointDiameter + 2);
+                if (isCollected)//Remove the point from the screen if the point is collected
+                {
+                    graphics.FillEllipse(new SolidBrush(Color.Black), (centerX - (pointDiameter / 2) - 1),
+                        (centerY - (pointDiameter / 2) - 1), pointDiameter + 2, pointDiameter + 2);
+                }
+                else // Draw the point if is not collected
+                {
+                    graphics.DrawEllipse(new Pen(pointColor), (centerX - pointDiameter / 2), (centerY - pointDiameter / 2),
+                        pointDiameter, pointDiameter);
+                    graphics.FillEllipse(new SolidBrush(pointFillColor), (centerX - (pointDiameter / 2) + 1),
+                        (centerY - (pointDiameter / 2) + 1), pointDiameter - 1, pointDiameter - 1);
+                }
             }
-            else // Draw the point if is not collected
-            {
-                graphics.DrawEllipse(new Pen(pointColor), (centerX - pointDiameter / 2), (centerY - pointDiameter / 2),
-                    pointDiameter, pointDiameter);
-                graphics.FillEllipse(new SolidBrush(pointFillColor), (centerX - (pointDiameter / 2) + 1),
-                    (centerY - (pointDiameter / 2) + 1), pointDiameter - 1, pointDiameter - 1);
-            }
+            engine.UpdateGraphics(buffer);
+
         }
 
         public void EatPoint()

@@ -48,10 +48,10 @@
             // 
             this.ScoreLabel.AutoSize = true;
             this.ScoreLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ScoreLabel.Location = new System.Drawing.Point(3, 802);
-            this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 50);
+            this.ScoreLabel.Location = new System.Drawing.Point(3, 652);
+            this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 30);
             this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(250, 50);
+            this.ScoreLabel.Size = new System.Drawing.Size(250, 33);
             this.ScoreLabel.TabIndex = 2;
             this.ScoreLabel.Text = "Scores:";
             this.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -60,10 +60,10 @@
             // 
             this.LeftScore.AutoSize = true;
             this.LeftScore.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftScore.Location = new System.Drawing.Point(304, 802);
-            this.LeftScore.MinimumSize = new System.Drawing.Size(250, 50);
+            this.LeftScore.Location = new System.Drawing.Point(304, 652);
+            this.LeftScore.MinimumSize = new System.Drawing.Size(250, 30);
             this.LeftScore.Name = "LeftScore";
-            this.LeftScore.Size = new System.Drawing.Size(250, 50);
+            this.LeftScore.Size = new System.Drawing.Size(250, 33);
             this.LeftScore.TabIndex = 3;
             this.LeftScore.Text = "Left scores:";
             this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

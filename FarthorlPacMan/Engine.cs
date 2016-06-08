@@ -36,7 +36,7 @@
             DrawPaths();
             foreach (var point in points)
             {
-                point.DrawPoint(graphics);
+                point.DrawPoint(graphics, this.buffer, this);
             }
         }
 
@@ -85,12 +85,12 @@
 
         public void DrawPauseGame()
         {
-            game.pacMan.BackgroundImage = buffer;
+            this.UpdateGraphics(this.buffer);
         }
 
         public void UpdateGraphics(Bitmap buffer)
         {
-
+            this.game.pacMan.BackgroundImage=buffer;
         }
 
         public void ResumeGame()
@@ -202,7 +202,7 @@
                 }
             }
 
-            game.pacMan.BackgroundImage = buffer;
+            this.UpdateGraphics(buffer);
         }
 
         private void FillPoints()
@@ -230,7 +230,7 @@
                 graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 800);
             }
 
-            game.pacMan.BackgroundImage = buffer;
+            this.UpdateGraphics(buffer);
             
         }
 
