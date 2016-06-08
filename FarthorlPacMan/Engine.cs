@@ -36,7 +36,7 @@
             DrawPaths();
             foreach (var point in points)
             {
-                point.DrawPoint(graphics, this.buffer, this);
+                point.DrawPoint(graphics, this);
             }
         }
 
