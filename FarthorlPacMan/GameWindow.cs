@@ -94,7 +94,8 @@ namespace FarthorlPacMan
 
         private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            this.game.stopGame();
         }
+
     }
 }

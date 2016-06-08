@@ -37,20 +37,20 @@
             {
                 point.DrawPoint(graphics);
             }
-            pacMan.drawPacMan(this.graphics);
         }
 
         public void Initialize()
         {
+            //Inicialize game if started for the first time
             if (!isInicialize)
             {
-                isInicialize = true;
                 threadRendering = new Thread(new ThreadStart(render));
                 this.initializeMatrix();
                 this.FillPoints();
                 inicializeLeftScores();
                 pacMan = new PacMan(0, 0, this.graphics, this);
                 this.DrawContent();
+                pacMan.drawPacMan(this.graphics);
                 threadRendering.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -78,10 +78,13 @@
         {
             this.run = false;
             threadRendering.Suspend();
+            DrawContent();
+            this.pacMan.drawPacMan(graphics);
         }
 
         public void ResumeGame()
         {
+            this.DrawContent();
             this.run = true;
             threadRendering.Resume();
         }
@@ -141,8 +144,6 @@
             {
                 throw new FileLoadException();
             }
-
-
         }
 
         private void DrawPaths()
