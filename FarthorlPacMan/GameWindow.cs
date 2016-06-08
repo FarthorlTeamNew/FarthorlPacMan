@@ -27,10 +27,6 @@ namespace FarthorlPacMan
                 this.game.startDraw(graphics, this);
                 this.isInicialize = true;
             }
-            else
-            {
-                game.Redraw();
-            }
 
         }
 
@@ -90,6 +86,7 @@ namespace FarthorlPacMan
             {
                 game.PauseGame();
             }
+
         }
 
         private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)

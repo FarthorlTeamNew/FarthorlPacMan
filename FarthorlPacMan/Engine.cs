@@ -10,6 +10,7 @@
     public class Engine
     {
         private Graphics graphics;
+        private Bitmap buffer = new Bitmap(1200, 650);
         private Thread threadRendering;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
@@ -48,9 +49,9 @@
                 this.initializeMatrix();
                 this.FillPoints();
                 inicializeLeftScores();
-                pacMan = new PacMan(0, 0, this.graphics, this);
+                pacMan = new PacMan(0, 0, this.graphics, this, buffer);
                 this.DrawContent();
-                pacMan.drawPacMan(this.graphics);
+                pacMan.DrawPacMan(this.graphics);
                 threadRendering.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -84,13 +85,18 @@
 
         public void DrawPauseGame()
         {
-            
+            game.pacMan.BackgroundImage = buffer;
+        }
+
+        public void UpdateGraphics(Bitmap buffer)
+        {
+
         }
 
         public void ResumeGame()
         {
             this.DrawContent();
-            this.pacMan.drawPacMan(graphics);
+            this.pacMan.DrawPacMan(graphics);
             this.run = true;
             threadRendering.Resume();
         }
@@ -154,46 +160,49 @@
 
         private void DrawPaths()
         {
-            for (int y = 0; y < yMax; y++)
+            using (Graphics graphics=Graphics.FromImage(buffer))
             {
-                for (int x = 0; x < xMax; x++)
+                for (int y = 0; y < yMax; y++)
                 {
-                    var elements = pathsMatrix[x, y].Trim().Split('|');
-                    int topIndex = int.Parse(elements[0]);
-                    int rightIndex = int.Parse(elements[1]);
-                    int bottomIndex = int.Parse(elements[2]);
-                    int leftIndex = int.Parse(elements[3]);
-                    int pointIndex = int.Parse(elements[4]);
-
-                    if (topIndex == 1)
+                    for (int x = 0; x < xMax; x++)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
+                        var elements = pathsMatrix[x, y].Trim().Split('|');
+                        int topIndex = int.Parse(elements[0]);
+                        int rightIndex = int.Parse(elements[1]);
+                        int bottomIndex = int.Parse(elements[2]);
+                        int leftIndex = int.Parse(elements[3]);
+                        int pointIndex = int.Parse(elements[4]);
+
+                        if (topIndex == 1)
+                        {
+                            graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
+                        }
+
+                        if (rightIndex == 1)
+                        {
+                            graphics.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
+                        }
+
+                        if (bottomIndex == 1)
+                        {
+                            graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
+                        }
+
+                        if (leftIndex == 1)
+                        {
+                            graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
+                        }
+
+
+                        if (topIndex == 1 && rightIndex == 1 && bottomIndex == 1 && bottomIndex == 1)
+                        {
+                            graphics.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
+                        }
                     }
-
-                    if (rightIndex == 1)
-                    {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
-                    }
-
-                    if (bottomIndex == 1)
-                    {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
-                    }
-
-                    if (leftIndex == 1)
-                    {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
-                    }
-
-
-                    if (topIndex == 1 && rightIndex == 1 && bottomIndex == 1 && bottomIndex == 1)
-                    {
-                        graphics.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
-                    }
-
                 }
             }
 
+            game.pacMan.BackgroundImage = buffer;
         }
 
         private void FillPoints()
@@ -216,7 +225,13 @@
 
         private void DrawFontColor()
         {
-            graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 800);
+            using (Graphics graphics=Graphics.FromImage(buffer))
+            {
+                graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 800);
+            }
+
+            game.pacMan.BackgroundImage = buffer;
+            
         }
 
         public int GetMaxX()
