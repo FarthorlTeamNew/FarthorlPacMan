@@ -17,18 +17,11 @@
         private string previousDirection;
         private int eatPoints = 0;
 
-        Graphics graphics;
-        Engine engine;
-        Bitmap buffer;
-
-        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine, Bitmap buffer)
+        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
             this.positionQuadrantY = positionYQuadrant;
-            this.graphics = graphics;
-            this.engine = engine;
-            this.buffer = buffer;
-            this.initializePacMan();
+            this.initializePacMan(engine);
         }
 
         public void move(Graphics graphic, Engine engine, string direction)
@@ -197,7 +190,7 @@
                 {
                     if (movedDirection == "")
                     {
-                        if (positionQuadrantX==0)
+                        if (positionQuadrantX == 0)
                         {
                             engine.changeDirection(previousDirection);
                         }
@@ -211,149 +204,141 @@
 
         public void DrawPacMan(Graphics graphics)
         {
-            using (graphics=Graphics.FromImage(buffer))
-            {
-                graphics.FillEllipse(
-                  new SolidBrush(pacManColor),
-                  (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                  ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2)),
-                  diameter,
-                  diameter
-                  );
-            }
 
-            engine.UpdateGraphics(buffer);
+            graphics.FillEllipse(
+              new SolidBrush(pacManColor),
+              (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+              ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2)),
+              diameter,
+              diameter
+              );
         }
 
         private async Task<bool> movePacMan(Graphics graphics, int nextX, int nextY, string moving)
         {
-            using (graphics=Graphics.FromImage(buffer))
+
+            graphics.FillRectangle(
+             new SolidBrush(Color.Black),
+             (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
+             ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
+             diameter + 6,
+             diameter + 6
+             );
+
+            switch (moving)
             {
-                graphics.FillRectangle(
-                 new SolidBrush(Color.Black),
-                 (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
-                 ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
-                 diameter + 6,
-                 diameter + 6
-                 );
-
-                switch (moving)
-                {
-                    case "Right":
-                        for (int x = (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2);
-                            x < (nextX * quadrantDimension) + (quadrantDimension / 2);
-                            x++)
-                        {
-                            graphics.DrawEllipse(
-                                new Pen(Color.Black),
-                                new Rectangle(
-                                    x - 1 - (diameter / 2),
-                                    (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                    diameter,
-                                    diameter
-                                    )
-                                );
-
-                            graphics.FillEllipse(
-                                new SolidBrush(pacManColor),
-                                x - (diameter / 2),
+                case "Right":
+                    for (int x = (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2);
+                        x < (nextX * quadrantDimension) + (quadrantDimension / 2);
+                        x++)
+                    {
+                        graphics.DrawEllipse(
+                            new Pen(Color.Black),
+                            new Rectangle(
+                                x - 1 - (diameter / 2),
                                 (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
                                 diameter,
                                 diameter
-                                );
+                                )
+                            );
 
-                            System.Threading.Thread.Sleep(speedDrawing);
-                        }
-                        break;
+                        graphics.FillEllipse(
+                            new SolidBrush(pacManColor),
+                            x - (diameter / 2),
+                            (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+                            diameter,
+                            diameter
+                            );
 
-                    case "Left":
-                        for (int x = (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2);
-                            x > (nextX * quadrantDimension) + (quadrantDimension / 2);
-                            x--)
-                        {
-                            graphics.DrawEllipse(
-                                new Pen(Color.Black),
-                                new Rectangle(
-                                    x + 1 - (diameter / 2),
-                                    (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                    diameter,
-                                    diameter
-                                    )
-                                );
+                        System.Threading.Thread.Sleep(speedDrawing);
+                    }
+                    break;
 
-                            graphics.FillEllipse(
-                                new SolidBrush(pacManColor), x - (diameter / 2),
+                case "Left":
+                    for (int x = (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2);
+                        x > (nextX * quadrantDimension) + (quadrantDimension / 2);
+                        x--)
+                    {
+                        graphics.DrawEllipse(
+                            new Pen(Color.Black),
+                            new Rectangle(
+                                x + 1 - (diameter / 2),
                                 (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
                                 diameter,
                                 diameter
-                                );
+                                )
+                            );
 
-                            System.Threading.Thread.Sleep(speedDrawing);
-                        }
-                        break;
+                        graphics.FillEllipse(
+                            new SolidBrush(pacManColor), x - (diameter / 2),
+                            (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+                            diameter,
+                            diameter
+                            );
 
-                    case "Up":
-                        for (int y = (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2);
-                            y > (nextY * quadrantDimension) + (quadrantDimension / 2);
-                            y--)
-                        {
-                            graphics.DrawEllipse(
-                                new Pen(Color.Black),
-                                new Rectangle(
-                                    (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                    y + 1 - (diameter / 2),
-                                    diameter,
-                                    diameter
-                                    )
-                                );
+                        System.Threading.Thread.Sleep(speedDrawing);
+                    }
+                    break;
 
-                            graphics.FillEllipse(
-                                new SolidBrush(pacManColor),
+                case "Up":
+                    for (int y = (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2);
+                        y > (nextY * quadrantDimension) + (quadrantDimension / 2);
+                        y--)
+                    {
+                        graphics.DrawEllipse(
+                            new Pen(Color.Black),
+                            new Rectangle(
                                 (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                y - (diameter / 2),
+                                y + 1 - (diameter / 2),
                                 diameter,
                                 diameter
-                                );
+                                )
+                            );
 
-                            System.Threading.Thread.Sleep(speedDrawing);
-                        }
-                        break;
+                        graphics.FillEllipse(
+                            new SolidBrush(pacManColor),
+                            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+                            y - (diameter / 2),
+                            diameter,
+                            diameter
+                            );
 
-                    case "Down":
-                        for (int y = (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2);
-                            y < (nextY * quadrantDimension) + (quadrantDimension / 2);
-                            y++)
-                        {
-                            graphics.DrawEllipse(
-                                new Pen(Color.Black),
-                                new Rectangle(
-                                    (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                    y - 1 - (diameter / 2),
-                                    diameter,
-                                    diameter
-                                    )
-                                );
+                        System.Threading.Thread.Sleep(speedDrawing);
+                    }
+                    break;
 
-                            graphics.FillEllipse(
-                                new SolidBrush(pacManColor),
+                case "Down":
+                    for (int y = (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2);
+                        y < (nextY * quadrantDimension) + (quadrantDimension / 2);
+                        y++)
+                    {
+                        graphics.DrawEllipse(
+                            new Pen(Color.Black),
+                            new Rectangle(
                                 (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                                y - (diameter / 2),
+                                y - 1 - (diameter / 2),
                                 diameter,
                                 diameter
-                                );
+                                )
+                            );
 
-                            System.Threading.Thread.Sleep(speedDrawing);
-                        }
-                        break;
-                }
+                        graphics.FillEllipse(
+                            new SolidBrush(pacManColor),
+                            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+                            y - (diameter / 2),
+                            diameter,
+                            diameter
+                            );
+
+                        System.Threading.Thread.Sleep(speedDrawing);
+                    }
+                    break;
             }
-
-            engine.UpdateGraphics(buffer);
 
             return true;
         }
 
-        private void initializePacMan()
+        private void initializePacMan(Engine engine)
         {
             string[] elements = engine.GetQuadrantElements(this.positionQuadrantX, this.positionQuadrantY);
 
@@ -362,7 +347,6 @@
                 this.eatPoints = this.eatPoints + int.Parse(elements[4]);
                 elements[4] = "0";
             }
-            this.DrawPacMan(this.graphics);
             engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
         }
 

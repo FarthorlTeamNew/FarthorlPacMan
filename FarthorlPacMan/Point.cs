@@ -18,8 +18,7 @@
 
         public void DrawPoint(Graphics graphics, Bitmap buffer, Engine engine)
         {
-            using (graphics=Graphics.FromImage(buffer))
-            {
+
                 if (isCollected)//Remove the point from the screen if the point is collected
                 {
                     graphics.FillEllipse(new SolidBrush(Color.Black), (centerX - (pointDiameter / 2) - 1),
@@ -32,8 +31,6 @@
                     graphics.FillEllipse(new SolidBrush(pointFillColor), (centerX - (pointDiameter / 2) + 1),
                         (centerY - (pointDiameter / 2) + 1), pointDiameter - 1, pointDiameter - 1);
                 }
-            }
-            engine.UpdateGraphics(buffer);
 
         }
 

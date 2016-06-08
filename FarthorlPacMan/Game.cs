@@ -28,7 +28,6 @@ namespace FarthorlPacMan
         {
             if (graphicEngine.IsPaused())
             {
-
                 graphicEngine.ResumeGame();
             }
             graphicEngine.changeDirection(direction);
