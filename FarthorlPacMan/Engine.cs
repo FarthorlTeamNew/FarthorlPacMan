@@ -11,7 +11,6 @@
     {
         private Graphics graphics;
         private Thread threadRendering;
-        private Thread threadMonsters;
         private string[,] pathsMatrix = new string[24, 16];
         private int xMax = 24;
         private int yMax = 16;
@@ -38,6 +37,7 @@
             {
                 point.DrawPoint(graphics);
             }
+            pacMan.drawPacMan(this.graphics);
         }
 
         public void Initialize()
