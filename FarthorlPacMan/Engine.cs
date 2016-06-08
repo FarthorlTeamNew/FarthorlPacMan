@@ -11,9 +11,9 @@
     {
         private Graphics graphics;
         private Thread threadRendering;
-        private string[,] pathsMatrix = new string[24, 16];
-        private int xMax = 24;
-        private int yMax = 16;
+        private string[,] pathsMatrix = new string[24, 13];
+        private int xMax = 24; // columns
+        private int yMax = 13; // rows
         private int leftScore;
         private bool run = true;
         private string moveDirection;

@@ -37,10 +37,10 @@
             // 
             this.pacMan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pacMan.Location = new System.Drawing.Point(0, 0);
-            this.pacMan.MaximumSize = new System.Drawing.Size(1200, 800);
-            this.pacMan.MinimumSize = new System.Drawing.Size(1200, 800);
+            this.pacMan.MaximumSize = new System.Drawing.Size(1200, 650);
+            this.pacMan.MinimumSize = new System.Drawing.Size(1200, 650);
             this.pacMan.Name = "pacMan";
-            this.pacMan.Size = new System.Drawing.Size(1200, 800);
+            this.pacMan.Size = new System.Drawing.Size(1200, 650);
             this.pacMan.TabIndex = 0;
             this.pacMan.Paint += new System.Windows.Forms.PaintEventHandler(this.pacMan_Paint);
             // 
@@ -72,13 +72,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 862);
+            this.ClientSize = new System.Drawing.Size(1200, 687);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(1216, 900);
-            this.MinimumSize = new System.Drawing.Size(1216, 900);
+            this.MaximumSize = new System.Drawing.Size(1216, 750);
+            this.MinimumSize = new System.Drawing.Size(1216, 596);
             this.Name = "GameWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
