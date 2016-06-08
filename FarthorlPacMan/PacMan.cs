@@ -57,8 +57,6 @@
 
                 if (isAlive && elements[2] == "0")
                 {
-                    //this.clearPacMan(graphic);
-
                     if (elements[4] == "1")
                     {
                         eatPoints = eatPoints + int.Parse(elements[4]);
@@ -70,7 +68,7 @@
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
                 else if (elements[1] == "1")
@@ -109,7 +107,7 @@
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Right";
                     movedDirection = "Right";
-                    engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
                 }
                 else if (elements[3] == "1")
                 {
@@ -144,7 +142,7 @@
                     this.positionQuadrantY = nextQuadrantY;
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
                 else if (elements[0] == "1")
@@ -183,7 +181,7 @@
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
                 else if (elements[1] == "1")
@@ -347,7 +345,7 @@
                 this.eatPoints = this.eatPoints + int.Parse(elements[4]);
                 elements[4] = "0";
             }
-            engine.EatPointAdnUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+            engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
         }
 
         public int getScore()

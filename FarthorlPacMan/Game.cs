@@ -21,7 +21,7 @@ namespace FarthorlPacMan
 
         public void stopGame()
         {
-            this.graphicEngine.stopGame();
+            this.graphicEngine.StopGame();
         }
 
         public void Direction(string direction)

@@ -10,12 +10,13 @@
     public class Engine
     {
         private Graphics graphics;
-        private Bitmap buffer;
-        private Thread threadRendering;
+        private Bitmap buffer = new Bitmap(1200, 650);
+        private Thread threadRenderingPacMan;
+        private Thread threadRenderingGhost;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
-        private int leftScore;
+        private int leftScore = 0;
         private bool run = true;
         private string moveDirection;
         private Color wallColor = Color.Cyan;
@@ -27,17 +28,13 @@
         {
             this.graphics = graphic;
             this.game = game;
-
         }
 
         public void DrawContent()
         {
             DrawFontColor();
             DrawPaths();
-            foreach (var point in points)
-            {
-                point.DrawPoint(graphics, this);
-            }
+
         }
 
         public void Initialize()
@@ -45,14 +42,13 @@
             //Inicialize game if started for the first time
             if (!isInicialize)
             {
-                threadRendering = new Thread(new ThreadStart(render));
+                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
+                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
                 this.initializeMatrix();
-                this.FillPoints();
-                inicializeLeftScores();
                 pacMan = new PacMan(0, 0, this.graphics, this);
                 this.DrawContent();
-                pacMan.DrawPacMan(this.graphics);
-                threadRendering.Start();
+                this.inicializeLeftScores();
+                threadRenderingPacMan.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
@@ -61,39 +57,32 @@
             }
         }
 
-        public void stopGame()
+        public void StopGame()
         {
             try
             {
-                threadRendering.Resume();
+                threadRenderingPacMan.Resume();
             }
             catch (Exception)
             {
 
             }
 
-            threadRendering.Abort();
+            threadRenderingPacMan.Abort();
         }
 
         public void PauseGame()
         {
             this.run = false;
-            threadRendering.Suspend();
-            UpdateGraphics();
+            threadRenderingPacMan.Suspend();
 
         }
 
-        public void UpdateGraphics()
-        {
-            game.pacMan.BackgroundImage = buffer;
-        }
 
         public void ResumeGame()
         {
-            this.DrawContent();
-            this.pacMan.DrawPacMan(this.graphics);
             this.run = true;
-            threadRendering.Resume();
+            threadRenderingPacMan.Resume();
         }
 
         public bool IsPaused()
@@ -102,15 +91,23 @@
         }
 
         //Heare is the logic for gaming
-        private void render()
+        private void RenderPacMan()
         {
             while (run)
             {
+
+                pacMan.DrawPacMan(this.graphics);
                 pacMan.move(this.graphics, this, moveDirection);
                 game.UpdateScores(pacMan.getScore());
                 UpdateLeftSores(pacMan.getScore());
+            }
+        }
 
-                buffer = new Bitmap(1200, 650, this.graphics);
+        private void RenderGhost()
+        {
+            while (run)
+            {
+
             }
         }
 
@@ -171,55 +168,73 @@
 
                     if (topIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
 
                     if (rightIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
 
                     if (bottomIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
 
                     if (leftIndex == 1)
                     {
-                        graphics.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
 
 
                     if (topIndex == 1 && rightIndex == 1 && bottomIndex == 1 && bottomIndex == 1)
                     {
-                        graphics.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
-                }
 
-            }
-        }
-
-        private void FillPoints()
-        {
-
-            for (int y = 0; y < yMax; y++)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    var elements = pathsMatrix[x, y].Trim().Split('|');
-                    int pointIndex = int.Parse(elements[4]);
                     if (pointIndex == 1)
                     {
                         Point point = new Point((x * 50) + 25, (y * 50) + 25);
                         points.Add(point);
+                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        {
+                            drawing.FillEllipse(new SolidBrush(point.fillColor()), (x * 50) + 25 - (point.getDiameter() / 2), (y * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+                            game.pacMan.BackgroundImage = buffer;
+                        }
                     }
                 }
+
             }
         }
 
         private void DrawFontColor()
         {
-            graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
+            using (Graphics drawing = Graphics.FromImage(buffer))
+            {
+                drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
+                game.pacMan.BackgroundImage = buffer;
+            }
+
 
         }
 
@@ -239,18 +254,25 @@
             return elements;
         }
 
-        public void EatPointAdnUpdateMatrix(int quadrantX, int quandrantY, string[] element)
+        public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
             var stringValue = $"{element[0]}|{element[1]}|{element[2]}|{element[3]}|{element[4]}";
             pathsMatrix[quadrantX, quandrantY] = stringValue;
-
+            int pointDiameter = 0;
             foreach (var point in points)
             {
                 if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
                 {
                     point.EatPoint();
+                    pointDiameter = point.getDiameter();
                     break;
                 }
+            }
+
+            using (Graphics drawing = Graphics.FromImage(buffer))
+            {
+                drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
+                this.game.pacMan.BackgroundImage = buffer;
             }
         }
 
@@ -271,12 +293,12 @@
             game.UpdateLeftScore(leftScore);
         }
 
-        private void UpdateLeftSores(int pacMandScores)
+        private void UpdateLeftSores(int pacManScores)
         {
-            game.UpdateLeftScore(leftScore - pacMandScores);
-            if (leftScore - pacMandScores == 0)
+            game.UpdateLeftScore(leftScore - pacManScores);
+            if (leftScore - pacManScores == 0)
             {
-                PauseGame();
+                StopGame();
                 game.Win();
             }
         }
