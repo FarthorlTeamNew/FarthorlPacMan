@@ -58,7 +58,7 @@
                 {
                     if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
                     }
 
@@ -96,7 +96,7 @@
 
                     if (elements[1] == "1")
                     {
-                        this.eatPoints = this.eatPoints + int.Parse(elements[0]);
+                        this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
 
                     }
@@ -132,7 +132,7 @@
                 {
                     if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
                     }
 
@@ -171,7 +171,7 @@
 
                     if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
                     }
 
@@ -339,9 +339,9 @@
         {
             string[] elements = engine.GetQuadrantElements(this.positionQuadrantX, this.positionQuadrantY);
 
-            if (elements[0] == "1")
+            if (elements[1] == "1")
             {
-                this.eatPoints = this.eatPoints + int.Parse(elements[4]);
+                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[0] = "0";
             }
             engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);

@@ -183,10 +183,7 @@
                         using (Graphics drawing = Graphics.FromImage(buffer))
                         {
 
-                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
-                            drawing.DrawLine(new Pen(wallColor), (x * 50)+50, (y * 50), (x * 50) + 50, (y * 50)+50);
-                            drawing.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50)+50, (x * 50), (y * 50)+50);
-                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50), (y * 50));
+                            drawing.DrawRectangle(new Pen(wallColor), (x * 50), (y * 50), 50, 50);
                             drawing.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
                             game.pacMan.BackgroundImage = buffer;
 
