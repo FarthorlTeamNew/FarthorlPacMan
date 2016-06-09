@@ -54,12 +54,12 @@
                 int nextQuadrantY = this.positionQuadrantY - 1;
                 string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
-                if (isAlive && elements[2] == "0")
+                if (isAlive && elements[0] == "0")
                 {
-                    if (elements[4] == "1")
+                    if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[4]);
-                        elements[4] = "0";
+                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        elements[1] = "0";
                     }
 
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Up");
@@ -70,7 +70,7 @@
                     engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
-                else if (elements[1] == "1")
+                else if (elements[0] == "1")
                 {
                     if (movedDirection == "")
                     {
@@ -91,13 +91,13 @@
                 int nextQuadrantY = this.positionQuadrantY;
                 string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
-                if (isAlive && elements[3] == "0")
+                if (isAlive && elements[0] == "0")
                 {
 
-                    if (elements[4] == "1")
+                    if (elements[1] == "1")
                     {
-                        this.eatPoints = this.eatPoints + int.Parse(elements[4]);
-                        elements[4] = "0";
+                        this.eatPoints = this.eatPoints + int.Parse(elements[0]);
+                        elements[1] = "0";
 
                     }
 
@@ -108,7 +108,7 @@
                     movedDirection = "Right";
                     engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
                 }
-                else if (elements[3] == "1")
+                else if (elements[0] == "1")
                 {
                     if (movedDirection == "")
                     {
@@ -130,10 +130,10 @@
 
                 if (isAlive && elements[0] == "0")
                 {
-                    if (elements[4] == "1")
+                    if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[4]);
-                        elements[4] = "0";
+                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        elements[1] = "0";
                     }
 
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Down");
@@ -165,14 +165,14 @@
                 int nextQuadrantY = this.positionQuadrantY;
                 string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
-                if (isAlive && elements[1] == "0")
+                if (isAlive && elements[0] == "0")
                 {
                     //this.clearPacMan(graphic);
 
-                    if (elements[4] == "1")
+                    if (elements[1] == "1")
                     {
-                        eatPoints = eatPoints + int.Parse(elements[4]);
-                        elements[4] = "0";
+                        eatPoints = eatPoints + int.Parse(elements[0]);
+                        elements[1] = "0";
                     }
 
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Left");
@@ -183,7 +183,7 @@
                     engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
                 }
-                else if (elements[1] == "1")
+                else if (elements[0] == "1")
                 {
                     if (movedDirection == "")
                     {
@@ -339,10 +339,10 @@
         {
             string[] elements = engine.GetQuadrantElements(this.positionQuadrantX, this.positionQuadrantY);
 
-            if (elements[4] == "1")
+            if (elements[0] == "1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[4]);
-                elements[4] = "0";
+                elements[0] = "0";
             }
             engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
         }
@@ -350,6 +350,16 @@
         public int getScore()
         {
             return this.eatPoints;
+        }
+
+        public int getQuadrantX()
+        {
+            return this.positionQuadrantX;
+        }
+
+        public int getQuadrantY()
+        {
+            return this.positionQuadrantY;
         }
 
     }

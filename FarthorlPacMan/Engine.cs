@@ -17,13 +17,15 @@
         private int xMax = 24; // columns
         private int yMax = 13; // rows
         private int leftScore = 0;
+        private int ghostElements = 4;
         private bool run = true;
         private string moveDirection;
         private Color wallColor = Color.Cyan;
         private readonly GameWindow game;
         private bool isInicialize = false;
         private PacMan pacMan;
-        List<Point> points = new List<Point>();
+        private List<Point> points = new List<Point>();
+        private List<Ghost> ghosts = new List<Ghost>();
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
@@ -40,16 +42,23 @@
         public void Initialize()
         {
             //Inicialize game if started for the first time
-            if (!isInicialize)
+            if (isInicialize == false)
             {
+                this.isInicialize = true;
                 threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
                 threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
                 this.initializeMatrix();
                 pacMan = new PacMan(0, 0, this.graphics, this);
+                for (int i = 0; i < ghostElements; i++)
+                {
+                    Ghost creatGhost = new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), this.graphics, this);
+                    ghosts.Add(creatGhost);
+                }
                 this.DrawContent();
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
+
             }
             else
             {
@@ -148,67 +157,39 @@
             }
             catch (Exception)
             {
+                pathsMatrix = pathsMatrix;
                 throw new FileLoadException();
             }
         }
 
         private void DrawPaths()
         {
+            using (Graphics drawing = Graphics.FromImage(buffer))
+            {
+                drawing.DrawRectangle(new Pen(wallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
+                game.pacMan.BackgroundImage = buffer;
+            }
 
             for (int y = 0; y < yMax; y++)
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    var elements = pathsMatrix[x, y].Trim().Split('|');
-                    int topIndex = int.Parse(elements[0]);
-                    int rightIndex = int.Parse(elements[1]);
-                    int bottomIndex = int.Parse(elements[2]);
-                    int leftIndex = int.Parse(elements[3]);
-                    int pointIndex = int.Parse(elements[4]);
+                    var elements = pathsMatrix[x, y].Trim().Split(',');
+                    int quadrant = int.Parse(elements[0]);
+                    int pointIndex = int.Parse(elements[1]);
 
-                    if (topIndex == 1)
+                    if (quadrant == 1)
                     {
                         using (Graphics drawing = Graphics.FromImage(buffer))
                         {
+
                             drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50) + 50, (y * 50));
-                            game.pacMan.BackgroundImage = buffer;
-                        }
-                    }
-
-                    if (rightIndex == 1)
-                    {
-                        using (Graphics drawing = Graphics.FromImage(buffer))
-                        {
-                            drawing.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50), (x * 50) + 50, (y * 50) + 50);
-                            game.pacMan.BackgroundImage = buffer;
-                        }
-                    }
-
-                    if (bottomIndex == 1)
-                    {
-                        using (Graphics drawing = Graphics.FromImage(buffer))
-                        {
-                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50) + 50, (y * 50) + 50);
-                            game.pacMan.BackgroundImage = buffer;
-                        }
-                    }
-
-                    if (leftIndex == 1)
-                    {
-                        using (Graphics drawing = Graphics.FromImage(buffer))
-                        {
-                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50), (x * 50), (y * 50) + 50);
-                            game.pacMan.BackgroundImage = buffer;
-                        }
-                    }
-
-
-                    if (topIndex == 1 && rightIndex == 1 && bottomIndex == 1 && bottomIndex == 1)
-                    {
-                        using (Graphics drawing = Graphics.FromImage(buffer))
-                        {
+                            drawing.DrawLine(new Pen(wallColor), (x * 50)+50, (y * 50), (x * 50) + 50, (y * 50)+50);
+                            drawing.DrawLine(new Pen(wallColor), (x * 50) + 50, (y * 50)+50, (x * 50), (y * 50)+50);
+                            drawing.DrawLine(new Pen(wallColor), (x * 50), (y * 50) + 50, (x * 50), (y * 50));
                             drawing.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
                             game.pacMan.BackgroundImage = buffer;
+
                         }
                     }
 
@@ -216,6 +197,7 @@
                     {
                         Point point = new Point((x * 50) + 25, (y * 50) + 25);
                         points.Add(point);
+
                         using (Graphics drawing = Graphics.FromImage(buffer))
                         {
                             drawing.FillEllipse(new SolidBrush(point.fillColor()), (x * 50) + 25 - (point.getDiameter() / 2), (y * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
@@ -250,13 +232,13 @@
 
         public string[] GetQuadrantElements(int quadrantX, int quandrantY)
         {
-            string[] elements = pathsMatrix[quadrantX, quandrantY].Trim().Split('|');
+            string[] elements = pathsMatrix[quadrantX, quandrantY].Trim().Split(',');
             return elements;
         }
 
         public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
-            var stringValue = $"{element[0]}|{element[1]}|{element[2]}|{element[3]}|{element[4]}";
+            var stringValue = $"{element[0]},{element[1]}";
             pathsMatrix[quadrantX, quandrantY] = stringValue;
             int pointDiameter = 0;
             foreach (var point in points)

@@ -1,4 +1,7 @@
-﻿namespace FarthorlPacMan
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace FarthorlPacMan
 {
     using System;
     using System.Drawing;
@@ -14,10 +17,34 @@
         private string movedDirection;
         private string previousDirection;
 
-        public Ghost(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
+        public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphics, Engine engine)
         {
-            this.positionQuadrantX = positionQuadrantX;
-            this.positionQuadrantY = positionQuadrantY;
+            this.positionQuadrantX = createCoordinatesX(engine, positionPacManQaundarntX);
+            this.positionQuadrantY = createCoordinatesY(engine, positionPacManQaundarntX);
+
+        }
+
+        private int createCoordinatesX(Engine engine, int pacManX)
+        {
+            List<int> matrxiX=new List<int>();
+            Random random=new Random();
+
+            for (int i = 0; i < engine.GetMaxX(); i++)
+            {
+                if (i <= pacManX-6 || i >= pacManX+6)
+                {
+                    matrxiX.Add(i);
+                }
+            }
+
+            return random.Next(matrxiX.Count);
+        }
+
+        private int createCoordinatesY(Engine engine, int pacManY)
+        {
+            Random random = new Random();
+
+            return random.Next(pacManY);
         }
     }
 }
