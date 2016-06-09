@@ -3,7 +3,6 @@
     using System;
     using System.Drawing;
     using System.Threading.Tasks;
-
     class PacMan
     {
         private Boolean isAlive = true;
@@ -15,7 +14,7 @@
         private Color pacManColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
-        private int eatPoints = 0;
+        private int eatPoints = 0;   
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
