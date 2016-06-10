@@ -75,8 +75,8 @@
             try
             {
                 threadRenderingPacMan.Resume();
-                threadRenderingGhost.Resume();
-                threadRenderingSound.Resume();
+               // threadRenderingGhost.Resume();
+               // threadRenderingSound.Resume();
 
             }
             catch (Exception)
@@ -85,8 +85,8 @@
             }
 
             threadRenderingPacMan.Abort();
-			threadRenderingGhost.Abort();
-			threadRenderingSound.Abort();
+			//threadRenderingGhost.Abort();
+			//threadRenderingSound.Abort();
         }
 
         public void PauseGame()
@@ -95,8 +95,8 @@
             try
             {
                 threadRenderingPacMan.Suspend();
-                threadRenderingGhost.Suspend();
-                threadRenderingSound.Suspend();
+               // threadRenderingGhost.Suspend();
+                //threadRenderingSound.Suspend();
             }
             catch (Exception)
             {
@@ -112,8 +112,8 @@
             try
             {
                 threadRenderingPacMan.Resume();
-                threadRenderingGhost.Resume();
-                threadRenderingSound.Resume();
+               // threadRenderingGhost.Resume();
+               // threadRenderingSound.Resume();
             }
             catch (Exception)
             {
