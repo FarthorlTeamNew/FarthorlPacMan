@@ -252,6 +252,13 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillPolygon(new SolidBrush(Color.Black),
+                        new System.Drawing.Point[] {
+                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
+                                new System.Drawing.Point(x + quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+15),
+                                new System.Drawing.Point(x + quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+40),
+                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
+                        });
 
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
