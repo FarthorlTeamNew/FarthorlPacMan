@@ -73,15 +73,15 @@
         {
 
             threadRenderingPacMan.Abort();
-            threadRenderingGhost.Abort();
-        }
+			threadRenderingGhost.Abort();
+			threadRenderingSound.Abort();        }
 
         public void PauseGame()
         {
             this.run = false;
             threadRenderingPacMan.Suspend();
-            threadRenderingGhost.Suspend();
-
+			threadRenderingGhost.Suspend();
+			threadRenderingSound.Suspend();
         }
 
 
@@ -89,8 +89,8 @@
         {
             this.run = true;
             threadRenderingPacMan.Resume();
-            threadRenderingGhost.Resume();
-        }
+			threadRenderingGhost.Resume();
+			threadRenderingSound.Resume();        }
 
         public bool IsPaused()
         {
