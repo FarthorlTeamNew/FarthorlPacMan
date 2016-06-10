@@ -19,16 +19,20 @@ namespace FarthorlPacMan
 
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphics, Engine engine)
         {
-            this.positionQuadrantX = createCoordinatesX(engine, positionPacManQaundarntX);
-            this.positionQuadrantY = createCoordinatesY(engine, positionPacManQaundarntX);
+            var getCoordinates = this.createCoordinatesXY(engine, positionPacManQaundarntX, positionPacManQaundarntY);
+            this.positionQuadrantX = getCoordinates["QuadrantX"];
+            this.positionQuadrantY = getCoordinates["QuadrantY"];
 
         }
 
-        private int createCoordinatesX(Engine engine, int pacManX)
+        private Dictionary<string,int> createCoordinatesXY(Engine engine, int pacManX, int pacManY)
         {
             List<int> matrxiX=new List<int>();
             Random random=new Random();
+            Dictionary<string, int> resultXY = new Dictionary<string, int>();
+            int x, y;
 
+            //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
             for (int i = 0; i < engine.GetMaxX(); i++)
             {
                 if (i <= pacManX-6 || i >= pacManX+6)
@@ -37,14 +41,28 @@ namespace FarthorlPacMan
                 }
             }
 
-            return random.Next(matrxiX.Count);
+            while (true)
+            {
+                x = random.Next(matrxiX.Count);
+                y = random.Next(pacManY);
+
+                var quadrant = engine.GetQuadrantElements(x, y);
+                if (quadrant[0]=="0")
+                {
+                    break;
+                }
+            }
+
+            resultXY.Add("QuadrantX", x);
+            resultXY.Add("QuadrantY", y);
+
+            return resultXY;
         }
 
-        private int createCoordinatesY(Engine engine, int pacManY)
+        private void InicializeGhost(Engine engine)
         {
-            Random random = new Random();
 
-            return random.Next(pacManY);
         }
+
     }
 }

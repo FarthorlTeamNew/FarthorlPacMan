@@ -71,7 +71,7 @@ namespace FarthorlPacMan
 
         public void Win()
         {
-            MessageBox.Show("You Win Farthorl PacMan game!");
+            message.Visible = true;
         }
 
         private void GameWindow_LocationChanged(object sender, EventArgs e)

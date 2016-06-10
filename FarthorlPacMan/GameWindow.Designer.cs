@@ -32,10 +32,15 @@
             this.pacMan = new System.Windows.Forms.Panel();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.LeftScore = new System.Windows.Forms.Label();
+            this.message = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pacMan.SuspendLayout();
+            this.message.SuspendLayout();
             this.SuspendLayout();
             // 
             // pacMan
             // 
+            this.pacMan.Controls.Add(this.message);
             this.pacMan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pacMan.Location = new System.Drawing.Point(0, 0);
             this.pacMan.MaximumSize = new System.Drawing.Size(1200, 650);
@@ -69,6 +74,24 @@
             this.LeftScore.Text = "Left scores:";
             this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // message
+            // 
+            this.message.Controls.Add(this.label1);
+            this.message.Location = new System.Drawing.Point(262, 239);
+            this.message.Name = "message";
+            this.message.Size = new System.Drawing.Size(617, 174);
+            this.message.TabIndex = 0;
+            this.message.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(142, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -89,6 +112,9 @@
             this.LocationChanged += new System.EventHandler(this.GameWindow_LocationChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyDown);
             this.Move += new System.EventHandler(this.GameWindow_Move);
+            this.pacMan.ResumeLayout(false);
+            this.message.ResumeLayout(false);
+            this.message.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,6 +124,8 @@
         public System.Windows.Forms.Label ScoreLabel;
         public System.Windows.Forms.Label LeftScore;
         public System.Windows.Forms.Panel pacMan;
+        private System.Windows.Forms.Panel message;
+        private System.Windows.Forms.Label label1;
     }
 }
 

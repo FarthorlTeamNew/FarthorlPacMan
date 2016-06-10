@@ -57,6 +57,7 @@
                 this.DrawContent();
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
+                threadRenderingGhost.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
                 SoundPlayer munch = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
                 munch.Play();
@@ -278,8 +279,10 @@
             game.UpdateLeftScore(leftScore - pacManScores);
             if (leftScore - pacManScores == 0)
             {
-                StopGame();
+
                 game.Win();
+                threadRenderingGhost.Suspend();
+                threadRenderingPacMan.Suspend();
             }
         }
 
