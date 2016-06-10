@@ -6,7 +6,7 @@
     using System.Threading;
     using System.Drawing;
     using System.Windows.Forms;
-
+    using System.Media;
     public class Engine
     {
         private Graphics graphics;
@@ -58,7 +58,8 @@
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
-
+                SoundPlayer munch = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
+                munch.Play();
             }
             else
             {

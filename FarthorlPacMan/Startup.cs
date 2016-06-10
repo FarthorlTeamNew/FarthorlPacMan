@@ -16,8 +16,6 @@ namespace FarthorlPacMan
         [STAThread]
         static void Main()
         {
-            SoundPlayer munch = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
-            munch.Play();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

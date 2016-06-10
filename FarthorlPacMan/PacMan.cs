@@ -1,4 +1,6 @@
-﻿namespace FarthorlPacMan
+﻿using System.Media;
+
+namespace FarthorlPacMan
 {
     using System;
     using System.Drawing;
@@ -14,7 +16,8 @@
         private Color pacManColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
-        private int eatPoints = 0;   
+        private int eatPoints = 0;
+        private SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
@@ -58,6 +61,7 @@
                 {
                     if (elements[1] == "1")
                     {
+                        food.Play();
                         eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
                     }
@@ -98,7 +102,7 @@
                     {
                         this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
-
+                        food.Play();
                     }
 
                     await movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Right");
@@ -134,6 +138,7 @@
                     {
                         eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
+                        food.Play();
                     }
 
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Down");
@@ -173,6 +178,7 @@
                     {
                         eatPoints = eatPoints + int.Parse(elements[1]);
                         elements[1] = "0";
+                        food.Play();
                     }
 
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Left");
