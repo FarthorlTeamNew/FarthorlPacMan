@@ -59,9 +59,9 @@
                 }
                 this.DrawContent();
                 this.inicializeLeftScores();
+                threadRenderingSound.Start();
                 threadRenderingPacMan.Start();
                 threadRenderingGhost.Start();
-                threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
@@ -108,7 +108,7 @@
 
         public void ResumeGame()
         {
-            this.run = true;
+            
             try
             {
                 threadRenderingPacMan.Resume();
@@ -120,7 +120,7 @@
 
             }
             game.PausePanel.Visible = false;
-
+            this.run = true;
         }
 
         public bool IsPaused()
@@ -307,11 +307,20 @@
             game.UpdateLeftScore(leftScore - pacManScores);
             if (leftScore - pacManScores == 0)
             {
+                this.run = false;
+                try
+                {
+                    threadRenderingPacMan.Abort();
+                    threadRenderingGhost.Abort();
+                    threadRenderingSound.Abort();
+                }
+                catch (Exception)
+                {
 
-                
-                threadRenderingGhost.Suspend();
-                threadRenderingPacMan.Suspend();
-                game.Win();
+                }
+                game.panel1.Visible = true;
+                game.panel1.BringToFront();
+
             }
         }
 
@@ -320,7 +329,7 @@
             string sMediPath = @"DataFiles\Sounds";
             SoundPlayer intro = new SoundPlayer();
             intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
-            intro.PlaySync();
+            intro.Play();
         }
     }
 }

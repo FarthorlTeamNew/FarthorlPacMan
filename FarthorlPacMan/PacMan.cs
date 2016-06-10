@@ -45,7 +45,7 @@ namespace FarthorlPacMan
                 {
                     tryMoveDown(graphic, engine);
                 }
-                
+
             }
         }
 
@@ -59,12 +59,13 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Up");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Up";
                     movedDirection = "Up";
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
 
                 }
                 else if (elements[0] == "1")
@@ -89,12 +90,13 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                     await movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Right");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Right";
                     movedDirection = "Right";
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -118,15 +120,14 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Down");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    
-                    
-                    
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                 }
                 else if (elements[0] == "1")
                 {
@@ -150,13 +151,13 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Left");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Left";
                     movedDirection = "Left";
-
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -184,19 +185,20 @@ namespace FarthorlPacMan
               diameter,
               diameter
               );
-            
+
         }
 
         private async Task<bool> movePacMan(Graphics graphics, int nextX, int nextY, string moving)
         {
 
-             graphics.FillRectangle(
-             new SolidBrush(Color.Black),
-             (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
-             ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
-             diameter + 6,
-             diameter + 6
-             );
+            int coef = 0;
+            graphics.FillRectangle(
+            new SolidBrush(Color.Black),
+            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
+            ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
+            diameter + 6,
+            diameter + 6
+            );
 
             switch (moving)
             {
@@ -205,7 +207,6 @@ namespace FarthorlPacMan
                         x < (nextX * quadrantDimension) + (quadrantDimension / 2);
                         x++)
                     {
-
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -226,18 +227,23 @@ namespace FarthorlPacMan
                         graphics.FillEllipse(
                       new SolidBrush(Color.Black),
                       x - (diameter / 2 - 20),
-                      (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter /2 - 5),
-                      diameter/5,
-                      diameter/5
+                      (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5),
+                      diameter / 5,
+                      diameter / 5
                       );
 
-                        graphics.FillPolygon(new SolidBrush(Color.Black),
-                        new System.Drawing.Point[] {
+                        graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
                                 new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
-                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+15),
-                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+40),
+                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+15+coef),
+                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+40-coef),
                                 new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
-                        });
+                            });
+
+                        coef += 1;
+                        if (coef==12)
+                        {
+                            coef = 0;
+                        }
 
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
@@ -258,7 +264,7 @@ namespace FarthorlPacMan
                                 diameter
                                 )
                                     );
-                      
+
 
                         graphics.FillEllipse(
                            new SolidBrush(pacManColor), x - (diameter / 2),
@@ -274,15 +280,20 @@ namespace FarthorlPacMan
                     diameter / 5
                     );
 
-                        graphics.FillPolygon(new SolidBrush(Color.Black),
-                            new System.Drawing.Point[] {
-                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
-                                new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+15),
-                                new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+40),
-                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
-                            });
+                        graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                            new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
+                            new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+15+coef),
+                            new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+40-coef),
+                            new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
+                        });
 
+                        coef += 1;
+                        if (coef == 12)
+                        {
+                            coef = 0;
+                        }
                         System.Threading.Thread.Sleep(speedDrawing);
+
                     }
                     break;
 
@@ -300,7 +311,7 @@ namespace FarthorlPacMan
                                 diameter,
                                 diameter
                                 )
-                            );  
+                            );
 
                         graphics.FillEllipse(
                             new SolidBrush(pacManColor),
@@ -316,15 +327,22 @@ namespace FarthorlPacMan
                         diameter / 5
                         );
 
-                        graphics.FillPolygon(new SolidBrush(Color.Black),
-                           new System.Drawing.Point[] {
+
+                            graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15, y - quadrantDimension/2+2),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 40, y - quadrantDimension/2+2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15+coef, y - quadrantDimension/2+2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 40-coef, y - quadrantDimension/2+2  ),
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
-                           });
+                            });
+
+                        coef += 1;
+                        if (coef == 12)
+                        {
+                            coef = 0;
+                        }
 
                         System.Threading.Thread.Sleep(speedDrawing);
+
                     }
                     break;
 
@@ -356,22 +374,20 @@ namespace FarthorlPacMan
                            diameter / 5,
                            diameter / 5
                            );
-<<<<<<< .mine
 
-||||||| .r57
-                       
->>>>>>> .r56
-=======
-                      
->>>>>>> .r58
-                        graphics.FillPolygon(new SolidBrush(Color.Black),
-                           new System.Drawing.Point[] {
+
+                            graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15, y + quadrantDimension/2),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+ 40, y + quadrantDimension/2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15+coef, y + quadrantDimension/2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+ 40-coef, y + quadrantDimension/2  ),
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
-                           });
+                            });
 
+                        coef += 1;
+                        if (coef == 12)
+                        {
+                            coef = 0;
+                        }
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
                     break;
@@ -382,14 +398,7 @@ namespace FarthorlPacMan
 
         private void initializePacMan(Engine engine)
         {
-            string[] elements = engine.GetQuadrantElements(this.positionQuadrantX, this.positionQuadrantY);
-
-            if (elements[1] == "1")
-            {
-                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
-                elements[0] = "0";
-            }
-            engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+            EatPoint(engine, positionQuadrantX, positionQuadrantY);
         }
 
         public int getScore()
@@ -410,14 +419,14 @@ namespace FarthorlPacMan
         public void EatPoint(Engine engine, int quadrantX, int quadrantY)
         {
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
-            SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
+            //SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
 
-            if (elements[1]=="1")
+            if (elements[1] == "1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
                 engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
-                food.Play();
+                //food.Play();
             }
         }
 

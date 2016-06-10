@@ -69,16 +69,6 @@ namespace FarthorlPacMan
             LeftScore.Text = $"Left scores: {score}";
         }
 
-        public void Win()
-        {
-            message.Visible = true;
-        }
-
-        private void GameWindow_LocationChanged(object sender, EventArgs e)
-        {
-            
-           
-        }
 
         private void GameWindow_Move(object sender, EventArgs e)
         {
