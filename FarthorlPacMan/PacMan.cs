@@ -346,18 +346,13 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
-<<<<<<< .mine
-
-||||||| .r54
-=======
                         graphics.FillEllipse(
                            new SolidBrush(Color.Black),
                            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5), y - (diameter / 2 - 17),
                            diameter / 5,
                            diameter / 5
                            );
-                       
->>>>>>> .r56
+                      
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
