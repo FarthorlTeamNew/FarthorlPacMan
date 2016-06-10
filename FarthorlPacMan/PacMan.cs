@@ -1,4 +1,5 @@
 ﻿using System.Media;
+using System.Threading;
 
 namespace FarthorlPacMan
 {
@@ -17,8 +18,6 @@ namespace FarthorlPacMan
         private string movedDirection;
         private string previousDirection;
         private int eatPoints = 0;
-        private SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
-
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
@@ -60,12 +59,13 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Up");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                 }
                 else if (elements[0] == "1")
                 {
@@ -89,12 +89,12 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                     await movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Right");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Right";
                     movedDirection = "Right";
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -118,12 +118,15 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Down");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+                    
+                    
+                    
                 }
                 else if (elements[0] == "1")
                 {
@@ -147,12 +150,13 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Left");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
+
                 }
                 else if (elements[0] == "1")
                 {
@@ -352,7 +356,14 @@ namespace FarthorlPacMan
                            diameter / 5,
                            diameter / 5
                            );
+<<<<<<< .mine
+
+||||||| .r57
+                       
+>>>>>>> .r56
+=======
                       
+>>>>>>> .r58
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
@@ -399,6 +410,8 @@ namespace FarthorlPacMan
         public void EatPoint(Engine engine, int quadrantX, int quadrantY)
         {
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
+            SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
+
             if (elements[1]=="1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);

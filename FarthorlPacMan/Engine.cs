@@ -60,7 +60,7 @@
                 this.DrawContent();
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
-                //threadRenderingGhost.Start();
+                threadRenderingGhost.Start();
                 threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -321,11 +321,6 @@
             SoundPlayer intro = new SoundPlayer();
             intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
             intro.PlaySync();
-        }
-
-        public void PlayBeep()
-        {
-            Console.Beep(500,100);
         }
     }
 }
