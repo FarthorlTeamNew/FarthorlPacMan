@@ -252,6 +252,14 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillEllipse(
+                      new SolidBrush(Color.Black),
+                      x - (diameter / 2 - 20),
+                      (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter /2 - 5),
+                      diameter/5,
+                      diameter/5
+                      );
+
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                         new System.Drawing.Point[] {
                                 new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
@@ -277,7 +285,8 @@ namespace FarthorlPacMan
                                 diameter,
                                 diameter
                                 )
-                            );
+                                    );
+                      
 
                         graphics.FillEllipse(
                            new SolidBrush(pacManColor), x - (diameter / 2),
@@ -285,6 +294,13 @@ namespace FarthorlPacMan
                            diameter,
                            diameter
                            );
+                        graphics.FillEllipse(
+                    new SolidBrush(Color.Black),
+                    x - (diameter / 2 - 10),
+                    (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5),
+                    diameter / 5,
+                    diameter / 5
+                    );
 
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                             new System.Drawing.Point[] {
@@ -311,7 +327,7 @@ namespace FarthorlPacMan
                                 diameter,
                                 diameter
                                 )
-                            );
+                            );  
 
                         graphics.FillEllipse(
                             new SolidBrush(pacManColor),
@@ -320,11 +336,18 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillEllipse(
+                        new SolidBrush(Color.Black),
+                        (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5), y - (diameter / 2 - 10),
+                        diameter / 5,
+                        diameter / 5
+                        );
+
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension +15, y - quadrantDimension/2+2),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+40, y - quadrantDimension/2+2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15, y - quadrantDimension/2+2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 40, y - quadrantDimension/2+2  ),
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
                            });
 
@@ -354,6 +377,13 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillEllipse(
+                           new SolidBrush(Color.Black),
+                           (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5), y - (diameter / 2 - 17),
+                           diameter / 5,
+                           diameter / 5
+                           );
+                       
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
