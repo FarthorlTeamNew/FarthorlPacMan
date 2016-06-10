@@ -71,26 +71,56 @@
 
         public void StopGame()
         {
+            try
+            {
+                threadRenderingPacMan.Resume();
+                threadRenderingGhost.Resume();
+                threadRenderingSound.Resume();
+
+            }
+            catch (Exception)
+            {
+
+            }
 
             threadRenderingPacMan.Abort();
 			threadRenderingGhost.Abort();
-			threadRenderingSound.Abort();        }
+			threadRenderingSound.Abort();
+        }
 
         public void PauseGame()
         {
             this.run = false;
-            threadRenderingPacMan.Suspend();
-			threadRenderingGhost.Suspend();
-			threadRenderingSound.Suspend();
+            try
+            {
+                threadRenderingPacMan.Suspend();
+                threadRenderingGhost.Suspend();
+                threadRenderingSound.Suspend();
+            }
+            catch (Exception)
+            {
+
+            }
+            game.PausePanel.Visible = true;
         }
 
 
         public void ResumeGame()
         {
             this.run = true;
-            threadRenderingPacMan.Resume();
-			threadRenderingGhost.Resume();
-			threadRenderingSound.Resume();        }
+            try
+            {
+                threadRenderingPacMan.Resume();
+                threadRenderingGhost.Resume();
+                threadRenderingSound.Resume();
+            }
+            catch (Exception)
+            {
+
+            }
+            game.PausePanel.Visible = false;
+
+        }
 
         public bool IsPaused()
         {

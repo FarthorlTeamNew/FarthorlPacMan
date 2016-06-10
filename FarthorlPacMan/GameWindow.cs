@@ -94,6 +94,5 @@ namespace FarthorlPacMan
             this.game.stopGame();
         }
 
-
     }
 }

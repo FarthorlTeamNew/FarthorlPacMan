@@ -273,11 +273,19 @@ namespace FarthorlPacMan
                             );
 
                         graphics.FillEllipse(
-                            new SolidBrush(pacManColor), x - (diameter / 2),
-                            (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-                            diameter,
-                            diameter
-                            );
+                           new SolidBrush(pacManColor), x - (diameter / 2),
+                           (this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
+                           diameter,
+                           diameter
+                           );
+
+                        graphics.FillPolygon(new SolidBrush(Color.Black),
+                            new System.Drawing.Point[] {
+                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
+                                new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+15),
+                                new System.Drawing.Point(x-quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+40),
+                                new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
+                            });
 
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
