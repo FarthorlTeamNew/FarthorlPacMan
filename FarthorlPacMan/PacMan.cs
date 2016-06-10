@@ -46,6 +46,7 @@ namespace FarthorlPacMan
                 {
                     tryMoveDown(graphic, engine);
                 }
+                
             }
         }
 
@@ -172,8 +173,6 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    //this.clearPacMan(graphic);
-
                     if (elements[1] == "1")
                     {
                         eatPoints = eatPoints + int.Parse(elements[1]);
@@ -215,6 +214,7 @@ namespace FarthorlPacMan
               diameter,
               diameter
               );
+            
         }
 
         private async Task<bool> movePacMan(Graphics graphics, int nextX, int nextY, string moving)
@@ -263,8 +263,8 @@ namespace FarthorlPacMan
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                         new System.Drawing.Point[] {
                                 new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2),
-                                new System.Drawing.Point(x + quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+15),
-                                new System.Drawing.Point(x + quadrantDimension/2+2, (this.positionQuadrantY * quadrantDimension)+40),
+                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+15),
+                                new System.Drawing.Point(x + quadrantDimension/2, (this.positionQuadrantY * quadrantDimension)+40),
                                 new System.Drawing.Point(x, (this.positionQuadrantY * quadrantDimension)+quadrantDimension/2)
                         });
 
@@ -387,8 +387,8 @@ namespace FarthorlPacMan
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension +15, y + quadrantDimension/2+2),
-                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+40, y + quadrantDimension/2+2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + 15, y + quadrantDimension/2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+ 40, y + quadrantDimension/2  ),
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
                            });
 
