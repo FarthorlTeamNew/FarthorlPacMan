@@ -13,6 +13,7 @@
         private Bitmap buffer = new Bitmap(1200, 650);
         private Thread threadRenderingPacMan;
         private Thread threadRenderingGhost;
+        private Thread threadRenderingSound;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
@@ -47,6 +48,7 @@
                 this.isInicialize = true;
                 threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
                 threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
+                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
                 this.initializeMatrix();
                 pacMan = new PacMan(0, 0, this.graphics, this);
                 for (int i = 0; i < ghostElements; i++)
@@ -58,9 +60,8 @@
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
                 threadRenderingGhost.Start();
+                threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
-                SoundPlayer munch = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
-                munch.Play();
             }
             else
             {
@@ -284,6 +285,12 @@
                 threadRenderingGhost.Suspend();
                 threadRenderingPacMan.Suspend();
             }
+        }
+
+        private void PlaySound()
+        {
+            SoundPlayer intro = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
+            intro.Play();
         }
 
     }
