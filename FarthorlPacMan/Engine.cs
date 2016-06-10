@@ -71,22 +71,16 @@
 
         public void StopGame()
         {
-            try
-            {
-                threadRenderingPacMan.Resume();
-            }
-            catch (Exception)
-            {
-
-            }
 
             threadRenderingPacMan.Abort();
+            threadRenderingGhost.Abort();
         }
 
         public void PauseGame()
         {
             this.run = false;
             threadRenderingPacMan.Suspend();
+            threadRenderingGhost.Suspend();
 
         }
 
@@ -95,6 +89,7 @@
         {
             this.run = true;
             threadRenderingPacMan.Resume();
+            threadRenderingGhost.Resume();
         }
 
         public bool IsPaused()
