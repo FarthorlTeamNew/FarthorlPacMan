@@ -30,7 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
             this.pacMan = new System.Windows.Forms.Panel();
+            this.PausePanel = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.pauseText = new System.Windows.Forms.Label();
             this.message = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -43,13 +47,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.LeftScore = new System.Windows.Forms.Label();
-            this.PausePanel = new System.Windows.Forms.Panel();
-            this.pauseText = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.pacMan.SuspendLayout();
-            this.message.SuspendLayout();
             this.PausePanel.SuspendLayout();
+            this.message.SuspendLayout();
             this.SuspendLayout();
             // 
             // pacMan
@@ -64,6 +64,36 @@
             this.pacMan.Size = new System.Drawing.Size(1200, 650);
             this.pacMan.TabIndex = 0;
             this.pacMan.Paint += new System.Windows.Forms.PaintEventHandler(this.pacMan_Paint);
+            // 
+            // PausePanel
+            // 
+            this.PausePanel.Controls.Add(this.label11);
+            this.PausePanel.Controls.Add(this.pauseText);
+            this.PausePanel.Location = new System.Drawing.Point(190, 466);
+            this.PausePanel.Name = "PausePanel";
+            this.PausePanel.Size = new System.Drawing.Size(799, 70);
+            this.PausePanel.TabIndex = 1;
+            this.PausePanel.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(199, 37);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(383, 25);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Please, press controls key to continue!";
+            // 
+            // pauseText
+            // 
+            this.pauseText.AutoSize = true;
+            this.pauseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pauseText.Location = new System.Drawing.Point(334, 0);
+            this.pauseText.Name = "pauseText";
+            this.pauseText.Size = new System.Drawing.Size(125, 37);
+            this.pauseText.TabIndex = 0;
+            this.pauseText.Text = "PAUSE";
             // 
             // message
             // 
@@ -84,6 +114,21 @@
             this.message.Size = new System.Drawing.Size(800, 355);
             this.message.TabIndex = 0;
             this.message.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.MaximumSize = new System.Drawing.Size(790, 50);
+            this.label1.MinimumSize = new System.Drawing.Size(790, 50);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Size = new System.Drawing.Size(790, 50);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Congratulation!!! You Win Farthorl PacMan Game!";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
@@ -232,7 +277,7 @@
             this.label2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Size = new System.Drawing.Size(790, 50);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Special Tanks,";
+            this.label2.Text = "Special Tanks to:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ScoreLabel
@@ -259,51 +304,6 @@
             this.LeftScore.Text = "Left scores:";
             this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // PausePanel
-            // 
-            this.PausePanel.Controls.Add(this.label11);
-            this.PausePanel.Controls.Add(this.pauseText);
-            this.PausePanel.Location = new System.Drawing.Point(190, 466);
-            this.PausePanel.Name = "PausePanel";
-            this.PausePanel.Size = new System.Drawing.Size(799, 70);
-            this.PausePanel.TabIndex = 1;
-            this.PausePanel.Visible = false;
-            // 
-            // pauseText
-            // 
-            this.pauseText.AutoSize = true;
-            this.pauseText.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pauseText.Location = new System.Drawing.Point(334, 0);
-            this.pauseText.Name = "pauseText";
-            this.pauseText.Size = new System.Drawing.Size(125, 37);
-            this.pauseText.TabIndex = 0;
-            this.pauseText.Text = "PAUSE";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(199, 37);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(383, 25);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Please, press controls key to continue!";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(5, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.MaximumSize = new System.Drawing.Size(790, 50);
-            this.label1.MinimumSize = new System.Drawing.Size(790, 50);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Size = new System.Drawing.Size(790, 50);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Congratulation!!! You Win Farthorl PacMan Game!";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,10 +325,10 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyDown);
             this.Move += new System.EventHandler(this.GameWindow_Move);
             this.pacMan.ResumeLayout(false);
-            this.message.ResumeLayout(false);
-            this.message.PerformLayout();
             this.PausePanel.ResumeLayout(false);
             this.PausePanel.PerformLayout();
+            this.message.ResumeLayout(false);
+            this.message.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
