@@ -60,20 +60,12 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    if (elements[1] == "1")
-                    {
-                        food.Play();
-                        eatPoints = eatPoints + int.Parse(elements[1]);
-                        elements[1] = "0";
-                    }
-
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Up");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
-
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -89,7 +81,6 @@ namespace FarthorlPacMan
 
         private async void tryMoveRight(Graphics graphic, Engine engine)
         {
-
             if (this.positionQuadrantX < engine.GetMaxX() - 1)
             {
                 int nextQuandrantX = this.positionQuadrantX + 1;
@@ -98,20 +89,12 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
-                    if (elements[1] == "1")
-                    {
-                        this.eatPoints = this.eatPoints + int.Parse(elements[1]);
-                        elements[1] = "0";
-                        food.Play();
-                    }
-
                     await movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Right");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Right";
                     movedDirection = "Right";
-                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -135,20 +118,12 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    if (elements[1] == "1")
-                    {
-                        eatPoints = eatPoints + int.Parse(elements[1]);
-                        elements[1] = "0";
-                        food.Play();
-                    }
-
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Down");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
-
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -164,7 +139,6 @@ namespace FarthorlPacMan
 
         private async void tryMoveLeft(Graphics graphic, Engine engine)
         {
-
             if (positionQuadrantX > 0)
             {
                 int nextQuandrantX = this.positionQuadrantX - 1;
@@ -173,20 +147,12 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-                    if (elements[1] == "1")
-                    {
-                        eatPoints = eatPoints + int.Parse(elements[1]);
-                        elements[1] = "0";
-                        food.Play();
-                    }
-
                     await this.movePacMan(graphic, nextQuandrantX, nextQuadrantY, "Left");
                     this.positionQuadrantX = nextQuandrantX;
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
-
+                    EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
@@ -220,7 +186,7 @@ namespace FarthorlPacMan
         private async Task<bool> movePacMan(Graphics graphics, int nextX, int nextY, string moving)
         {
 
-            graphics.FillRectangle(
+             graphics.FillRectangle(
              new SolidBrush(Color.Black),
              (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
              ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
@@ -235,6 +201,7 @@ namespace FarthorlPacMan
                         x < (nextX * quadrantDimension) + (quadrantDimension / 2);
                         x++)
                     {
+
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -277,6 +244,7 @@ namespace FarthorlPacMan
                         x > (nextX * quadrantDimension) + (quadrantDimension / 2);
                         x--)
                     {
+
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -319,6 +287,7 @@ namespace FarthorlPacMan
                         y > (nextY * quadrantDimension) + (quadrantDimension / 2);
                         y--)
                     {
+
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -377,6 +346,10 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+<<<<<<< .mine
+
+||||||| .r54
+=======
                         graphics.FillEllipse(
                            new SolidBrush(Color.Black),
                            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2 - 5), y - (diameter / 2 - 17),
@@ -384,6 +357,7 @@ namespace FarthorlPacMan
                            diameter / 5
                            );
                        
+>>>>>>> .r56
                         graphics.FillPolygon(new SolidBrush(Color.Black),
                            new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
@@ -425,6 +399,18 @@ namespace FarthorlPacMan
         public int getQuadrantY()
         {
             return this.positionQuadrantY;
+        }
+
+        public void EatPoint(Engine engine, int quadrantX, int quadrantY)
+        {
+            string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
+            if (elements[1]=="1")
+            {
+                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
+                elements[1] = "0";
+                engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+                food.Play();
+            }
         }
 
     }

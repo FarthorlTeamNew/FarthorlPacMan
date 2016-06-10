@@ -1,4 +1,6 @@
-﻿namespace FarthorlPacMan
+﻿using System.Media;
+
+namespace FarthorlPacMan
 {
     using System;
     using System.Drawing;
@@ -10,6 +12,7 @@
         private Color pointFillColor = Color.BlueViolet;
         private int pointDiameter = 10;
         private Boolean isCollected = false;
+
         public Point(int centerX, int centerY)
         {
             this.centerX = centerX;

@@ -27,6 +27,7 @@
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
+
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
@@ -59,7 +60,7 @@
                 this.DrawContent();
                 this.inicializeLeftScores();
                 threadRenderingPacMan.Start();
-                threadRenderingGhost.Start();
+                //threadRenderingGhost.Start();
                 threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -263,13 +264,14 @@
 
         public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
+            
             var stringValue = $"{element[0]},{element[1]}";
             pathsMatrix[quadrantX, quandrantY] = stringValue;
             int pointDiameter = 0;
             foreach (var point in points)
             {
                 if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
-                {
+                {  
                     point.EatPoint();
                     pointDiameter = point.getDiameter();
                     break;
@@ -306,17 +308,24 @@
             if (leftScore - pacManScores == 0)
             {
 
-                game.Win();
+                
                 threadRenderingGhost.Suspend();
                 threadRenderingPacMan.Suspend();
+                game.Win();
             }
         }
 
         private void PlaySound()
         {
-            SoundPlayer intro = new SoundPlayer("DataFiles/Sounds/pacman_beginning.wav");
-            intro.Play();
+            string sMediPath = @"DataFiles\Sounds";
+            SoundPlayer intro = new SoundPlayer();
+            intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
+            intro.PlaySync();
         }
 
+        public void PlayBeep()
+        {
+            Console.Beep(500,100);
+        }
     }
 }
