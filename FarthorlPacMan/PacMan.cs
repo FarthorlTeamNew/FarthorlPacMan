@@ -320,6 +320,13 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillPolygon(new SolidBrush(Color.Black),
+                           new System.Drawing.Point[] {
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension +15, y - quadrantDimension/2+2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+40, y - quadrantDimension/2+2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
+                           });
 
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
@@ -347,6 +354,13 @@ namespace FarthorlPacMan
                             diameter,
                             diameter
                             );
+                        graphics.FillPolygon(new SolidBrush(Color.Black),
+                           new System.Drawing.Point[] {
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension +15, y + quadrantDimension/2+2),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension+40, y + quadrantDimension/2+2  ),
+                                new System.Drawing.Point(this.positionQuadrantX * quadrantDimension + quadrantDimension/2, y)
+                           });
 
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
