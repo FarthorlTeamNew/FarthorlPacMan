@@ -332,5 +332,20 @@
             intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
             intro.Play();
         }
+
+        public bool isDirectionChanged(string myDirection)
+        {
+            if (myDirection=="Up" && this.moveDirection=="Down" || myDirection=="Down" && this.moveDirection=="Up")
+            {
+                return true;
+            }
+
+            if (myDirection == "Right" && this.moveDirection == "Left" || myDirection == "Left" && this.moveDirection == "Right")
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace FarthorlPacMan
         private string movedDirection;
         private string previousDirection;
         private Dictionary<string,bool> existDirections=new Dictionary<string, bool>();
-        //private Bitmap gostImage = (Bitmap) Image.FromFile(@"ImageFiles\Ghost.bmp", true);
+        private Bitmap gostImage = (Bitmap) Image.FromFile(@"DataFiles\Images\Ghost.bmp", true);
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphics, Engine engine)
         {
             var getCoordinates = this.createCoordinatesXY(engine, positionPacManQaundarntX, positionPacManQaundarntY);
