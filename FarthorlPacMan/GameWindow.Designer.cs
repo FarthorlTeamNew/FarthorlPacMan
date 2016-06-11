@@ -355,7 +355,7 @@
             this.MaximumSize = new System.Drawing.Size(1216, 775);
             this.MinimumSize = new System.Drawing.Size(1216, 596);
             this.Name = "GameWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWindow_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWindow_FormClosed);

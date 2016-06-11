@@ -95,11 +95,14 @@ namespace FarthorlPacMan
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+            Environment.Exit(1);
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+          
             Application.Restart();
+            Environment.Exit(1);
         }
     }
 }
