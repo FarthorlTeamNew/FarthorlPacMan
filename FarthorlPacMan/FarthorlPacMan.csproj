@@ -84,7 +84,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataFiles\Images\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DataFiles\coordinates.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -116,6 +119,15 @@
     <Content Include="DataFiles\Sounds\pause.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ImageFiles\Fruit.jpg" />
+    <Content Include="ImageFiles\Ghost.bmp" />
+    <Content Include="ImageFiles\mixedImagesAndAnimations.png" />
+    <Content Include="ImageFiles\modernGhosts.jpg" />
+    <Content Include="ImageFiles\PacDown.gif" />
+    <Content Include="ImageFiles\PacLeft.gif" />
+    <Content Include="ImageFiles\PacMan.ico" />
+    <Content Include="ImageFiles\PacRight.gif" />
+    <Content Include="ImageFiles\PacUp.gif" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

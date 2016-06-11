@@ -134,6 +134,7 @@
             while (run)
             {
 
+
                 pacMan.DrawPacMan(this.graphics);
                 pacMan.move(this.graphics, this, moveDirection);
                 game.UpdateScores(pacMan.getScore());

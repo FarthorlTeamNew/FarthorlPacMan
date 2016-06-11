@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
 
 namespace FarthorlPacMan
@@ -16,12 +17,14 @@ namespace FarthorlPacMan
         private Color GhostColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
-
+        private Dictionary<string,bool> existDirections=new Dictionary<string, bool>();
+        //private Bitmap gostImage = (Bitmap) Image.FromFile(@"ImageFiles\Ghost.bmp", true);
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphics, Engine engine)
         {
             var getCoordinates = this.createCoordinatesXY(engine, positionPacManQaundarntX, positionPacManQaundarntY);
             this.positionQuadrantX = getCoordinates["QuadrantX"];
             this.positionQuadrantY = getCoordinates["QuadrantY"];
+            this.InicializeGhost(engine);
 
         }
 
@@ -56,13 +59,84 @@ namespace FarthorlPacMan
             resultXY.Add("QuadrantX", x);
             resultXY.Add("QuadrantY", y);
 
+            //check is select quadrant is not wall.
+            //If is wall call method again to selech another random quandrant
+            if (!isExistQuadrant(engine,resultXY))
+            {
+                createCoordinatesXY(engine, pacManX, pacManY);
+            }
+
+
             return resultXY;
+        }
+
+        private bool isExistQuadrant(Engine engine, Dictionary<string, int> quandrant)
+        {
+
+            string[] elements=engine.GetQuadrantElements(quandrant["QuadrantX"], quandrant["QuadrantY"]);
+
+            if (elements[0]=="0")
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void InicializeGhost(Engine engine)
         {
+            existDirections.Add("Up",false);
+            existDirections.Add("Down",false);
+            existDirections.Add("Left",false);
+            existDirections.Add("Right",false);
+            CheckExistDirections(engine);
+            SelectRandomDirection();
 
         }
 
+        private void CheckExistDirections(Engine engine)
+        {
+            if (positionQuadrantY > 0 && engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1)[0] == "0")
+            {
+                existDirections["Up"] = true;
+            }
+            else
+            {
+                existDirections["Up"] = false;
+            }
+
+            if (positionQuadrantY<engine.GetMaxY() && engine.GetQuadrantElements(positionQuadrantX,positionQuadrantY+1)[0]=="0")
+            {
+                existDirections["Down"] = true;
+            }
+            else
+            {
+                existDirections["Down"] = false;
+            }
+
+            if (positionQuadrantX>0 && engine.GetQuadrantElements(positionQuadrantX-1,positionQuadrantY)[0]=="0")
+            {
+                existDirections["Left"] = true;
+            }
+            else
+            {
+                existDirections["Left"] = false;
+            }
+
+            if (positionQuadrantX<engine.GetMaxX() && engine.GetQuadrantElements(positionQuadrantX+1,positionQuadrantY)[0]=="0")
+            {
+                existDirections["Right"] = true;
+            }
+            else
+            {
+                existDirections["Right"] = false;
+            }
+
+        }
+
+        private void SelectRandomDirection()
+        {
+
+        }
     }
 }

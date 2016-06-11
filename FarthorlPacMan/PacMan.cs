@@ -18,6 +18,7 @@ namespace FarthorlPacMan
         private string movedDirection;
         private string previousDirection;
         private int eatPoints = 0;
+        private string stopDirection = "";
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
@@ -29,19 +30,19 @@ namespace FarthorlPacMan
         {
             if (!String.IsNullOrEmpty(direction))
             {
-                if (direction == "Right")
+                if (direction == "Right" && direction!= stopDirection)
                 {
                     tryMoveRight(graphic, engine);
                 }
-                else if (direction == "Left")
+                else if (direction == "Left" && direction != stopDirection)
                 {
                     tryMoveLeft(graphic, engine);
                 }
-                else if (direction == "Up")
+                else if (direction == "Up" && direction != stopDirection)
                 {
                     tryMoveUp(graphic, engine);
                 }
-                else if (direction == "Down")
+                else if (direction == "Down" && direction != stopDirection)
                 {
                     tryMoveDown(graphic, engine);
                 }
@@ -65,14 +66,17 @@ namespace FarthorlPacMan
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Up";
                     movedDirection = "Up";
+                    stopDirection = "";
                     EatPoint(engine, nextQuandrantX, nextQuadrantY);
 
                 }
                 else if (elements[0] == "1")
                 {
+                    
                     if (movedDirection == "")
                     {
                         previousDirection = "";
+                        stopDirection = movedDirection;
                     }
                     movedDirection = "";
                     this.move(graphic, engine, previousDirection);
@@ -96,6 +100,7 @@ namespace FarthorlPacMan
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Right";
                     movedDirection = "Right";
+                    stopDirection = "";
                     EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
@@ -103,6 +108,7 @@ namespace FarthorlPacMan
                     if (movedDirection == "")
                     {
                         previousDirection = "";
+                        stopDirection = movedDirection;
                     }
                     movedDirection = "";
                     this.move(graphic, engine, previousDirection);
@@ -126,6 +132,7 @@ namespace FarthorlPacMan
                     this.positionQuadrantY = nextQuadrantY;
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
+                    stopDirection = "";
                     EatPoint(engine, nextQuandrantX, nextQuadrantY);
 
                 }
@@ -134,6 +141,7 @@ namespace FarthorlPacMan
                     if (this.movedDirection == "")
                     {
                         this.previousDirection = "";
+                        stopDirection = movedDirection;
                     }
                     this.movedDirection = "";
                     this.move(graphic, engine, previousDirection);
@@ -157,16 +165,14 @@ namespace FarthorlPacMan
                     this.positionQuadrantY = nextQuadrantY;
                     previousDirection = "Left";
                     movedDirection = "Left";
+                    stopDirection = "";
                     EatPoint(engine, nextQuandrantX, nextQuadrantY);
                 }
                 else if (elements[0] == "1")
                 {
                     if (movedDirection == "")
                     {
-                        if (positionQuadrantX == 0)
-                        {
-                            engine.changeDirection(previousDirection);
-                        }
+                        stopDirection = movedDirection;
                         previousDirection = "";
                     }
                     movedDirection = "";

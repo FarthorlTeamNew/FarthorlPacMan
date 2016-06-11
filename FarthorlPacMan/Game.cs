@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace FarthorlPacMan
 {
@@ -22,6 +23,7 @@ namespace FarthorlPacMan
         public void stopGame()
         {
             this.graphicEngine.StopGame();
+            Environment.Exit(0);
         }
 
         public void Direction(string direction)
