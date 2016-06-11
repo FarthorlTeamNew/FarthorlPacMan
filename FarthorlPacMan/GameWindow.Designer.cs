@@ -47,17 +47,22 @@
             this.pauseText = new System.Windows.Forms.Label();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.LeftScore = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pacMan.SuspendLayout();
             this.panel1.SuspendLayout();
             this.PausePanel.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pacMan
             // 
+            this.pacMan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.pacMan.Controls.Add(this.panel1);
             this.pacMan.Controls.Add(this.PausePanel);
-            this.pacMan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pacMan.Location = new System.Drawing.Point(0, 0);
+            this.pacMan.Location = new System.Drawing.Point(1, 23);
             this.pacMan.MaximumSize = new System.Drawing.Size(1200, 650);
             this.pacMan.MinimumSize = new System.Drawing.Size(1200, 650);
             this.pacMan.Name = "pacMan";
@@ -283,7 +288,7 @@
             // 
             this.ScoreLabel.AutoSize = true;
             this.ScoreLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ScoreLabel.Location = new System.Drawing.Point(3, 652);
+            this.ScoreLabel.Location = new System.Drawing.Point(12, 695);
             this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 30);
             this.ScoreLabel.Name = "ScoreLabel";
             this.ScoreLabel.Size = new System.Drawing.Size(250, 33);
@@ -295,7 +300,7 @@
             // 
             this.LeftScore.AutoSize = true;
             this.LeftScore.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftScore.Location = new System.Drawing.Point(304, 652);
+            this.LeftScore.Location = new System.Drawing.Point(295, 695);
             this.LeftScore.MinimumSize = new System.Drawing.Size(250, 30);
             this.LeftScore.Name = "LeftScore";
             this.LeftScore.Size = new System.Drawing.Size(250, 33);
@@ -303,23 +308,58 @@
             this.LeftScore.Text = "Left scores:";
             this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1200, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newGameToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Text = "Menu";
+            // 
+            // newGameToolStripMenuItem
+            // 
+            this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newGameToolStripMenuItem.Text = "New Game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 687);
+            this.ClientSize = new System.Drawing.Size(1200, 737);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1216, 750);
+            this.MaximumSize = new System.Drawing.Size(1216, 775);
             this.MinimumSize = new System.Drawing.Size(1216, 596);
             this.Name = "GameWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Farthorl PacMan Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameWindow_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameWindow_FormClosed);
+            this.Load += new System.EventHandler(this.GameWindow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameWindow_KeyDown);
             this.Move += new System.EventHandler(this.GameWindow_Move);
             this.pacMan.ResumeLayout(false);
@@ -327,6 +367,8 @@
             this.panel1.PerformLayout();
             this.PausePanel.ResumeLayout(false);
             this.PausePanel.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,6 +393,10 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
