@@ -419,14 +419,14 @@ namespace FarthorlPacMan
         public void EatPoint(Engine engine, int quadrantX, int quadrantY)
         {
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
-            //SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
+            SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
 
             if (elements[1] == "1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
                 engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
-                //food.Play();
+                food.Play();
             }
         }
 
