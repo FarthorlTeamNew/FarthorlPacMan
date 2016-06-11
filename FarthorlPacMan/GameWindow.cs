@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace FarthorlPacMan
 {
@@ -14,6 +15,7 @@ namespace FarthorlPacMan
     {
         private Game game = new Game();
         private bool isInicialize = false;
+        private SoundPlayer pause = new SoundPlayer("DataFiles/Sounds/pause.wav");
         public GameWindow()
         {
             InitializeComponent();
@@ -74,6 +76,7 @@ namespace FarthorlPacMan
         {
             if (isInicialize)
             {
+                pause.Play();
                 game.PauseGame();
             }
 
