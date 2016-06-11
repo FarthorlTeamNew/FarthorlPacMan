@@ -87,6 +87,7 @@ namespace FarthorlPacMan
             this.game.stopGame();
         }
 
+
         private void GameWindow_Load(object sender, EventArgs e)
         {
 
@@ -94,15 +95,16 @@ namespace FarthorlPacMan
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             Application.Exit();
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
           
             Application.Restart();
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
     }
 }
