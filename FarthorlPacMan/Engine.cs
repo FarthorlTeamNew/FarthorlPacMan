@@ -31,19 +31,19 @@
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
-            //this.game = game;
+            this.game = game;
+            
         }
 
         public void DrawContent()
         {
             DrawFontColor();
             DrawPaths();
-
         }
 
         public void Initialize()
         {
-            //Inicialize game if started for the first time
+            //Initialize game if started for the first time
             if (isInicialize == false)
             {
                 this.isInicialize = true;
@@ -133,8 +133,6 @@
         {
             while (run)
             {
-
-
                 pacMan.DrawPacMan(this.graphics);
                 pacMan.move(this.graphics, this, moveDirection);
                 game.UpdateScores(pacMan.getScore());
@@ -243,8 +241,6 @@
                 drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
                 game.pacMan.BackgroundImage = buffer;
             }
-
-
         }
 
         public int GetMaxX()
@@ -321,7 +317,6 @@
                 }
                 game.panel1.Visible = true;
                 game.panel1.BringToFront();
-
             }
         }
 
@@ -344,7 +339,6 @@
             {
                 return true;
             }
-
             return false;
         }
     }
