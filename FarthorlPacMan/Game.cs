@@ -9,9 +9,9 @@ namespace FarthorlPacMan
     {
         private Engine graphicEngine;
 
-        public void startDraw(Graphics graphic, GameWindow game)
+        public void startDraw(Graphics graphic, Graphics graphicsGhost, GameWindow game)
         {
-            this.graphicEngine = new Engine(graphic, game);
+            this.graphicEngine = new Engine(graphic, graphicsGhost, game);
             this.graphicEngine.Initialize(); 
         }
 

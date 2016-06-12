@@ -1,100 +1,94 @@
-﻿using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Windows.Forms;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
     using System;
     using System.Drawing;
+    using System.Collections.Generic;
     class Ghost
     {
         private Boolean isAlive = true;
         private int positionQuadrantX = 0;
         private int positionQuadrantY = 0;
+        private int positionPacManQaundarntX;
+        private int positionPacManQaundarntY;
         private const int diameter = 40;
         private const int quadrantDimension = 50;
+        private const int pacManDistanceX = 3;
+        private const int pacManDistanceY = 0;
         private const int speedDrawing = 6;
         private Color GhostColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
         private Dictionary<string,bool> existDirections=new Dictionary<string, bool>();
-        private Bitmap gostImage = (Bitmap) Image.FromFile(@"DataFiles\Images\Ghost.bmp", true);
-        public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphics, Engine engine)
+        //private Bitmap gostImage = (Bitmap) Image.FromFile(@"DataFiles\Images\Ghost.bmp", true);
+        private static Image imageFile = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
+        private Engine engine;
+        private Graphics graphicsGhost;
+
+        public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost, Engine engine)
         {
-            var getCoordinates = this.createCoordinatesXY(engine, positionPacManQaundarntX, positionPacManQaundarntY);
-            this.positionQuadrantX = getCoordinates["QuadrantX"];
-            this.positionQuadrantY = getCoordinates["QuadrantY"];
-            this.InicializeGhost(engine);
+            this.positionPacManQaundarntX = positionPacManQaundarntX;
+            this.positionPacManQaundarntY = positionPacManQaundarntY;
+            this.engine = engine;
+            this.graphicsGhost = graphicsGhost;
+            this.InicializeGhost();
 
         }
 
-        private Dictionary<string,int> createCoordinatesXY(Engine engine, int pacManX, int pacManY)
+        private Dictionary<string,int> createCoordinatesXY(int pacManX, int pacManY)
         {
-            List<int> matrxiX=new List<int>();
+            List<int[]> ghostMatrix=new List<int[]>();
             Random random=new Random();
             Dictionary<string, int> resultXY = new Dictionary<string, int>();
-            int x, y;
+      
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
-            for (int i = 0; i < engine.GetMaxX(); i++)
+            for (int y = 0; y < engine.GetMaxY()-1; y++)
             {
-                if (i <= pacManX-6 || i >= pacManX+6)
+                for (int x = 0; x < engine.GetMaxX() - 1; x++)
                 {
-                    matrxiX.Add(i);
+                    if (x <= pacManX - pacManDistanceX && y <= pacManY-pacManDistanceY || x >= pacManX + pacManDistanceX && y >= pacManY+pacManDistanceY)
+                    {
+                        var elements = engine.GetQuadrantElements(x, y);
+
+                        if (elements[0]=="0")
+                        {
+                            int[] coordinates=new int[2];
+                            coordinates[0] = x;
+                            coordinates[1] = y;
+                            ghostMatrix.Add(coordinates);
+                        }
+                    }
                 }
             }
+            System.Threading.Thread.Sleep(random.Next(100,300));
+            int quadrantIndex = random.Next(ghostMatrix.Count);
 
-            while (true)
+            if (engine.isExistGhost(ghostMatrix[quadrantIndex][0], ghostMatrix[quadrantIndex][1]))
             {
-                x = random.Next(matrxiX.Count);
-                y = random.Next(pacManY);
-
-                var quadrant = engine.GetQuadrantElements(x, y);
-                if (quadrant[0]=="0")
-                {
-                    break;
-                }
+                createCoordinatesXY(pacManX, pacManY);
             }
 
-            resultXY.Add("QuadrantX", x);
-            resultXY.Add("QuadrantY", y);
-
-            //check is select quadrant is not wall.
-            //If is wall call method again to selech another random quandrant
-            if (!isExistQuadrant(engine,resultXY))
-            {
-                createCoordinatesXY(engine, pacManX, pacManY);
-            }
-
+            resultXY.Add("QuadrantX", ghostMatrix[quadrantIndex][0]);
+            resultXY.Add("QuadrantY", ghostMatrix[quadrantIndex][1]);
 
             return resultXY;
         }
 
-        private bool isExistQuadrant(Engine engine, Dictionary<string, int> quandrant)
+        private void InicializeGhost()
         {
-
-            string[] elements=engine.GetQuadrantElements(quandrant["QuadrantX"], quandrant["QuadrantY"]);
-
-            if (elements[0]=="0")
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void InicializeGhost(Engine engine)
-        {
+            var getCoordinates = this.createCoordinatesXY(positionPacManQaundarntX, positionPacManQaundarntY);
+            this.positionQuadrantX = getCoordinates["QuadrantX"];
+            this.positionQuadrantY = getCoordinates["QuadrantY"];
             existDirections.Add("Up",false);
             existDirections.Add("Down",false);
             existDirections.Add("Left",false);
             existDirections.Add("Right",false);
-            CheckExistDirections(engine);
+            CheckExistDirections();
             SelectRandomDirection();
 
         }
 
-        private void CheckExistDirections(Engine engine)
+        private void CheckExistDirections()
         {
             if (positionQuadrantY > 0 && engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1)[0] == "0")
             {
@@ -137,6 +131,26 @@ namespace FarthorlPacMan
         private void SelectRandomDirection()
         {
 
+        }
+
+        public void Draw()
+        {
+            graphicsGhost.DrawImage(imageFile,(positionQuadrantX*quadrantDimension)+8,positionQuadrantY*quadrantDimension+4);
+        }
+
+        public void Move()
+        {
+           
+        }
+
+        public int GetQuadrantX()
+        {
+            return positionQuadrantX;
+        }
+
+        public int GetQuadrantY()
+        {
+            return positionQuadrantY;
         }
     }
 }

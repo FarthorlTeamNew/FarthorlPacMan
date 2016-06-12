@@ -1,4 +1,6 @@
-﻿namespace FarthorlPacMan
+﻿using System.Linq;
+
+namespace FarthorlPacMan
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +12,7 @@
     public class Engine
     {
         private Graphics graphics;
+        private Graphics graphicsGhost;
         private Bitmap buffer = new Bitmap(1200, 650);
         private Thread threadRenderingPacMan;
         private Thread threadRenderingGhost;
@@ -27,12 +30,12 @@
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
-
-        public Engine(Graphics graphic, GameWindow game)
+        public Engine(Graphics graphic, Graphics graphicsGhost, GameWindow game)
         {
             this.graphics = graphic;
+            this.graphicsGhost = graphicsGhost;
             this.game = game;
-            
+
         }
 
         public void DrawContent()
@@ -47,21 +50,27 @@
             if (isInicialize == false)
             {
                 this.isInicialize = true;
-                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
-                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
-                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
                 this.initializeMatrix();
+
+                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
+                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
                 pacMan = new PacMan(0, 0, this.graphics, this);
+
                 for (int i = 0; i < ghostElements; i++)
                 {
-                    Ghost creatGhost = new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), this.graphics, this);
-                    ghosts.Add(creatGhost);
+                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
                 }
+
                 this.DrawContent();
                 this.inicializeLeftScores();
-                threadRenderingSound.Start();
-                threadRenderingPacMan.Start();
+
+
                 threadRenderingGhost.Start();
+                Thread.Sleep(100);
+                threadRenderingPacMan.Start();
+
+                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
+                threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
@@ -75,8 +84,8 @@
             try
             {
                 threadRenderingPacMan.Resume();
-               // threadRenderingGhost.Resume();
-               // threadRenderingSound.Resume();
+                // threadRenderingGhost.Resume();
+                // threadRenderingSound.Resume();
 
             }
             catch (Exception)
@@ -85,8 +94,8 @@
             }
 
             threadRenderingPacMan.Abort();
-			//threadRenderingGhost.Abort();
-			//threadRenderingSound.Abort();
+            //threadRenderingGhost.Abort();
+            //threadRenderingSound.Abort();
         }
 
         public void PauseGame()
@@ -95,7 +104,7 @@
             try
             {
                 threadRenderingPacMan.Suspend();
-               // threadRenderingGhost.Suspend();
+                // threadRenderingGhost.Suspend();
                 //threadRenderingSound.Suspend();
             }
             catch (Exception)
@@ -108,12 +117,12 @@
 
         public void ResumeGame()
         {
-            
+
             try
             {
                 threadRenderingPacMan.Resume();
-               // threadRenderingGhost.Resume();
-               // threadRenderingSound.Resume();
+                // threadRenderingGhost.Resume();
+                // threadRenderingSound.Resume();
             }
             catch (Exception)
             {
@@ -144,7 +153,10 @@
         {
             while (run)
             {
-
+                for (int i = 0; i < ghosts.Count; i++)
+                {
+                    ghosts[i].Draw();
+                }
             }
         }
 
@@ -261,14 +273,14 @@
 
         public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
-            
+
             var stringValue = $"{element[0]},{element[1]}";
             pathsMatrix[quadrantX, quandrantY] = stringValue;
             int pointDiameter = 0;
             foreach (var point in points)
             {
                 if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
-                {  
+                {
                     point.EatPoint();
                     pointDiameter = point.getDiameter();
                     break;
@@ -284,7 +296,7 @@
 
         public void DrawPoint(int quadrantX, int quandrantY)
         {
-            Point point=new Point();
+            Point point = new Point();
             using (Graphics drawing = Graphics.FromImage(buffer))
             {
                 drawing.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
@@ -340,7 +352,7 @@
 
         public bool isDirectionChanged(string myDirection)
         {
-            if (myDirection=="Up" && this.moveDirection=="Down" || myDirection=="Down" && this.moveDirection=="Up")
+            if (myDirection == "Up" && this.moveDirection == "Down" || myDirection == "Down" && this.moveDirection == "Up")
             {
                 return true;
             }
@@ -348,6 +360,18 @@
             if (myDirection == "Right" && this.moveDirection == "Left" || myDirection == "Left" && this.moveDirection == "Right")
             {
                 return true;
+            }
+            return false;
+        }
+
+        public bool isExistGhost(int quadrantX, int quadrantY)
+        {
+            foreach (var ghost in ghosts)
+            {
+                if (ghost.GetQuadrantX() == quadrantX && ghost.GetQuadrantY() == quadrantY)
+                {
+                    return true;
+                }
             }
             return false;
         }
