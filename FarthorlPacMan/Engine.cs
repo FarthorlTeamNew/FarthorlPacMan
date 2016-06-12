@@ -134,7 +134,7 @@
             while (run)
             {
                 pacMan.DrawPacMan(this.graphics);
-                pacMan.move(this.graphics, this, moveDirection);
+                pacMan.move(this.graphics, moveDirection);
                 game.UpdateScores(pacMan.getScore());
                 UpdateLeftSores(pacMan.getScore());
             }
@@ -279,6 +279,16 @@
             {
                 drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
                 this.game.pacMan.BackgroundImage = buffer;
+            }
+        }
+
+        public void DrawPoint(int quadrantX, int quandrantY)
+        {
+            Point point=new Point();
+            using (Graphics drawing = Graphics.FromImage(buffer))
+            {
+                drawing.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+                game.pacMan.BackgroundImage = buffer;
             }
         }
 

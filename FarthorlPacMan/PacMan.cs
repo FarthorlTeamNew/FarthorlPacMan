@@ -28,35 +28,36 @@ namespace FarthorlPacMan
             this.positionQuadrantY = positionYQuadrant;
             drawingCoordinatesX = positionQuadrantX * quadrantDimension + quadrantDimension / 2;
             drawingCoordinatesY = positionQuadrantY * quadrantDimension + quadrantDimension / 2;
-            this.initializePacMan(engine);
             this.engine = engine;
+            this.initializePacMan();
+
         }
 
-        public void move(Graphics graphic, Engine engine, string direction)
+        public void move(Graphics graphic, string direction)
         {
             if (!String.IsNullOrEmpty(direction))
             {
                 if (direction == "Right" && direction != stopDirection)
                 {
-                    tryMoveRight(graphic, engine);
+                    tryMoveRight(graphic);
                 }
                 else if (direction == "Left" && direction != stopDirection)
                 {
-                    tryMoveLeft(graphic, engine);
+                    tryMoveLeft(graphic);
                 }
                 else if (direction == "Up" && direction != stopDirection)
                 {
-                    tryMoveUp(graphic, engine);
+                    tryMoveUp(graphic);
                 }
                 else if (direction == "Down" && direction != stopDirection)
                 {
-                    tryMoveDown(graphic, engine);
+                    tryMoveDown(graphic);
                 }
 
             }
         }
 
-        private async void tryMoveUp(Graphics graphic, Engine engine)
+        private async void tryMoveUp(Graphics graphic)
         {
             if (positionQuadrantY > 0)
             {
@@ -66,8 +67,6 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
-                    
                     previousDirection = "Up";
                     movedDirection = "Up";
                     stopDirection = "";
@@ -83,12 +82,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     movedDirection = "";
-                    this.move(graphic, engine, previousDirection);
+                    this.move(graphic, previousDirection);
                 }
             }
         }
 
-        private async void tryMoveRight(Graphics graphic, Engine engine)
+        private async void tryMoveRight(Graphics graphic)
         {
             if (this.positionQuadrantX < engine.GetMaxX() - 1)
             {
@@ -99,7 +98,6 @@ namespace FarthorlPacMan
                 if (isAlive && elements[0] == "0")
                 {
 
-                    
                     previousDirection = "Right";
                     movedDirection = "Right";
                     stopDirection = "";
@@ -113,12 +111,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     movedDirection = "";
-                    this.move(graphic, engine, previousDirection);
+                    this.move(graphic, previousDirection);
                 }
             }
         }
 
-        private async void tryMoveDown(Graphics graphic, Engine engine)
+        private async void tryMoveDown(Graphics graphic)
         {
             if (positionQuadrantY < engine.GetMaxY() - 1)
             {
@@ -129,7 +127,6 @@ namespace FarthorlPacMan
                 if (isAlive && elements[0] == "0")
                 {
 
-                    
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
                     stopDirection = "";
@@ -144,12 +141,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     this.movedDirection = "";
-                    this.move(graphic, engine, previousDirection);
+                    this.move(graphic, previousDirection);
                 }
             }
         }
 
-        private async void tryMoveLeft(Graphics graphic, Engine engine)
+        private async void tryMoveLeft(Graphics graphic)
         {
             if (positionQuadrantX > 0)
             {
@@ -159,8 +156,6 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
-                    
                     previousDirection = "Left";
                     movedDirection = "Left";
                     stopDirection = "";
@@ -174,7 +169,7 @@ namespace FarthorlPacMan
                         previousDirection = "";
                     }
                     movedDirection = "";
-                    this.move(graphic, engine, previousDirection);
+                    this.move(graphic, previousDirection);
                 }
             }
         }
@@ -184,8 +179,8 @@ namespace FarthorlPacMan
 
             graphics.FillEllipse(
               new SolidBrush(pacManColor),
-              (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2),
-              ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2)),
+              (drawingCoordinatesX)- (diameter / 2),
+              ((drawingCoordinatesY) - (diameter / 2)),
               diameter,
               diameter
               );
@@ -198,8 +193,8 @@ namespace FarthorlPacMan
             int coef = 0;
             graphics.FillRectangle(
             new SolidBrush(Color.Black),
-            (this.positionQuadrantX * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3,
-            ((this.positionQuadrantY * quadrantDimension) + (quadrantDimension / 2) - (diameter / 2) - 3),
+            (drawingCoordinatesX)  - (diameter / 2) - 3,
+            ((drawingCoordinatesY) - (diameter / 2) - 3),
             diameter + 6,
             diameter + 6
             );
@@ -212,6 +207,7 @@ namespace FarthorlPacMan
                     for (int x = drawingCoordinatesX; x <= (nextX * quadrantDimension) + (quadrantDimension / 2); x++)
                     {
                         drawingCoordinatesX = x;
+                        DrawPoint(nextX, nextY);
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -250,6 +246,13 @@ namespace FarthorlPacMan
                             coef = 0;
                         }
 
+                        if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesX >= nextX * quadrantDimension + quadrantDimension / 2 - 22)
+                        {
+                            this.positionQuadrantX = nextX;
+                            this.positionQuadrantY = nextY;
+                            EatPoint(nextX, nextY);
+                        }
+
                         /*
                         If is direction is change on the move period, 
                         the logic check is the packMan is going to the next quadrant or not
@@ -270,18 +273,14 @@ namespace FarthorlPacMan
                         }
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
-                    if (engine.isDirectionChanged(movedDirection)==false && drawingCoordinatesX == nextX * quadrantDimension + quadrantDimension / 2)
-                    {
-                            this.positionQuadrantX = nextX;
-                            this.positionQuadrantY = nextY;
-                            EatPoint(engine, nextX, nextY);
-                    }
+
                     break;
 
                 case "Left":
                     for (int x = drawingCoordinatesX; x >= (nextX * quadrantDimension) + (quadrantDimension / 2); x--)
                     {
                         drawingCoordinatesX = x;
+                        DrawPoint(nextX, nextY);
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -320,13 +319,20 @@ namespace FarthorlPacMan
                             coef = 0;
                         }
 
+                        if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesX <= nextX * quadrantDimension + quadrantDimension / 2 + 22)
+                        {
+                            this.positionQuadrantX = nextX;
+                            this.positionQuadrantY = nextY;
+                            EatPoint(nextX, nextY);
+                        }
+
                         /*
                         If is direction is change on the move period, 
                         the logic check is the packMan is going to the next quadrant or not
                         */
                         if (engine.isDirectionChanged(movedDirection))
                         {
-                            if (drawingCoordinatesX > nextX * quadrantDimension + quadrantDimension && drawingCoordinatesX <= (nextX + 1) * quadrantDimension)
+                            if (drawingCoordinatesX > nextX * quadrantDimension + quadrantDimension && drawingCoordinatesX < (nextX + 1) * quadrantDimension)
                             {
                                 this.positionQuadrantX = nextX + 1;
                                 this.positionQuadrantY = nextY;
@@ -341,18 +347,14 @@ namespace FarthorlPacMan
                         System.Threading.Thread.Sleep(speedDrawing);
 
                     }
-                    if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesX == nextX * quadrantDimension + quadrantDimension / 2)
-                    {
-                        this.positionQuadrantX = nextX;
-                        this.positionQuadrantY = nextY;
-                        EatPoint(engine, nextX, nextY);
-                    }
+
                     break;
 
                 case "Up":
                     for (int y = drawingCoordinatesY; y >= (nextY * quadrantDimension) + (quadrantDimension / 2); y--)
                     {
                         drawingCoordinatesY = y;
+                        DrawPoint(nextX, nextY);
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -390,6 +392,13 @@ namespace FarthorlPacMan
                         {
                             coef = 0;
                         }
+
+                        if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesY <= nextY * quadrantDimension + quadrantDimension / 2 + 22)
+                        {
+                            this.positionQuadrantX = nextX;
+                            this.positionQuadrantY = nextY;
+                            EatPoint(nextX, nextY);
+                        }
                         /*
                         If is direction is change on the move period, 
                         the logic check is the packMan is going to the next quadrant or not
@@ -414,18 +423,14 @@ namespace FarthorlPacMan
                         System.Threading.Thread.Sleep(speedDrawing);
 
                     }
-                    if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesY == nextY * quadrantDimension + quadrantDimension / 2)
-                    {
-                        this.positionQuadrantX = nextX;
-                        this.positionQuadrantY = nextY;
-                        EatPoint(engine, nextX, nextY);
-                    }
+
                     break;
 
                 case "Down":
                     for (int y = drawingCoordinatesY; y <= (nextY * quadrantDimension) + (quadrantDimension / 2); y++)
                     {
                         drawingCoordinatesY = y;
+                        DrawPoint(nextX, nextY);
                         graphics.DrawEllipse(
                             new Pen(Color.Black),
                             new Rectangle(
@@ -464,13 +469,20 @@ namespace FarthorlPacMan
                             coef = 0;
                         }
 
+                        if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesY >= nextY * quadrantDimension + quadrantDimension / 2 - 22)
+                        {
+                            this.positionQuadrantX = nextX;
+                            this.positionQuadrantY = nextY;
+                            EatPoint(nextX, nextY);
+                        }
+
                         /*
                         If is direction is change on the move period, 
                         the logic check is the packMan is going to the next quadrant or not
                         */
                         if (engine.isDirectionChanged(movedDirection))
                         {
-                            if (drawingCoordinatesY < nextY * 50 && drawingCoordinatesY > (nextY - 1) * quadrantDimension)
+                            if (drawingCoordinatesY < nextY * quadrantDimension && drawingCoordinatesY > (nextY - 1) * quadrantDimension)
                             {
                                 {
                                     this.positionQuadrantX = nextX;
@@ -487,21 +499,16 @@ namespace FarthorlPacMan
                         }
                         System.Threading.Thread.Sleep(speedDrawing);
                     }
-                    if (engine.isDirectionChanged(movedDirection) == false && drawingCoordinatesY == nextY * quadrantDimension + quadrantDimension/2)
-                    {
-                        this.positionQuadrantX = nextX;
-                        this.positionQuadrantY = nextY;
-                        EatPoint(engine, nextX, nextY);
-                    }
+
                     break;
             }
 
             return true;
         }
 
-        private void initializePacMan(Engine engine)
+        private void initializePacMan()
         {
-            EatPoint(engine, positionQuadrantX, positionQuadrantY);
+            EatPoint(positionQuadrantX, positionQuadrantY);
         }
 
         public int getScore()
@@ -519,7 +526,7 @@ namespace FarthorlPacMan
             return this.positionQuadrantY;
         }
 
-        public void EatPoint(Engine engine, int quadrantX, int quadrantY)
+        public void EatPoint(int quadrantX, int quadrantY)
         {
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
             SoundPlayer food = new SoundPlayer("DataFiles/Sounds/pacman_eatfruit.wav");
@@ -528,10 +535,20 @@ namespace FarthorlPacMan
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
-                engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
                 food.Play();
+                engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
+
             }
         }
 
+        private void DrawPoint(int quadrantX, int quadrantY)
+        {
+            string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
+
+            if (elements[1] == "1")
+            {
+                engine.DrawPoint(quadrantX,quadrantY);
+            }
+        }
     }
 }

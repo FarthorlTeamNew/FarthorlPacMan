@@ -19,6 +19,10 @@ namespace FarthorlPacMan
             this.centerY = centerY;
         }
 
+        public Point()
+        {
+        }
+
         public void EatPoint()
         {
             this.isCollected = true;
