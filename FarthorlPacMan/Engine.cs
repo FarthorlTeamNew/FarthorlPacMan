@@ -31,7 +31,7 @@
         public Engine(Graphics graphic, GameWindow game)
         {
             this.graphics = graphic;
-            this.game = game;
+            //this.game = game;
         }
 
         public void DrawContent()
