@@ -20,13 +20,7 @@ namespace FarthorlPacMan
             graphicEngine.DrawContent();
         }
 
-        public void stopGame()
-        {
-            this.graphicEngine.StopGame();
-            Environment.Exit(0);
-        }
-
-        public void Direction(string direction)
+        public void ChangeDirection(string direction)
         {
             if (graphicEngine.IsPaused())
             {
@@ -38,6 +32,12 @@ namespace FarthorlPacMan
         public void PauseGame()
         {
             graphicEngine.PauseGame();
+        }
+
+        public void stopGame()
+        {
+            this.graphicEngine.StopGame();
+            Environment.Exit(0);
         }
     }
 }

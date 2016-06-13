@@ -16,6 +16,7 @@ namespace FarthorlPacMan
         private Game game = new Game();
         private bool isInicialize = false;
         private SoundPlayer pause = new SoundPlayer(@"DataFiles\Sounds\pause.wav");
+
         public GameWindow()
         {
             InitializeComponent();
@@ -33,31 +34,26 @@ namespace FarthorlPacMan
 
         }
 
-        private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.game.stopGame();
-        }
-
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 39) //If press right arrow
             {
-                game.Direction("Right");
+                game.ChangeDirection("Right");
             }
 
             if (e.KeyValue == 37)
             {
-                game.Direction("Left"); //If press left arrow 
+                game.ChangeDirection("Left"); //If press left arrow 
             }
 
             if (e.KeyValue == 38)
             {
-                game.Direction("Up"); //If press up arrow
+                game.ChangeDirection("Up"); //If press up arrow
             }
 
             if (e.KeyValue == 40)
             {
-                game.Direction("Down"); //If press down arrow
+                game.ChangeDirection("Down"); //If press down arrow
             }
         }
 
@@ -72,7 +68,6 @@ namespace FarthorlPacMan
             LeftScore.Text = $"Left scores: {score}";
         }
 
-
         private void GameWindow_Move(object sender, EventArgs e)
         {
             if (isInicialize)
@@ -83,15 +78,16 @@ namespace FarthorlPacMan
 
         }
 
-        private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.game.stopGame();
-        }
-
-
         private void GameWindow_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+          
+            Application.Restart();
+            Environment.Exit(0);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,11 +97,14 @@ namespace FarthorlPacMan
             Environment.Exit(0);
         }
 
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-          
-            Application.Restart();
-            Environment.Exit(0);
+            this.game.stopGame();
+        }
+
+        private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.game.stopGame();
         }
     }
 }

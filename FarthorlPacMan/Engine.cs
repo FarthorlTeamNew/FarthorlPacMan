@@ -30,6 +30,7 @@ namespace FarthorlPacMan
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
+
         public Engine(Graphics graphic, Graphics graphicsGhost, GameWindow game)
         {
             this.graphics = graphic;
@@ -38,167 +39,12 @@ namespace FarthorlPacMan
 
         }
 
-        public void DrawContent()
+        private void DrawFontColor()
         {
-            DrawFontColor();
-            DrawPaths();
-        }
-
-        public void Initialize()
-        {
-            //Initialize game if started for the first time
-            if (isInicialize == false)
+            using (Graphics drawing = Graphics.FromImage(buffer))
             {
-                this.isInicialize = true;
-                this.initializeMatrix();
-
-                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
-                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
-                pacMan = new PacMan(0, 0, this.graphics, this);
-
-                for (int i = 0; i < ghostElements; i++)
-                {
-                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
-                }
-
-                this.DrawContent();
-                this.inicializeLeftScores();
-
-
-                threadRenderingGhost.Start();
-                Thread.Sleep(100);
-                threadRenderingPacMan.Start();
-
-                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
-                threadRenderingSound.Start();
-                Control.CheckForIllegalCrossThreadCalls = false;
-            }
-            else
-            {
-                this.DrawContent();
-            }
-        }
-
-        public void StopGame()
-        {
-            try
-            {
-                threadRenderingPacMan.Resume();
-                // threadRenderingGhost.Resume();
-                // threadRenderingSound.Resume();
-
-            }
-            catch (Exception)
-            {
-
-            }
-
-            threadRenderingPacMan.Abort();
-            //threadRenderingGhost.Abort();
-            //threadRenderingSound.Abort();
-        }
-
-        public void PauseGame()
-        {
-            this.run = false;
-            try
-            {
-                threadRenderingPacMan.Suspend();
-                // threadRenderingGhost.Suspend();
-                //threadRenderingSound.Suspend();
-            }
-            catch (Exception)
-            {
-
-            }
-            game.PausePanel.Visible = true;
-        }
-
-
-        public void ResumeGame()
-        {
-
-            try
-            {
-                threadRenderingPacMan.Resume();
-                // threadRenderingGhost.Resume();
-                // threadRenderingSound.Resume();
-            }
-            catch (Exception)
-            {
-
-            }
-            game.PausePanel.Visible = false;
-            this.run = true;
-        }
-
-        public bool IsPaused()
-        {
-            return !run;
-        }
-
-        //Heare is the logic for gaming
-        private void RenderPacMan()
-        {
-            while (run)
-            {
-                pacMan.DrawPacMan(this.graphics);
-                pacMan.move(this.graphics, moveDirection);
-                game.UpdateScores(pacMan.getScore());
-                UpdateLeftSores(pacMan.getScore());
-            }
-        }
-
-        private void RenderGhost()
-        {
-            while (run)
-            {
-                for (int i = 0; i < ghosts.Count; i++)
-                {
-                    ghosts[i].Draw();
-                }
-            }
-        }
-
-        private void initializeMatrix()
-        {
-            try
-            {
-                using (var fileMatrix = new StreamReader(@"DataFiles\Levels\coordinates.txt"))
-                {
-                    string inputLine;
-                    while ((inputLine = fileMatrix.ReadLine()) != null)
-                    {
-                        // Get values from the coordinates.txt example splitLine[0]=1,0 splitLine[1]=1|0|0|1|1
-                        var splitLine = inputLine.Trim().Split('=');
-
-                        //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
-                        var arrayXYValues = splitLine[0].Trim().Split(',');
-                        int arrayX;
-                        int arrayY;
-
-                        //This is the values of the array cell
-                        string arrayValue = splitLine[1];
-                        try
-                        {
-                            arrayX = int.Parse(arrayXYValues[0]);
-                            arrayY = int.Parse(arrayXYValues[1]);
-                        }
-                        catch (Exception)
-                        {
-                            throw new ArgumentException("Cannot conver string to integer");
-
-                        }
-
-                        //Add element data in to the specific point in the 2D array
-                        this.pathsMatrix[arrayX, arrayY] = arrayValue;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                pathsMatrix = pathsMatrix;
-                throw new FileLoadException();
+                drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
+                game.pacMan.BackgroundImage = buffer;
             }
         }
 
@@ -246,23 +92,213 @@ namespace FarthorlPacMan
             }
         }
 
-        private void DrawFontColor()
+        private void initializeMatrix()
         {
-            using (Graphics drawing = Graphics.FromImage(buffer))
+            try
             {
-                drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
-                game.pacMan.BackgroundImage = buffer;
+                string level = @"DataFiles\Levels\coordinates.txt";
+                //string level = @"DataFiles\Levels\level2.txt";
+                //string level = @"DataFiles\Levels\level3.txt";
+                //string level = @"DataFiles\Levels\level4.txt";
+
+                using (var fileMatrix = new StreamReader(level))
+                {
+                    string inputLine;
+                    while ((inputLine = fileMatrix.ReadLine()) != null)
+                    {
+                        // Get values from the coordinates.txt example splitLine[0]=1,0 splitLine[1]=1|0|0|1|1
+                        var splitLine = inputLine.Trim().Split('=');
+
+                        //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
+                        var arrayXYValues = splitLine[0].Trim().Split(',');
+                        int arrayX;
+                        int arrayY;
+
+                        //This is the values of the array cell
+                        string arrayValue = splitLine[1];
+                        try
+                        {
+                            arrayX = int.Parse(arrayXYValues[0]);
+                            arrayY = int.Parse(arrayXYValues[1]);
+                        }
+                        catch (Exception)
+                        {
+                            throw new ArgumentException("Cannot conver string to integer");
+
+                        }
+
+                        //Add element data in to the specific point in the 2D array
+                        this.pathsMatrix[arrayX, arrayY] = arrayValue;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                pathsMatrix = pathsMatrix;
+                throw new FileLoadException();
             }
         }
 
-        public int GetMaxX()
+        private void inicializeLeftScores()
         {
-            return this.xMax;
+            foreach (var point in points)
+            {
+                if (!point.isEatPoint())
+                {
+                    leftScore = leftScore + 1;
+                }
+            }
+            game.UpdateLeftScore(leftScore);
         }
 
-        public int GetMaxY()
+        //Heare is the logic for gaming
+        private void RenderPacMan()
         {
-            return this.yMax;
+            while (run)
+            {
+                pacMan.DrawPacMan();
+                pacMan.move(moveDirection);
+                game.UpdateScores(pacMan.getScore());
+                UpdateLeftSores(pacMan.getScore());
+            }
+        }
+
+        private void RenderGhost()
+        {
+            while (run)
+            {
+                for (int i = 0; i < ghosts.Count; i++)
+                {
+                    ghosts[i].Draw();
+                }
+            }
+        }
+
+        private void PlaySound()
+        {
+            string sMediPath = @"DataFiles\Sounds";
+            SoundPlayer intro = new SoundPlayer();
+            intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
+            intro.Play();
+        }
+
+        private void UpdateLeftSores(int pacManScores)
+        {
+            game.UpdateLeftScore(leftScore - pacManScores);
+            if (leftScore - pacManScores == 0)
+            {
+                this.run = false;
+                try
+                {
+                    threadRenderingPacMan.Abort();
+                    threadRenderingGhost.Abort();
+                    threadRenderingSound.Abort();
+                }
+                catch (Exception)
+                {
+
+                }
+                game.panel1.Visible = true;
+                game.panel1.BringToFront();
+            }
+        }
+
+        public void Initialize()
+        {
+            //Initialize game if started for the first time
+            if (isInicialize == false)
+            {
+                this.isInicialize = true;
+                this.initializeMatrix();
+
+                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
+                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
+                pacMan = new PacMan(0, 0, this.graphics, this);
+
+                for (int i = 0; i < ghostElements; i++)
+                {
+                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
+                }
+
+                this.DrawContent();
+                this.inicializeLeftScores();
+
+
+                threadRenderingGhost.Start();
+                Thread.Sleep(100);
+                threadRenderingPacMan.Start();
+
+                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
+                threadRenderingSound.Start();
+                Control.CheckForIllegalCrossThreadCalls = false;
+            }
+            else
+            {
+                this.DrawContent();
+            }
+        }
+
+        public void DrawContent()
+        {
+            DrawFontColor();
+            DrawPaths();
+        }
+
+        public void StopGame()
+        {
+            try
+            {
+                threadRenderingPacMan.Resume();
+                // threadRenderingGhost.Resume();
+                // threadRenderingSound.Resume();
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+            threadRenderingPacMan.Abort();
+            //threadRenderingGhost.Abort();
+            //threadRenderingSound.Abort();
+        }
+
+        public void PauseGame()
+        {
+            this.run = false;
+            try
+            {
+                threadRenderingPacMan.Suspend();
+                // threadRenderingGhost.Suspend();
+                //threadRenderingSound.Suspend();
+            }
+            catch (Exception)
+            {
+
+            }
+            game.PausePanel.Visible = true;
+        }
+
+        public void ResumeGame()
+        {
+
+            try
+            {
+                threadRenderingPacMan.Resume();
+                // threadRenderingGhost.Resume();
+                // threadRenderingSound.Resume();
+            }
+            catch (Exception)
+            {
+
+            }
+            game.PausePanel.Visible = false;
+            this.run = true;
+        }
+
+        public bool IsPaused()
+        {
+            return !run;
         }
 
         public string[] GetQuadrantElements(int quadrantX, int quandrantY)
@@ -308,48 +344,7 @@ namespace FarthorlPacMan
         {
             this.moveDirection = newDirection;
         }
-
-        private void inicializeLeftScores()
-        {
-            foreach (var point in points)
-            {
-                if (!point.isEatPoint())
-                {
-                    leftScore = leftScore + 1;
-                }
-            }
-            game.UpdateLeftScore(leftScore);
-        }
-
-        private void UpdateLeftSores(int pacManScores)
-        {
-            game.UpdateLeftScore(leftScore - pacManScores);
-            if (leftScore - pacManScores == 0)
-            {
-                this.run = false;
-                try
-                {
-                    threadRenderingPacMan.Abort();
-                    threadRenderingGhost.Abort();
-                    threadRenderingSound.Abort();
-                }
-                catch (Exception)
-                {
-
-                }
-                game.panel1.Visible = true;
-                game.panel1.BringToFront();
-            }
-        }
-
-        private void PlaySound()
-        {
-            string sMediPath = @"DataFiles\Sounds";
-            SoundPlayer intro = new SoundPlayer();
-            intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
-            intro.Play();
-        }
-
+        
         public bool isDirectionChanged(string myDirection)
         {
             if (myDirection == "Up" && this.moveDirection == "Down" || myDirection == "Down" && this.moveDirection == "Up")
@@ -375,5 +370,16 @@ namespace FarthorlPacMan
             }
             return false;
         }
+
+        public int GetMaxX()
+        {
+            return this.xMax;
+        }
+
+        public int GetMaxY()
+        {
+            return this.yMax;
+        }
+
     }
 }
