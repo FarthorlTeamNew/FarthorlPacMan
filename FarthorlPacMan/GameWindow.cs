@@ -15,7 +15,7 @@ namespace FarthorlPacMan
     {
         private Game game = new Game();
         private bool isInicialize = false;
-        private SoundPlayer pause = new SoundPlayer("DataFiles/Sounds/pause.wav");
+        private SoundPlayer pause = new SoundPlayer(@"DataFiles\Sounds\pause.wav");
         public GameWindow()
         {
             InitializeComponent();

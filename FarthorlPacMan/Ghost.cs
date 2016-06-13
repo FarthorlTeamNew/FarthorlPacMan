@@ -19,7 +19,6 @@
         private string movedDirection;
         private string previousDirection;
         private Dictionary<string,bool> existDirections=new Dictionary<string, bool>();
-        //private Bitmap gostImage = (Bitmap) Image.FromFile(@"DataFiles\Images\Ghost.bmp", true);
         private static Image imageFile = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Engine engine;
         private Graphics graphicsGhost;

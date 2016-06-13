@@ -164,7 +164,7 @@ namespace FarthorlPacMan
         {
             try
             {
-                using (var fileMatrix = new StreamReader("DataFiles/coordinates.txt"))
+                using (var fileMatrix = new StreamReader(@"DataFiles\Levels\coordinates.txt"))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)
