@@ -57,6 +57,7 @@
     <Compile Include="Ghost.cs" />
     <Compile Include="PacMan.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="SoundPlayer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameWindow.resx">

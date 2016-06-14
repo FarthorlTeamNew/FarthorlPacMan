@@ -9,14 +9,15 @@ namespace FarthorlPacMan
     using System.Drawing;
     using System.Windows.Forms;
     using System.Media;
+    using System.Threading.Tasks;
     public class Engine
     {
         private Graphics graphics;
         private Graphics graphicsGhost;
         private Bitmap buffer = new Bitmap(1200, 650);
-        private Thread threadRenderingPacMan;
-        private Thread threadRenderingGhost;
-        private Thread threadRenderingSound;
+        private Task threadRenderingPacMan;
+        private Task threadRenderingGhost;
+        private Task threadRenderingSound;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
@@ -163,13 +164,16 @@ namespace FarthorlPacMan
             }
         }
 
-        private void RenderGhost()
+        private async void RenderGhost()
         {
             while (run)
             {
-                for (int i = 0; i < ghosts.Count; i++)
+                for (int i = 0; i < 50; i++)
                 {
-                    ghosts[i].Draw();
+                    foreach (var ghost in ghosts)
+                    {
+                        await ghost.Move();
+                    }
                 }
             }
         }
@@ -188,16 +192,6 @@ namespace FarthorlPacMan
             if (leftScore - pacManScores == 0)
             {
                 this.run = false;
-                try
-                {
-                    threadRenderingPacMan.Abort();
-                    threadRenderingGhost.Abort();
-                    threadRenderingSound.Abort();
-                }
-                catch (Exception)
-                {
-
-                }
                 game.panel1.Visible = true;
                 game.panel1.BringToFront();
             }
@@ -211,8 +205,8 @@ namespace FarthorlPacMan
                 this.isInicialize = true;
                 this.initializeMatrix();
 
-                threadRenderingGhost = new Thread(new ThreadStart(RenderGhost));
-                threadRenderingPacMan = new Thread(new ThreadStart(RenderPacMan));
+                threadRenderingGhost = new Task(RenderGhost);
+                threadRenderingPacMan = new Task(RenderPacMan);
                 pacMan = new PacMan(0, 0, this.graphics, this);
 
                 for (int i = 0; i < ghostElements; i++)
@@ -228,7 +222,7 @@ namespace FarthorlPacMan
                 Thread.Sleep(100);
                 threadRenderingPacMan.Start();
 
-                threadRenderingSound = new Thread(new ThreadStart(PlaySound));
+                threadRenderingSound = new Task(PlaySound);
                 threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -246,52 +240,18 @@ namespace FarthorlPacMan
 
         public void StopGame()
         {
-            try
-            {
-                threadRenderingPacMan.Resume();
-                // threadRenderingGhost.Resume();
-                // threadRenderingSound.Resume();
 
-            }
-            catch (Exception)
-            {
-
-            }
-
-            threadRenderingPacMan.Abort();
-            //threadRenderingGhost.Abort();
-            //threadRenderingSound.Abort();
         }
 
         public void PauseGame()
         {
             this.run = false;
-            try
-            {
-                threadRenderingPacMan.Suspend();
-                // threadRenderingGhost.Suspend();
-                //threadRenderingSound.Suspend();
-            }
-            catch (Exception)
-            {
-
-            }
             game.PausePanel.Visible = true;
         }
 
         public void ResumeGame()
         {
 
-            try
-            {
-                threadRenderingPacMan.Resume();
-                // threadRenderingGhost.Resume();
-                // threadRenderingSound.Resume();
-            }
-            catch (Exception)
-            {
-
-            }
             game.PausePanel.Visible = false;
             this.run = true;
         }
@@ -344,7 +304,7 @@ namespace FarthorlPacMan
         {
             this.moveDirection = newDirection;
         }
-        
+
         public bool isDirectionChanged(string myDirection)
         {
             if (myDirection == "Up" && this.moveDirection == "Down" || myDirection == "Down" && this.moveDirection == "Up")
@@ -380,6 +340,7 @@ namespace FarthorlPacMan
         {
             return this.yMax;
         }
+
 
     }
 }
