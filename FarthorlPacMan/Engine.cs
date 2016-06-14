@@ -287,6 +287,7 @@ namespace FarthorlPacMan
             }
         }
 
+        //TODO Refactoring
         public async void DrawPoint(int quadrantX, int quandrantY)
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
@@ -300,10 +301,7 @@ namespace FarthorlPacMan
                 catch (Exception)
                 {
 
-
                 }
-
-
             }
 
         }

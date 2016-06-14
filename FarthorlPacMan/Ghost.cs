@@ -491,16 +491,6 @@ namespace FarthorlPacMan
                         this.MoveNext();
                     }
 
-                    graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
-                    {
-                        new System.Drawing.Point(drawingX,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY),
-                    });
-
-
                     drawingX = drawingX + 1;
                     graphicsGhost.DrawLine(new Pen(Color.Black), drawingX - 1, (positionQuadrantY * quadrantDimension) + 1, drawingX - 1, (positionQuadrantY * quadrantDimension) + 49);
                     if (drawingX > (positionQuadrantX*quadrantDimension) + 20)
@@ -514,6 +504,15 @@ namespace FarthorlPacMan
 
                     if (drawingX == ((positionQuadrantX + 1) * quadrantDimension) + 8)
                     {
+                        graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+                        {
+                        new System.Drawing.Point(drawingX,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY),
+                        });
+
                         positionQuadrantX = positionQuadrantX + 1;
                         this.MoveNext();
                     }
@@ -526,16 +525,6 @@ namespace FarthorlPacMan
                     {
                         this.MoveNext();
                     }
-
-                    graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
-                    {
-                        new System.Drawing.Point(drawingX,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY),
-                    });
-
                     drawingX = drawingX - 1;
                     graphicsGhost.DrawLine(new Pen(Color.Black), (drawingX + image.Width) + 1, (positionQuadrantY * quadrantDimension) + 1, (drawingX + image.Width) + 1, (positionQuadrantY * quadrantDimension) + 49);
                     if (drawingX < (positionQuadrantX * quadrantDimension) + 20)
@@ -549,6 +538,15 @@ namespace FarthorlPacMan
 
                     if (drawingX == ((positionQuadrantX - 1) * quadrantDimension) + 8)
                     {
+                        graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+                        {
+                        new System.Drawing.Point(drawingX,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY),
+                        });
+
                         positionQuadrantX = positionQuadrantX - 1;
                         this.MoveNext();
                     }
@@ -561,15 +559,6 @@ namespace FarthorlPacMan
                     {
                         this.MoveNext();
                     }
-
-                    graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
-                    {
-                        new System.Drawing.Point(drawingX,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY),
-                    });
 
                     drawingY = drawingY - 1;
 
@@ -584,6 +573,15 @@ namespace FarthorlPacMan
 
                     if (drawingY == ((positionQuadrantY - 1) * quadrantDimension) + 4)
                     {
+                        graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+                        {
+                        new System.Drawing.Point(drawingX,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY),
+                        });
+
                         positionQuadrantY = positionQuadrantY - 1;
                         this.MoveNext();
                     }
@@ -597,15 +595,6 @@ namespace FarthorlPacMan
                         this.MoveNext();
                     }
 
-                    graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
-                    {
-                        new System.Drawing.Point(drawingX,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY),
-                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY+image.Height),
-                        new System.Drawing.Point(drawingX,drawingY),
-                    });
-
                     drawingY = drawingY + 1;
                     graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * quadrantDimension) + 1, (drawingY + 4) - 1, (positionQuadrantX * quadrantDimension) + 49, (drawingY + 4) - 1);
                     if (drawingY > (positionQuadrantY * quadrantDimension) + 20)
@@ -618,6 +607,15 @@ namespace FarthorlPacMan
 
                     if (drawingY == ((positionQuadrantY + 1) * quadrantDimension) + 4)
                     {
+                        graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+                        {
+                        new System.Drawing.Point(drawingX,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY),
+                        new System.Drawing.Point(drawingX+image.Width,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY+image.Height),
+                        new System.Drawing.Point(drawingX,drawingY),
+                        });
+
                         positionQuadrantY = positionQuadrantY + 1;
                         this.MoveNext();
                     }
