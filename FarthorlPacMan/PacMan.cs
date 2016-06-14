@@ -23,6 +23,7 @@ namespace FarthorlPacMan
         private int drawingCoordinatesY;
         private Engine engine;
         private Graphics graphics;
+        private Player player=new Player();
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
@@ -168,8 +169,6 @@ namespace FarthorlPacMan
             diameter + 6,
             diameter + 6
             );
-
-
 
             switch (moving)
             {
@@ -506,7 +505,6 @@ namespace FarthorlPacMan
                 {
                     tryMoveDown();
                 }
-
             }
         }
 
@@ -541,13 +539,12 @@ namespace FarthorlPacMan
         public void EatPoint(int quadrantX, int quadrantY)
         {
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
-            SoundPlayer food = new SoundPlayer(@"DataFiles\Sounds\pacman_eatfruit.wav");
 
             if (elements[1] == "1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
-                food.Play();
+                player.Play("eatfruit");
                 engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
             }

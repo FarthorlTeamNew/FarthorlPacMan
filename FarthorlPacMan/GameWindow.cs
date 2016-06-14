@@ -28,7 +28,7 @@ namespace FarthorlPacMan
             {
                 Graphics graphics = pacMan.CreateGraphics();
                 Graphics graphicsGhost = pacMan.CreateGraphics();
-                this.game.startDraw(graphics,graphicsGhost, this);
+                this.game.startDraw(graphics, graphicsGhost, this);
                 this.isInicialize = true;
             }
 
@@ -85,7 +85,7 @@ namespace FarthorlPacMan
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
             Application.Restart();
             Environment.Exit(0);
         }

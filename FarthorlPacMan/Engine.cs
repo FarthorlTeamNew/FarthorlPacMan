@@ -31,6 +31,7 @@ namespace FarthorlPacMan
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
+        private Player player=new Player();
 
         public Engine(Graphics graphic, Graphics graphicsGhost, GameWindow game)
         {
@@ -180,10 +181,7 @@ namespace FarthorlPacMan
 
         private void PlaySound()
         {
-            string sMediPath = @"DataFiles\Sounds";
-            SoundPlayer intro = new SoundPlayer();
-            intro.Stream = File.OpenRead(Path.Combine(sMediPath, "pacman_beginning.wav"));
-            intro.Play();
+            player.Play("begining");
         }
 
         private void UpdateLeftSores(int pacManScores)

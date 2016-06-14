@@ -544,7 +544,7 @@ namespace FarthorlPacMan
 
                 case "Down":
 
-                    if (drawingY==0)
+                    if (drawingY == 0)
                     {
                         this.MoveNext();
                     }

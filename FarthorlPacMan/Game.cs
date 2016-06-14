@@ -12,7 +12,7 @@ namespace FarthorlPacMan
         public void startDraw(Graphics graphic, Graphics graphicsGhost, GameWindow game)
         {
             this.graphicEngine = new Engine(graphic, graphicsGhost, game);
-            this.graphicEngine.Initialize(); 
+            this.graphicEngine.Initialize();
         }
 
         public void Redraw()
