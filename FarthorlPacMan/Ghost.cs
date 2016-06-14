@@ -20,7 +20,6 @@ namespace FarthorlPacMan
         private const int pacManDistanceX = 3;
         private const int pacManDistanceY = 0;
         private const int speedDrawing = 6;
-        private Color GhostColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
         private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
@@ -206,7 +205,10 @@ namespace FarthorlPacMan
 
         private void MoveNext()
         {
-            if (!String.IsNullOrEmpty(movedDirection))
+            CheckExistDirections();
+            var newDirection = SelectRandomRoad(movedDirection);
+
+            if (!String.IsNullOrEmpty(newDirection))
             {
                 if (movedDirection == "Right")
                 {
@@ -491,10 +493,10 @@ namespace FarthorlPacMan
                     graphicsGhost.DrawImage(imageFile, (drawingX), positionQuadrantY * quadrantDimension + 4);
                     graphicsGhost.DrawLine(new Pen(Color.Black), drawingX - 1, (positionQuadrantY * quadrantDimension) + 1, drawingX - 1, (positionQuadrantY * quadrantDimension) + 49);
                     System.Threading.Thread.Sleep(speedDrawing);
-                    if (drawingX == positionQuadrantX + 1)
+
+                    if (drawingX == ((positionQuadrantX + 1) * quadrantDimension)+8)
                     {
                         positionQuadrantX = positionQuadrantX + 1;
-                        positionQuadrantY = positionQuadrantY;
                         this.MoveNext();
                     }
 
@@ -512,10 +514,9 @@ namespace FarthorlPacMan
                     graphicsGhost.DrawLine(new Pen(Color.Black), (drawingX + imageFile.Width) + 1, (positionQuadrantY * quadrantDimension) + 1, (drawingX + imageFile.Width) + 1, (positionQuadrantY * quadrantDimension) + 49);
                     System.Threading.Thread.Sleep(speedDrawing);
 
-                    if (drawingX == positionQuadrantX - 1)
+                    if (drawingX == ((positionQuadrantX - 1) * quadrantDimension) + 8)
                     {
                         positionQuadrantX = positionQuadrantX - 1;
-                        positionQuadrantY = positionQuadrantY;
                         this.MoveNext();
                     }
 
@@ -533,9 +534,8 @@ namespace FarthorlPacMan
                     graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * quadrantDimension) + 1, (drawingY + 4 + imageFile.Height) + 1, (positionQuadrantX * quadrantDimension) + 49, (drawingY + 4 + imageFile.Height) + 1);
                     System.Threading.Thread.Sleep(speedDrawing);
 
-                    if (drawingY == positionQuadrantY - 1)
+                    if (drawingY == ((positionQuadrantY - 1) * quadrantDimension) + 4)
                     {
-                        positionQuadrantX = positionQuadrantX;
                         positionQuadrantY = positionQuadrantY - 1;
                         this.MoveNext();
                     }
@@ -554,9 +554,8 @@ namespace FarthorlPacMan
                     graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * quadrantDimension) + 1, (drawingY + 4) - 1, (positionQuadrantX * quadrantDimension) + 49, (drawingY + 4) - 1);
                     System.Threading.Thread.Sleep(speedDrawing);
 
-                    if (drawingY == positionQuadrantY + 1)
+                    if (drawingY == ((positionQuadrantY + 1) * quadrantDimension) + 4)
                     {
-                        positionQuadrantX = positionQuadrantX;
                         positionQuadrantY = positionQuadrantY + 1;
                         this.MoveNext();
                     }
