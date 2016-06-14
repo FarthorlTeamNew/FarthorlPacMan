@@ -28,7 +28,8 @@ namespace FarthorlPacMan
             {
                 Graphics graphics = pacMan.CreateGraphics();
                 Graphics graphicsGhost = pacMan.CreateGraphics();
-                this.game.startDraw(graphics, graphicsGhost, this);
+                Graphics pointsGraphics = pacMan.CreateGraphics();
+                this.game.startDraw(graphics, graphicsGhost, pointsGraphics, this);
                 this.isInicialize = true;
             }
 

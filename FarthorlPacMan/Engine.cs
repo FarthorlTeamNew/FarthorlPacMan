@@ -14,10 +14,10 @@ namespace FarthorlPacMan
     {
         private Graphics graphics;
         private Graphics graphicsGhost;
+        private Graphics pointsGraphics;
         private Bitmap buffer = new Bitmap(1200, 650);
         private Task threadRenderingPacMan;
         private Task threadRenderingGhost;
-        private Task threadRenderingSound;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
@@ -31,12 +31,13 @@ namespace FarthorlPacMan
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
-        private Player player=new Player();
+        private Player player = new Player();
 
-        public Engine(Graphics graphic, Graphics graphicsGhost, GameWindow game)
+        public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
         {
             this.graphics = graphic;
             this.graphicsGhost = graphicsGhost;
+            this.pointsGraphics = pointsGraphics;
             this.game = game;
 
         }
@@ -214,14 +215,12 @@ namespace FarthorlPacMan
 
                 this.DrawContent();
                 this.inicializeLeftScores();
+                PlaySound();
 
 
                 threadRenderingGhost.Start();
-                Thread.Sleep(100);
                 threadRenderingPacMan.Start();
 
-                threadRenderingSound = new Task(PlaySound);
-                threadRenderingSound.Start();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
@@ -288,14 +287,25 @@ namespace FarthorlPacMan
             }
         }
 
-        public void DrawPoint(int quadrantX, int quandrantY)
+        public async void DrawPoint(int quadrantX, int quandrantY)
         {
-            Point point = new Point();
-            using (Graphics drawing = Graphics.FromImage(buffer))
+            if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
-                drawing.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
-                game.pacMan.BackgroundImage = buffer;
+                Point point = new Point();
+                try
+                {
+                    pointsGraphics.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+
             }
+
         }
 
         public void changeDirection(string newDirection)
