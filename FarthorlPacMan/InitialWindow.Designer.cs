@@ -76,6 +76,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MaximumSize = new System.Drawing.Size(566, 345);
             this.MinimumSize = new System.Drawing.Size(566, 345);
             this.Name = "InitialWindow";
