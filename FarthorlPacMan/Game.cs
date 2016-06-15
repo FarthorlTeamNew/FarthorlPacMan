@@ -15,7 +15,7 @@ namespace FarthorlPacMan
             this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
             this.graphicEngine.Initialize();
         }
-
+        
         public void Redraw()
         {
             graphicEngine.DrawContent();

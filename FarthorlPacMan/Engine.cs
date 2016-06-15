@@ -357,8 +357,6 @@ namespace FarthorlPacMan
         public int GetMaxY()
         {
             return this.yMax;
-        }
-
-
+        }       
     }
 }
