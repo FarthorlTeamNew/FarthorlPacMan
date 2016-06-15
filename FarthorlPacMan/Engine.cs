@@ -12,6 +12,7 @@
         private Graphics graphics;
         private Graphics graphicsGhost;
         private Graphics pointsGraphics;
+        // Change the level parameters - walls colour, matrix size, numbers of Ghosts
         private Bitmap buffer = new Bitmap(1200, 650);
         private Task threadRenderingPacMan;
         private Task threadRenderingGhost;
@@ -43,6 +44,7 @@
         {
             using (Graphics drawing = Graphics.FromImage(buffer))
             {
+                // draws Black background with the size of the window
                 drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
                 game.pacMan.BackgroundImage = buffer;
             }
@@ -55,7 +57,7 @@
                 drawing.DrawRectangle(new Pen(wallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
                 game.pacMan.BackgroundImage = buffer;
             }
-
+            // Draws the Level, cell by cell, Fills impassable areas, and points to eat
             for (int y = 0; y < yMax; y++)
             {
                 for (int x = 0; x < xMax; x++)
@@ -91,16 +93,17 @@
 
             }
         }
-
         private void initializeMatrix()
         {
             try
             {
+                // 6. Select Level from the Levels Directory here
                 string level = @"DataFiles\Levels\coordinates.txt";
 
                 using (var fileMatrix = new StreamReader(level))
                 {
                     string inputLine;
+                    // 7. While loop reads ALL the lines from the given coordinates.txt to build the level matrix
                     while ((inputLine = fileMatrix.ReadLine()) != null)
                     {
                         // Get values from the coordinates.txt example splitLine[0]=1,0 splitLine[1]=1|0|0|1|1
@@ -120,8 +123,7 @@
                         }
                         catch (Exception)
                         {
-                            throw new ArgumentException("Cannot conver string to integer");
-
+                            throw new ArgumentException("Cannot convert string to integer, please check the level coordinates");
                         }
 
                         //Add element data in to the specific point in the 2D array
@@ -147,7 +149,7 @@
             game.UpdateLeftScore(leftScore);
         }
 
-        //Heare is the logic for gaming
+        // Here is the gameplay logic
         private void RenderPacMan()
         {
             while (run)
@@ -190,27 +192,32 @@
 
         public void Initialize()
         {
-            //Initialize game if started for the first time
+            //5. Initialize game if started for the first time
             if (isInicialize == false)
             {
                 this.isInicialize = true;
+                // Builds the level, based on the given coordinates in the matrix
                 this.initializeMatrix();
 
                 threadRenderingPacMan = new Task(RenderPacMan);
                 pacMan = new PacMan(0, 0, this.graphics, this);
 
                 threadRenderingGhost = new Task(RenderGhost);
+                // Adds the desired number of ghosts
                 for (int i = 0; i < ghostElements; i++)
                 {
                     ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
                 }
 
+                // Starts drawing the level itself
                 this.DrawContent();
+                // Calculates how many total points are generated
                 this.inicializeLeftScores();
 
                 threadRenderingGhost.Start();
                 threadRenderingPacMan.Start();
 
+                // Plays the beginning intro from a given .WAV file
                 PlaySound();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }

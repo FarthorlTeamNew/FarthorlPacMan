@@ -33,7 +33,6 @@ namespace FarthorlPacMan
             this.engine = engine;
             this.graphicsGhost = graphicsGhost;
             this.InicializeGhost();
-
         }
 
         public Ghost(Engine engine, int X, int Y, Graphics graphicsGhost)
@@ -98,7 +97,6 @@ namespace FarthorlPacMan
             existDirections.Add("Right", false);
             CheckExistDirections();
             SelectRandomDirection();
-
         }
 
         private void CheckExistDirections()
@@ -138,7 +136,6 @@ namespace FarthorlPacMan
             {
                 existDirections["Right"] = false;
             }
-
         }
 
         private void SelectRandomDirection()
@@ -473,7 +470,6 @@ namespace FarthorlPacMan
         public void Draw()
         {
             graphicsGhost.DrawImage(image, (positionQuadrantX * quadrantDimension) + 8, positionQuadrantY * quadrantDimension + 4);
-
         }
 
         public void Move()
@@ -514,11 +510,9 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX + 1;
                         this.MoveNext();
                     }
-
                     break;
 
                 case "Left":
-
                     if (drawingX == 0)
                     {
                         this.MoveNext();
@@ -548,11 +542,9 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX - 1;
                         this.MoveNext();
                     }
-
                     break;
 
                 case "Up":
-
                     if (drawingY == 0)
                     {
                         this.MoveNext();
@@ -583,11 +575,8 @@ namespace FarthorlPacMan
                         positionQuadrantY = positionQuadrantY - 1;
                         this.MoveNext();
                     }
-
                     break;
-
                 case "Down":
-
                     if (drawingY == 0)
                     {
                         this.MoveNext();
@@ -617,10 +606,8 @@ namespace FarthorlPacMan
                         positionQuadrantY = positionQuadrantY + 1;
                         this.MoveNext();
                     }
-
                     break;
             }
-
         }
 
         public int GetQuadrantX()

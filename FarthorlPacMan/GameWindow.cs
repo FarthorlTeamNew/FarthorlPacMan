@@ -17,6 +17,7 @@ namespace FarthorlPacMan
         private bool isInicialize = false;
         private SoundPlayer pause = new SoundPlayer(@"DataFiles\Sounds\pause.wav");
 
+        //1. Initialize the Windows Forms Properties. menus, etc...
         public GameWindow()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace FarthorlPacMan
 
         }
 
+        // Game starts when any up, down, left, right key is pressed
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 39) //If press right arrow
@@ -69,6 +71,7 @@ namespace FarthorlPacMan
             LeftScore.Text = $"Left scores: {score}";
         }
 
+        //2. Checks whether the level is drawn and initialized
         private void GameWindow_Move(object sender, EventArgs e)
         {
             if (isInicialize)

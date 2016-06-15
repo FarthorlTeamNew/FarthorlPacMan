@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     class PacMan : IDisposable
     {
+        // Pacman attributes - diameter, colour, speed
         private Boolean isAlive = true;
         private int positionQuadrantX = 0;
         private int positionQuadrantY = 0;
@@ -22,6 +23,7 @@
         private Graphics graphics;
         private PlayerSound player = new PlayerSound();
 
+        // Getting ready to draw Pacman
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
@@ -535,6 +537,7 @@
 
         public void EatPoint(int quadrantX, int quadrantY)
         {
+            // Checks whether the current Quadrant has a point, and "eats" it if its present, while playing a sound
             string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
 
             if (elements[1] == "1")

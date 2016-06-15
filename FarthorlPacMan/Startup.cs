@@ -10,13 +10,10 @@ namespace FarthorlPacMan
 {
     static class Startup
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        // Game starts from here
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GameWindow());
