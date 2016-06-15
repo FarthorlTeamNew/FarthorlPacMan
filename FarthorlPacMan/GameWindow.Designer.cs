@@ -289,7 +289,7 @@
             this.ScoreLabel.Name = "ScoreLabel";
             this.ScoreLabel.Size = new System.Drawing.Size(250, 33);
             this.ScoreLabel.TabIndex = 2;
-            this.ScoreLabel.Text = "Scores:";
+            this.ScoreLabel.Text = "Points:";
             this.ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LeftScore
@@ -301,14 +301,14 @@
             this.LeftScore.Name = "LeftScore";
             this.LeftScore.Size = new System.Drawing.Size(250, 33);
             this.LeftScore.TabIndex = 3;
-            this.LeftScore.Text = "Left scores:";
+            this.LeftScore.Text = "Points Left:";
             this.LeftScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 737);
+            this.ClientSize = new System.Drawing.Size(1200, 736);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);

@@ -62,13 +62,13 @@ namespace FarthorlPacMan
 
         public void UpdateScores(int score)
         {
-            ScoreLabel.Text = $"Scores: {score}";
+            ScoreLabel.Text = $"Points: {score}";
 
         }
 
         public void UpdateLeftScore(int score)
         {
-            LeftScore.Text = $"Left scores: {score}";
+            LeftScore.Text = $"Points Left: {score}";
         }
 
         //2. Checks whether the level is drawn and initialized
