@@ -13,7 +13,7 @@ namespace FarthorlPacMan
         private int positionQuadrantY = 0;
         private const int diameter = 35;
         private const int quadrantDimension = 50;
-        private const int speedDrawing = 6;
+        private const int speedDrawing = 1;
         private Color pacManColor = Color.Yellow;
         private string movedDirection;
         private string previousDirection;
