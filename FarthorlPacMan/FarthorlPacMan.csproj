@@ -55,6 +55,12 @@
       <DependentUpon>GameWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Ghost.cs" />
+    <Compile Include="InitialWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitialWindow.Designer.cs">
+      <DependentUpon>InitialWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="PacMan.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Player.cs" />
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitialWindow.resx">
+      <DependentUpon>InitialWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -130,6 +139,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\grass.jpg" />
+    <None Include="Resources\MenuBackGround.png" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

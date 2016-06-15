@@ -76,7 +76,6 @@ namespace FarthorlPacMan
                 pause.Play();
                 game.PauseGame();
             }
-
         }
 
         private void GameWindow_Load(object sender, EventArgs e)
@@ -84,28 +83,9 @@ namespace FarthorlPacMan
 
         }
 
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GameWindow_Closed(object sender, FormClosedEventArgs e)
         {
-
-            Application.Restart();
-            Environment.Exit(0);
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            Application.Exit();
-            Environment.Exit(0);
-        }
-
-        private void GameWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.game.stopGame();
-        }
-
-        private void GameWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.game.stopGame();
+            Environment.Exit(0);    
         }
     }
 }
