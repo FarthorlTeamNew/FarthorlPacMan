@@ -5,7 +5,7 @@ namespace FarthorlPacMan
 {
     using System.Drawing;
 
-    class Game
+    class Game:IDisposable
     {
         private Engine graphicEngine;
 
@@ -38,6 +38,23 @@ namespace FarthorlPacMan
         {
             this.graphicEngine.StopGame();
             Environment.Exit(0);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                if (this.graphicEngine != null)
+                {
+                    this.graphicEngine.Dispose();
+                }
+            }
         }
     }
 }

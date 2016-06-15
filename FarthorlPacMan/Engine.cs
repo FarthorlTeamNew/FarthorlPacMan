@@ -1,16 +1,13 @@
-﻿using System.Linq;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Threading;
     using System.Drawing;
     using System.Windows.Forms;
-    using System.Media;
     using System.Threading.Tasks;
-    public class Engine
+
+    public class Engine : IDisposable
     {
         private Graphics graphics;
         private Graphics graphicsGhost;
@@ -21,7 +18,7 @@ namespace FarthorlPacMan
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
-        private int leftScore = 0;
+        private int leftScore;
         private int ghostElements = 4;
         private bool run = true;
         private string moveDirection;
@@ -31,7 +28,7 @@ namespace FarthorlPacMan
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
-        private Player player = new Player();
+        private PlayerSound player = new PlayerSound();
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
         {
@@ -100,9 +97,6 @@ namespace FarthorlPacMan
             try
             {
                 string level = @"DataFiles\Levels\coordinates.txt";
-                //string level = @"DataFiles\Levels\level2.txt";
-                //string level = @"DataFiles\Levels\level3.txt";
-                //string level = @"DataFiles\Levels\level4.txt";
 
                 using (var fileMatrix = new StreamReader(level))
                 {
@@ -137,7 +131,6 @@ namespace FarthorlPacMan
             }
             catch (Exception)
             {
-                pathsMatrix = pathsMatrix;
                 throw new FileLoadException();
             }
         }
@@ -160,13 +153,13 @@ namespace FarthorlPacMan
             while (run)
             {
                 pacMan.DrawPacMan();
-                pacMan.move(moveDirection);
+                pacMan.Move(moveDirection);
                 game.UpdateScores(pacMan.getScore());
                 UpdateLeftSores(pacMan.getScore());
             }
         }
 
-        private async void RenderGhost()
+        private void RenderGhost()
         {
             while (run)
             {
@@ -174,7 +167,7 @@ namespace FarthorlPacMan
                 {
                     foreach (var ghost in ghosts)
                     {
-                        await ghost.Move();
+                        ghost.Move();
                     }
                 }
             }
@@ -192,7 +185,6 @@ namespace FarthorlPacMan
             {
                 this.run = false;
                 game.panel1.Visible = true;
-                game.panel1.BringToFront();
             }
         }
 
@@ -204,10 +196,10 @@ namespace FarthorlPacMan
                 this.isInicialize = true;
                 this.initializeMatrix();
 
-                threadRenderingGhost = new Task(RenderGhost);
                 threadRenderingPacMan = new Task(RenderPacMan);
                 pacMan = new PacMan(0, 0, this.graphics, this);
 
+                threadRenderingGhost = new Task(RenderGhost);
                 for (int i = 0; i < ghostElements; i++)
                 {
                     ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
@@ -215,12 +207,11 @@ namespace FarthorlPacMan
 
                 this.DrawContent();
                 this.inicializeLeftScores();
-                PlaySound();
-
 
                 threadRenderingGhost.Start();
                 threadRenderingPacMan.Start();
 
+                PlaySound();
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
@@ -237,7 +228,6 @@ namespace FarthorlPacMan
 
         public void StopGame()
         {
-
         }
 
         public void PauseGame()
@@ -289,7 +279,7 @@ namespace FarthorlPacMan
 
         //TODO Refactoring
         //Remove try section
-        public async void DrawPoint(int quadrantX, int quandrantY)
+        public void DrawPoint(int quadrantX, int quandrantY)
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
@@ -348,6 +338,42 @@ namespace FarthorlPacMan
             return this.yMax;
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                if (threadRenderingPacMan != null)
+                {
+                    threadRenderingPacMan.Dispose();
+                }
+
+                if (threadRenderingGhost != null)
+                {
+                    threadRenderingGhost.Dispose();
+                }
+
+                if (buffer != null)
+                {
+                    buffer.Dispose();
+                }
+
+                if (player != null)
+                {
+                    player.Dispose();
+                }
+
+                if (pacMan != null)
+                {
+                    pacMan.Dispose();
+                }
+            }
+        }
     }
 }

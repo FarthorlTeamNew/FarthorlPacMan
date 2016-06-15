@@ -1,12 +1,9 @@
-﻿using System.Media;
-using System.Threading;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
     using System;
     using System.Drawing;
     using System.Threading.Tasks;
-    class PacMan
+    class PacMan : IDisposable
     {
         private Boolean isAlive = true;
         private int positionQuadrantX = 0;
@@ -23,7 +20,8 @@ namespace FarthorlPacMan
         private int drawingCoordinatesY;
         private Engine engine;
         private Graphics graphics;
-        private Player player = new Player();
+        private PlayerSound player = new PlayerSound();
+
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
         {
             this.positionQuadrantX = positionXQaundarnt;
@@ -41,7 +39,7 @@ namespace FarthorlPacMan
             EatPoint(positionQuadrantX, positionQuadrantY);
         }
 
-        private async void tryMoveRight()
+        private void tryMoveRight()
         {
             if (this.positionQuadrantX < engine.GetMaxX() - 1)
             {
@@ -55,7 +53,7 @@ namespace FarthorlPacMan
                     previousDirection = "Right";
                     movedDirection = "Right";
                     stopDirection = "";
-                    await movePacMan(nextQuandrantX, nextQuadrantY, "Right");
+                    movePacMan(nextQuandrantX, nextQuadrantY, "Right");
                 }
                 else if (elements[0] == "1")
                 {
@@ -65,12 +63,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     movedDirection = "";
-                    this.move(previousDirection);
+                    this.Move(previousDirection);
                 }
             }
         }
 
-        private async void tryMoveLeft()
+        private void tryMoveLeft()
         {
             if (positionQuadrantX > 0)
             {
@@ -83,7 +81,7 @@ namespace FarthorlPacMan
                     previousDirection = "Left";
                     movedDirection = "Left";
                     stopDirection = "";
-                    await this.movePacMan(nextQuandrantX, nextQuadrantY, "Left");
+                    this.movePacMan(nextQuandrantX, nextQuadrantY, "Left");
                 }
                 else if (elements[0] == "1")
                 {
@@ -93,12 +91,12 @@ namespace FarthorlPacMan
                         previousDirection = "";
                     }
                     movedDirection = "";
-                    this.move(previousDirection);
+                    this.Move(previousDirection);
                 }
             }
         }
 
-        private async void tryMoveUp()
+        private void tryMoveUp()
         {
             if (positionQuadrantY > 0)
             {
@@ -111,7 +109,7 @@ namespace FarthorlPacMan
                     previousDirection = "Up";
                     movedDirection = "Up";
                     stopDirection = "";
-                    await this.movePacMan(nextQuandrantX, nextQuadrantY, "Up");
+                    this.movePacMan(nextQuandrantX, nextQuadrantY, "Up");
 
                 }
                 else if (elements[0] == "1")
@@ -123,12 +121,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     movedDirection = "";
-                    this.move(previousDirection);
+                    this.Move(previousDirection);
                 }
             }
         }
 
-        private async void tryMoveDown()
+        private void tryMoveDown()
         {
             if (positionQuadrantY < engine.GetMaxY() - 1)
             {
@@ -142,7 +140,7 @@ namespace FarthorlPacMan
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
                     stopDirection = "";
-                    await this.movePacMan(nextQuandrantX, nextQuadrantY, "Down");
+                    this.movePacMan(nextQuandrantX, nextQuadrantY, "Down");
 
                 }
                 else if (elements[0] == "1")
@@ -153,12 +151,12 @@ namespace FarthorlPacMan
                         stopDirection = movedDirection;
                     }
                     this.movedDirection = "";
-                    this.move(previousDirection);
+                    this.Move(previousDirection);
                 }
             }
         }
 
-        private async Task<bool> movePacMan(int nextX, int nextY, string moving)
+        private void movePacMan(int nextX, int nextY, string moving)
         {
 
             int coef = 0;
@@ -472,7 +470,6 @@ namespace FarthorlPacMan
                     break;
             }
 
-            return true;
         }
 
         private void DrawPoint(int quadrantX, int quadrantY)
@@ -485,7 +482,7 @@ namespace FarthorlPacMan
             }
         }
 
-        public void move(string direction)
+        public void Move(string direction)
         {
             if (!String.IsNullOrEmpty(direction))
             {
@@ -547,6 +544,22 @@ namespace FarthorlPacMan
                 player.Play("eatfruit");
                 engine.EatPointAndUpdateMatrix(this.positionQuadrantX, this.positionQuadrantY, elements);
 
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (player != null)
+                {
+                    player.Dispose();
+                }
             }
         }
 
