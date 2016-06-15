@@ -35,7 +35,6 @@ namespace FarthorlPacMan
             this.engine = engine;
             this.graphicsGhost = graphicsGhost;
             this.InicializeGhost();
-
         }
 
         public Ghost(Engine engine, int X, int Y, Graphics graphicsGhost)
@@ -48,7 +47,6 @@ namespace FarthorlPacMan
 
         private Dictionary<string, int> createCoordinatesXY(int pacManX, int pacManY)
         {
-
             List<int[]> ghostMatrix = new List<int[]>();
             Dictionary<string, int> resultXY = new Dictionary<string, int>();
             System.Threading.Thread.Sleep(random.Next(100, 500));
@@ -78,7 +76,6 @@ namespace FarthorlPacMan
             {
                 createCoordinatesXY(pacManX, pacManY);
             }
-
             resultXY.Add("QuadrantX", ghostMatrix[quadrantIndex][0]);
             resultXY.Add("QuadrantY", ghostMatrix[quadrantIndex][1]);
 
@@ -100,7 +97,6 @@ namespace FarthorlPacMan
             existDirections.Add("Right", false);
             CheckExistDirections();
             SelectRandomDirection();
-
         }
 
         private void CheckExistDirections()
@@ -145,6 +141,7 @@ namespace FarthorlPacMan
 
         private void SelectRandomDirection()
         {
+
             List<string> existRoads = new List<string>();
             foreach (var exist in existDirections)
             {
@@ -172,12 +169,10 @@ namespace FarthorlPacMan
             else if (existDirection == "Down")
             {
                 notEqualDirection = "Up";
-
             }
             else if (existDirection == "Right")
             {
                 notEqualDirection = "Left";
-
             }
             else if (existDirection == "Left")
             {
@@ -206,9 +201,9 @@ namespace FarthorlPacMan
 
         private void MoveNext()
         {
-
             CheckExistDirections();
             var newDirection = SelectRandomRoad(movedDirection);
+
 
             if (!String.IsNullOrEmpty(newDirection))
             {
@@ -493,7 +488,7 @@ namespace FarthorlPacMan
 
                     drawingX = drawingX + 1;
                     graphicsGhost.DrawLine(new Pen(Color.Black), drawingX - 1, (positionQuadrantY * quadrantDimension) + 1, drawingX - 1, (positionQuadrantY * quadrantDimension) + 49);
-                    if (drawingX > (positionQuadrantX*quadrantDimension) + 20)
+                    if (drawingX > (positionQuadrantX * quadrantDimension) + 20)
                     {
                         engine.DrawPoint(positionQuadrantX, positionQuadrantY);
                     }

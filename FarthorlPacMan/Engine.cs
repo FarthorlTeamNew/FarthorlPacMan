@@ -39,7 +39,6 @@ namespace FarthorlPacMan
             this.graphicsGhost = graphicsGhost;
             this.pointsGraphics = pointsGraphics;
             this.game = game;
-
         }
 
         private void DrawFontColor()

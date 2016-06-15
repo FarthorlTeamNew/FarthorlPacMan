@@ -1,5 +1,4 @@
-﻿
-using System.Media;
+﻿using System.Media;
 
 namespace FarthorlPacMan
 {
@@ -7,11 +6,11 @@ namespace FarthorlPacMan
 
     class Player
     {
-        private SoundPlayer player=new SoundPlayer();
+        private SoundPlayer player = new SoundPlayer();
         Dictionary<string, string> sounds = new Dictionary<string, string>();
 
-        public Player() {
-
+        public Player()
+        {
             sounds.Add("begining", "DataFiles/Sounds/pacman_beginning.wav");
             sounds.Add("eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav");
         }
@@ -20,7 +19,7 @@ namespace FarthorlPacMan
         {
             if (sounds.ContainsKey(sound))
             {
-                player =new SoundPlayer(sounds[sound]);
+                player = new SoundPlayer(sounds[sound]);
                 player.Play();
             }
         }

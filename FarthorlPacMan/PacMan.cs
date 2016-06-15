@@ -33,7 +33,6 @@ namespace FarthorlPacMan
             this.engine = engine;
             this.graphics = graphics;
             this.initializePacMan();
-
         }
 
         private void initializePacMan()
@@ -51,7 +50,6 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
                     previousDirection = "Right";
                     movedDirection = "Right";
                     stopDirection = "";
@@ -112,7 +110,6 @@ namespace FarthorlPacMan
                     movedDirection = "Up";
                     stopDirection = "";
                     await this.movePacMan(nextQuandrantX, nextQuadrantY, "Up");
-
                 }
                 else if (elements[0] == "1")
                 {
@@ -138,7 +135,6 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
                     stopDirection = "";
@@ -160,7 +156,6 @@ namespace FarthorlPacMan
 
         private async Task<bool> movePacMan(int nextX, int nextY, string moving)
         {
-
             int coef = 0;
             graphics.FillRectangle(
             new SolidBrush(Color.Black),
@@ -259,7 +254,6 @@ namespace FarthorlPacMan
                                 diameter
                                 )
                                     );
-
 
                         graphics.FillEllipse(
                            new SolidBrush(pacManColor), x - (diameter / 2),
