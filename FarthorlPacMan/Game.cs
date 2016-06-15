@@ -9,6 +9,7 @@ namespace FarthorlPacMan
     {
         private Engine graphicEngine;
 
+        // 4. Starts drawing the graphics, Ghosts, points, and the level design itself
         public void startDraw(Graphics graphic, Graphics graphicsGhost,Graphics pointsGraphics, GameWindow game)
         {
             this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);

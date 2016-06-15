@@ -136,7 +136,6 @@ namespace FarthorlPacMan
             {
                 existDirections["Right"] = false;
             }
-
         }
 
         private void SelectRandomDirection()
@@ -470,7 +469,6 @@ namespace FarthorlPacMan
         public void Draw()
         {
             graphicsGhost.DrawImage(image, (positionQuadrantX * quadrantDimension) + 8, positionQuadrantY * quadrantDimension + 4);
-
         }
 
         public async Task<bool> Move()
@@ -511,11 +509,9 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX + 1;
                         this.MoveNext();
                     }
-
                     break;
 
                 case "Left":
-
                     if (drawingX == 0)
                     {
                         this.MoveNext();
@@ -545,11 +541,9 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX - 1;
                         this.MoveNext();
                     }
-
                     break;
 
                 case "Up":
-
                     if (drawingY == 0)
                     {
                         this.MoveNext();
@@ -580,11 +574,8 @@ namespace FarthorlPacMan
                         positionQuadrantY = positionQuadrantY - 1;
                         this.MoveNext();
                     }
-
                     break;
-
                 case "Down":
-
                     if (drawingY == 0)
                     {
                         this.MoveNext();
@@ -614,10 +605,11 @@ namespace FarthorlPacMan
                         positionQuadrantY = positionQuadrantY + 1;
                         this.MoveNext();
                     }
-
                     break;
             }
+
             return true;
+
         }
 
         public int GetQuadrantX()
