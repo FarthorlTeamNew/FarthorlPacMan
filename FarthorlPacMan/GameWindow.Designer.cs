@@ -58,7 +58,7 @@
             this.pacMan.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pacMan.Controls.Add(this.panel1);
             this.pacMan.Controls.Add(this.PausePanel);
-            this.pacMan.Location = new System.Drawing.Point(1, 23);
+            this.pacMan.Location = new System.Drawing.Point(1, -4);
             this.pacMan.MaximumSize = new System.Drawing.Size(1200, 650);
             this.pacMan.MinimumSize = new System.Drawing.Size(1200, 650);
             this.pacMan.Name = "pacMan";
@@ -283,8 +283,8 @@
             // ScoreLabel
             // 
             this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ScoreLabel.Location = new System.Drawing.Point(12, 695);
+            this.ScoreLabel.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ScoreLabel.Location = new System.Drawing.Point(12, 649);
             this.ScoreLabel.MinimumSize = new System.Drawing.Size(250, 30);
             this.ScoreLabel.Name = "ScoreLabel";
             this.ScoreLabel.Size = new System.Drawing.Size(250, 33);
@@ -295,8 +295,8 @@
             // LeftScore
             // 
             this.LeftScore.AutoSize = true;
-            this.LeftScore.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftScore.Location = new System.Drawing.Point(295, 695);
+            this.LeftScore.Font = new System.Drawing.Font("Showcard Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LeftScore.Location = new System.Drawing.Point(306, 649);
             this.LeftScore.MinimumSize = new System.Drawing.Size(250, 30);
             this.LeftScore.Name = "LeftScore";
             this.LeftScore.Size = new System.Drawing.Size(250, 33);
@@ -308,13 +308,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 736);
+            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ClientSize = new System.Drawing.Size(1200, 682);
             this.Controls.Add(this.LeftScore);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.pacMan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1216, 775);
+            this.MaximumSize = new System.Drawing.Size(1216, 720);
             this.MinimumSize = new System.Drawing.Size(1216, 596);
             this.Name = "GameWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
