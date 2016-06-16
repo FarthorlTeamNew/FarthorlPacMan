@@ -2,23 +2,6 @@
 {
     partial class InitialWindow
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -72,7 +55,7 @@
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
-            this.ClientSize = new System.Drawing.Size(550, 307);
+            this.ClientSize = new System.Drawing.Size(550, 306);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -82,6 +65,7 @@
             this.Name = "InitialWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
+            this.Load += new System.EventHandler(this.InitialWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

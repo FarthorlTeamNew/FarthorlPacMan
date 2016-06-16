@@ -12,6 +12,8 @@ namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
+        GameWindow gameWindow = new GameWindow();
+        PlayerSound player =new PlayerSound();
         public InitialWindow()
         {
             InitializeComponent();
@@ -25,14 +27,19 @@ namespace FarthorlPacMan
 
         private void button4_Click(object sender, EventArgs e)
         {
-            GameWindow gameWindow = new GameWindow();
             gameWindow.FormClosed += new FormClosedEventHandler(gameWindow_FormClosed);
             Hide();
             gameWindow.Show();
         }
         private void gameWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
+            gameWindow.stopGame();
             this.Show();
+        }
+
+        private void InitialWindow_Load(object sender, EventArgs e)
+        {
+            player.Play("begining");
         }
     }
 }

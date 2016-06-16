@@ -7,7 +7,6 @@ namespace FarthorlPacMan
     using System.Collections.Generic;
     class Ghost
     {
-        private Boolean isAlive = true;
         private Random random = new Random();
         private int positionQuadrantX = 0;
         private int positionQuadrantY = 0;
@@ -300,7 +299,6 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    //await moveGhost(nextQuandrantX, nextQuadrantY, "Left");
                 }
                 else
                 {
@@ -419,7 +417,6 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Down";
                     movedDirection = "Down";
-                    //await moveGhost(nextQuandrantX, nextQuadrantY, "Down");
                 }
                 else
                 {

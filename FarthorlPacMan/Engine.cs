@@ -1,29 +1,28 @@
-﻿using System.Linq;
+﻿using System.Threading;
 
 namespace FarthorlPacMan
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Threading;
     using System.Drawing;
     using System.Windows.Forms;
-    using System.Media;
     using System.Threading.Tasks;
-    public class Engine
+
+    public class Engine : IDisposable
     {
         private Graphics graphics;
         private Graphics graphicsGhost;
         private Graphics pointsGraphics;
-        // Change the level parameters - walls colour, matrix size, numbers of Ghosts
         private Bitmap buffer = new Bitmap(1200, 650);
         private Task threadRenderingPacMan;
         private Task threadRenderingGhost;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
-        private int leftScore = 0;
+        private int leftScore;
         private int ghostElements = 4;
+        private int pacManEatScores = 0;
         private bool run = true;
         private string moveDirection;
         private Color wallColor = Color.Cyan;
@@ -32,7 +31,7 @@ namespace FarthorlPacMan
         private PacMan pacMan;
         private List<Point> points = new List<Point>();
         private List<Ghost> ghosts = new List<Ghost>();
-        private Player player = new Player();
+        private PlayerSound player = new PlayerSound();
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
         {
@@ -40,13 +39,43 @@ namespace FarthorlPacMan
             this.graphicsGhost = graphicsGhost;
             this.pointsGraphics = pointsGraphics;
             this.game = game;
+
+        }
+
+        public void Initialize()
+        {
+            //Initialize game if started for the first time
+            if (isInicialize == false)
+            {
+                this.isInicialize = true;
+                this.initializeMatrix();
+                this.DrawContent();
+                this.inicializeLeftScores();
+
+                threadRenderingPacMan = new Task(RenderPacMan);
+                threadRenderingGhost = new Task(RenderGhost);
+                pacMan = new PacMan(0, 0, this.graphics, this);
+
+                for (int i = 0; i < ghostElements; i++)
+                {
+                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
+                }
+
+                threadRenderingPacMan.Start();
+                threadRenderingGhost.Start();
+
+                Control.CheckForIllegalCrossThreadCalls = false;
+            }
+            else
+            {
+                this.DrawContent();
+            }
         }
 
         private void DrawFontColor()
         {
             using (Graphics drawing = Graphics.FromImage(buffer))
             {
-                // draws Black background with the size of the window
                 drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
                 game.pacMan.BackgroundImage = buffer;
             }
@@ -59,7 +88,7 @@ namespace FarthorlPacMan
                 drawing.DrawRectangle(new Pen(wallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
                 game.pacMan.BackgroundImage = buffer;
             }
-            // Draws the Level, cell by cell, Fills impassable areas, and points to eat
+
             for (int y = 0; y < yMax; y++)
             {
                 for (int x = 0; x < xMax; x++)
@@ -95,20 +124,16 @@ namespace FarthorlPacMan
 
             }
         }
+
         private void initializeMatrix()
         {
             try
             {
-                // 6. Select Level from the Levels Directory here
                 string level = @"DataFiles\Levels\coordinates.txt";
-                //string level = @"DataFiles\Levels\level2.txt";
-                //string level = @"DataFiles\Levels\level3.txt";
-                //string level = @"DataFiles\Levels\level4.txt";
 
                 using (var fileMatrix = new StreamReader(level))
                 {
                     string inputLine;
-                    // 7. While loop reads ALL the lines from the given coordinates.txt to build the level matrix
                     while ((inputLine = fileMatrix.ReadLine()) != null)
                     {
                         // Get values from the coordinates.txt example splitLine[0]=1,0 splitLine[1]=1|0|0|1|1
@@ -128,7 +153,8 @@ namespace FarthorlPacMan
                         }
                         catch (Exception)
                         {
-                            throw new ArgumentException("Cannot convert string to integer, please check the level coordinates");
+                            throw new ArgumentException("Cannot conver string to integer");
+
                         }
 
                         //Add element data in to the specific point in the 2D array
@@ -138,7 +164,6 @@ namespace FarthorlPacMan
             }
             catch (Exception)
             {
-                pathsMatrix = pathsMatrix;
                 throw new FileLoadException();
             }
         }
@@ -155,19 +180,17 @@ namespace FarthorlPacMan
             game.UpdateLeftScore(leftScore);
         }
 
-        // Here is the gameplay logic
+        //Heare is the logic for gaming
         private void RenderPacMan()
         {
             while (run)
             {
                 pacMan.DrawPacMan();
-                pacMan.move(moveDirection);
-                game.UpdateScores(pacMan.getScore());
-                UpdateLeftSores(pacMan.getScore());
+                pacMan.Run(moveDirection);
             }
         }
 
-        private async void RenderGhost()
+        private void RenderGhost()
         {
             while (run)
             {
@@ -175,15 +198,10 @@ namespace FarthorlPacMan
                 {
                     foreach (var ghost in ghosts)
                     {
-                        await ghost.Move();
+                        ghost.Move();
                     }
                 }
             }
-        }
-
-        private void PlaySound()
-        {
-            player.Play("begining");
         }
 
         private void UpdateLeftSores(int pacManScores)
@@ -193,50 +211,6 @@ namespace FarthorlPacMan
             {
                 this.run = false;
                 game.panel1.Visible = true;
-                game.panel1.BringToFront();
-            }
-        }
-
-        public void Initialize()
-        {
-            //5. Initialize game if started for the first time
-            if (isInicialize == false)
-            {
-                this.isInicialize = true;
-                // Builds the level, based on the given coordinates in the matrix
-                this.initializeMatrix();
-
-                threadRenderingGhost = new Task(RenderGhost);
-                threadRenderingPacMan = new Task(RenderPacMan);
-                pacMan = new PacMan(0, 0, this.graphics, this);
-
-
-                threadRenderingGhost = new Task(RenderGhost);
-                // Adds the desired number of ghosts
-
-                for (int i = 0; i < ghostElements; i++)
-                {
-                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
-                }
-
-                // Starts drawing the level itself
-                this.DrawContent();
-                // Calculates how many total points are generated
-                this.inicializeLeftScores();
-                PlaySound();
-
-
-                threadRenderingGhost.Start();
-                threadRenderingPacMan.Start();
-
-                // Plays the beginning intro from a given .WAV file
-                PlaySound();
-
-                Control.CheckForIllegalCrossThreadCalls = false;
-            }
-            else
-            {
-                this.DrawContent();
             }
         }
 
@@ -287,6 +261,7 @@ namespace FarthorlPacMan
                 {
                     point.EatPoint();
                     pointDiameter = point.getDiameter();
+                    pacManEatScores = pacManEatScores + 1;
                     break;
                 }
             }
@@ -296,11 +271,14 @@ namespace FarthorlPacMan
                 drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
                 this.game.pacMan.BackgroundImage = buffer;
             }
+
+            game.UpdateScores(pacManEatScores);
+            UpdateLeftSores(pacManEatScores);
         }
 
         //TODO Refactoring
         //Remove try section
-        public async void DrawPoint(int quadrantX, int quandrantY)
+        public void DrawPoint(int quadrantX, int quandrantY)
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
@@ -334,7 +312,13 @@ namespace FarthorlPacMan
             {
                 return true;
             }
+
             return false;
+        }
+
+        public string GetDirection()
+        {
+            return moveDirection;
         }
 
         public bool isExistGhost(int quadrantX, int quadrantY)
@@ -357,6 +341,46 @@ namespace FarthorlPacMan
         public int GetMaxY()
         {
             return this.yMax;
-        }       
+
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                if (threadRenderingPacMan != null)
+                {
+                    threadRenderingPacMan.Dispose();
+                }
+
+                if (threadRenderingGhost != null)
+                {
+                    threadRenderingGhost.Dispose();
+                }
+
+                if (buffer != null)
+                {
+                    buffer.Dispose();
+                }
+
+                if (player != null)
+                {
+                    player.Dispose();
+                }
+
+                if (pacMan != null)
+                {
+                    pacMan.Dispose();
+                }
+            }
+        }
     }
 }
