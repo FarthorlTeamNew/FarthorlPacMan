@@ -14,6 +14,7 @@
 
             sounds.Add("begining", "DataFiles/Sounds/pacman_beginning.wav");
             sounds.Add("eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav");
+            sounds.Add("pause", "DataFiles/Sounds/pause.wav");
         }
 
         public void Play(string sound)

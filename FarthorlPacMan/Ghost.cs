@@ -25,7 +25,6 @@ namespace FarthorlPacMan
         private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Engine engine;
         private Graphics graphicsGhost;
-        private Point point;
 
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost, Engine engine)
         {
@@ -224,7 +223,7 @@ namespace FarthorlPacMan
             }
         }
 
-        private async void tryMoveRight()
+        private void tryMoveRight()
         {
             if (positionQuadrantX < engine.GetMaxX() - 1)
             {
@@ -287,7 +286,7 @@ namespace FarthorlPacMan
 
         }
 
-        private async void tryMoveLeft()
+        private void tryMoveLeft()
         {
             if (positionQuadrantX > 0)
             {
@@ -345,7 +344,7 @@ namespace FarthorlPacMan
             }
         }
 
-        private async void tryMoveUp()
+        private void tryMoveUp()
         {
             if (positionQuadrantY > 0)
             {
@@ -405,7 +404,7 @@ namespace FarthorlPacMan
             }
         }
 
-        private async void tryMoveDown()
+        private void tryMoveDown()
         {
             if (positionQuadrantY < engine.GetMaxY() - 1)
             {

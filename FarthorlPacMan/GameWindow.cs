@@ -15,7 +15,7 @@ namespace FarthorlPacMan
     {
         private Game game = new Game();
         private bool isInicialize = false;
-        private SoundPlayer pause = new SoundPlayer(@"DataFiles\Sounds\pause.wav");
+        PlayerSound player = new PlayerSound();
       
         //1. Initialize the Windows Forms Properties. menus, etc...
         public GameWindow()
@@ -76,7 +76,7 @@ namespace FarthorlPacMan
         {
             if (isInicialize)
             {
-                pause.Play();
+                player.Play("pause");
                 game.PauseGame();
             }
         }

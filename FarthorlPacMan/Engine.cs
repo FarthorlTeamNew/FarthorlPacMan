@@ -181,16 +181,16 @@ namespace FarthorlPacMan
         }
 
         //Heare is the logic for gaming
-        private void RenderPacMan()
+        private async void RenderPacMan()
         {
             while (run)
             {
                 pacMan.DrawPacMan();
-                pacMan.Run(moveDirection);
+                await pacMan.Run(moveDirection);
             }
         }
 
-        private void RenderGhost()
+        private async void RenderGhost()
         {
             while (run)
             {
@@ -198,7 +198,7 @@ namespace FarthorlPacMan
                 {
                     foreach (var ghost in ghosts)
                     {
-                        ghost.Move();
+                        await ghost.Move();
                     }
                 }
             }
