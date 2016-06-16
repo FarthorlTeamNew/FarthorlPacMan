@@ -138,7 +138,6 @@
     <Content Include="DataFiles\Sounds\pause.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\grass.jpg" />
     <None Include="Resources\MenuBackGround.png" />
     <Content Include="TODO.txt" />
   </ItemGroup>
