@@ -15,8 +15,8 @@ namespace FarthorlPacMan
         private Graphics graphicsGhost;
         private Graphics pointsGraphics;
         private Bitmap buffer = new Bitmap(1200, 650);
-        private Task threadRenderingPacMan;
-        private Task threadRenderingGhost;
+        private Task taskRenderingPacMan;
+        private Task taskRenderingGhost;
         private string[,] pathsMatrix = new string[24, 13];
         private int xMax = 24; // columns
         private int yMax = 13; // rows
@@ -52,8 +52,8 @@ namespace FarthorlPacMan
                 this.DrawContent();
                 this.inicializeLeftScores();
 
-                threadRenderingPacMan = new Task(RenderPacMan);
-                threadRenderingGhost = new Task(RenderGhost);
+                taskRenderingPacMan = new Task(RenderPacMan);
+                taskRenderingGhost = new Task(RenderGhost);
                 pacMan = new PacMan(0, 0, this.graphics, this);
 
                 for (int i = 0; i < ghostElements; i++)
@@ -61,8 +61,8 @@ namespace FarthorlPacMan
                     ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
                 }
 
-                threadRenderingPacMan.Start();
-                threadRenderingGhost.Start();
+                taskRenderingPacMan.Start();
+                taskRenderingGhost.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -350,20 +350,19 @@ namespace FarthorlPacMan
             GC.SuppressFinalize(this);
         }
 
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
                 // free managed resources
-                if (threadRenderingPacMan != null)
+                if (taskRenderingPacMan != null)
                 {
-                    threadRenderingPacMan.Dispose();
+                    taskRenderingPacMan.Dispose();
                 }
 
-                if (threadRenderingGhost != null)
+                if (taskRenderingGhost != null)
                 {
-                    threadRenderingGhost.Dispose();
+                    taskRenderingGhost.Dispose();
                 }
 
                 if (buffer != null)
