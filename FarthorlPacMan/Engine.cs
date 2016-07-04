@@ -22,7 +22,7 @@ namespace FarthorlPacMan
         public int LeftScore { get; private set; }
         public int GhostElements { get; private set; }
         public int PacManEatScores { get; private set; }
-        public bool Run { get; private set; }
+        public static bool Run { get;  set; }
         public string MoveDirection { get; private set; }
         public Color WallColor { get; private set; }
         public GameWindow Game { get; }
@@ -31,7 +31,7 @@ namespace FarthorlPacMan
         public List<Point> Points { get; private set; }
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
-        public static string Level { get;  set; }
+        public static string Level { get; set; }
 
         public Engine()
         {
@@ -40,7 +40,7 @@ namespace FarthorlPacMan
             this.XMax = 24;
             this.YMax = 13;
             this.GhostElements = 4;
-            this.Run = true;
+            Engine.Run = true;
             this.WallColor = Color.Cyan;
             this.IsInicialize = false;
             this.Points = new List<Point>();
@@ -143,7 +143,6 @@ namespace FarthorlPacMan
 
         private void initializeMatrix()
         {
-            var testLevels = new ExtractAllLevels().ExctractLevels();
             try
             {
                 using (var fileMatrix = new StreamReader(Engine.Level))
@@ -179,7 +178,7 @@ namespace FarthorlPacMan
             }
             catch (Exception)
             {
-                throw new FileLoadException();
+                throw new FileLoadException("Level file didn't load!");
             }
         }
 
@@ -213,7 +212,10 @@ namespace FarthorlPacMan
                 {
                     foreach (var ghost in Ghosts)
                     {
-                        await ghost.Move();
+                        if (Engine.Run)
+                        {
+                            await ghost.Move();
+                        }
                     }
                 }
             }
@@ -224,7 +226,7 @@ namespace FarthorlPacMan
             Game.UpdateLeftScore(LeftScore - pacManScores);
             if (LeftScore - pacManScores == 0)
             {
-                this.Run = false;
+                Engine.Run = false;
                 Game.panel1.Visible = true;
             }
         }
@@ -237,12 +239,12 @@ namespace FarthorlPacMan
 
         public void StopGame()
         {
-
+            Engine.Run = false;
         }
 
         public void PauseGame()
         {
-            this.Run = false;
+            Engine.Run = false;
             Game.PausePanel.Visible = true;
         }
 
@@ -250,7 +252,7 @@ namespace FarthorlPacMan
         {
 
             Game.PausePanel.Visible = false;
-            this.Run = true;
+            Engine.Run = true;
         }
 
         public bool IsPaused()
@@ -298,17 +300,8 @@ namespace FarthorlPacMan
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
                 Point point = new Point();
-                try
-                {
-                    PointsGraphics.FillEllipse(new SolidBrush(point.PointFillColor), (quadrantX * 50) + 25 - (point.PointDiameter / 2), (quandrantY * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
-
-                }
-                catch (Exception)
-                {
-
-                }
+                PointsGraphics.FillEllipse(new SolidBrush(point.PointFillColor), (quadrantX * 50) + 25 - (point.PointDiameter / 2), (quandrantY * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
             }
-
         }
 
         public void changeDirection(string newDirection)

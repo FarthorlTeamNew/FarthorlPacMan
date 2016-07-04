@@ -434,13 +434,20 @@ namespace FarthorlPacMan
 
         public void DrawPacMan()
         {
-            graphics.FillEllipse(
-              new SolidBrush(pacManColor),
-              (drawingCoordinatesX) - (Diameter / 2),
-              ((drawingCoordinatesY) - (Diameter / 2)),
-              Diameter,
-              Diameter
-              );
+            try
+            {
+                graphics.FillEllipse(
+             new SolidBrush(pacManColor),
+             (drawingCoordinatesX) - (Diameter / 2),
+             ((drawingCoordinatesY) - (Diameter / 2)),
+             Diameter,
+             Diameter
+             );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public int getScore()
