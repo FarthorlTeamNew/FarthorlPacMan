@@ -1,68 +1,81 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace FarthorlPacMan
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Drawing;
-    using System.Windows.Forms;
-    using System.Threading.Tasks;
-
     public class Engine : IDisposable
     {
-        private Graphics graphics;
-        private Graphics graphicsGhost;
-        private Graphics pointsGraphics;
-        private Bitmap buffer = new Bitmap(1200, 650);
-        private Task taskRenderingPacMan;
-        private Task taskRenderingGhost;
-        private string[,] pathsMatrix = new string[24, 13];
-        private int xMax = 24; // columns
-        private int yMax = 13; // rows
-        private int leftScore;
-        private int ghostElements = 4;
-        private int pacManEatScores = 0;
-        private bool run = true;
-        private string moveDirection;
-        private Color wallColor = Color.Cyan;
-        private readonly GameWindow game;
-        private bool isInicialize = false;
-        private PacMan pacMan;
-        private List<Point> points = new List<Point>();
-        private List<Ghost> ghosts = new List<Ghost>();
-        private PlayerSound player = new PlayerSound();
+        public Graphics Graphics { get; private set; }
+        public Graphics GraphicsGhost { get; private set; }
+        public Graphics PointsGraphics { get; private set; }
+        public Bitmap Buffer { get; private set; }
+        public Task TaskRenderingPacMan { get; private set; }
+        public Task TaskRenderingGhost { get; private set; }
+        public string[,] PathsMatrix { get; private set; }
+        public int XMax { get; private set; }
+        public int YMax { get; private set; }
+        public int LeftScore { get; private set; }
+        public int GhostElements { get; private set; }
+        public int PacManEatScores { get; private set; }
+        public bool Run { get; private set; }
+        public string MoveDirection { get; private set; }
+        public Color WallColor { get; private set; }
+        public GameWindow Game { get; }
+        public bool IsInicialize { get; private set; }
+        private PacMan PacMan { get; set; }
+        public List<Point> Points { get; private set; }
+        public List<Ghost> Ghosts { get; private set; }
+        public PlayerSound Player { get; private set; }
+
+        public Engine()
+        {
+            this.Buffer = new Bitmap(1200, 650);
+            this.PathsMatrix = new string[24, 13];
+            this.XMax = 24;
+            this.YMax = 13;
+            this.GhostElements = 4;
+            this.Run = true;
+            this.WallColor = Color.Cyan;
+            this.IsInicialize = false;
+            this.Points = new List<Point>();
+            this.Ghosts = new List<Ghost>();
+            this.Player = new PlayerSound();
+        }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
+            : this()
         {
-            this.graphics = graphic;
-            this.graphicsGhost = graphicsGhost;
-            this.pointsGraphics = pointsGraphics;
-            this.game = game;
-
+            this.Graphics = graphic;
+            this.GraphicsGhost = graphicsGhost;
+            this.PointsGraphics = pointsGraphics;
+            this.Game = game;
         }
 
         public void Initialize()
         {
             //Initialize game if started for the first time
-            if (isInicialize == false)
+            if (IsInicialize == false)
             {
-                this.isInicialize = true;
+                this.IsInicialize = true;
                 this.initializeMatrix();
                 this.DrawContent();
                 this.inicializeLeftScores();
 
-                taskRenderingPacMan = new Task(RenderPacMan);
-                taskRenderingGhost = new Task(RenderGhost);
-                pacMan = new PacMan(0, 0, this.graphics, this);
+                TaskRenderingPacMan = new Task(RenderPacMan);
+                TaskRenderingGhost = new Task(RenderGhost);
+                PacMan = new PacMan(0, 0, this.Graphics, this);
 
-                for (int i = 0; i < ghostElements; i++)
+                for (int i = 0; i < GhostElements; i++)
                 {
-                    ghosts.Add(new Ghost(pacMan.getQuadrantX(), pacMan.getQuadrantY(), graphicsGhost, this));
+                    Ghosts.Add(new Ghost(PacMan.getQuadrantX(), PacMan.getQuadrantY(), GraphicsGhost, this));
                 }
 
-                taskRenderingPacMan.Start();
-                taskRenderingGhost.Start();
+                TaskRenderingPacMan.Start();
+                TaskRenderingGhost.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -74,37 +87,37 @@ namespace FarthorlPacMan
 
         private void DrawFontColor()
         {
-            using (Graphics drawing = Graphics.FromImage(buffer))
+            using (Graphics drawing = Graphics.FromImage(Buffer))
             {
                 drawing.FillRectangle(new SolidBrush(Color.Black), 0, 0, 1200, 650);
-                game.pacMan.BackgroundImage = buffer;
+                Game.pacMan.BackgroundImage = Buffer;
             }
         }
 
         private void DrawPaths()
         {
-            using (Graphics drawing = Graphics.FromImage(buffer))
+            using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.DrawRectangle(new Pen(wallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
-                game.pacMan.BackgroundImage = buffer;
+                drawing.DrawRectangle(new Pen(WallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
+                Game.pacMan.BackgroundImage = Buffer;
             }
 
-            for (int y = 0; y < yMax; y++)
+            for (int y = 0; y < YMax; y++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = 0; x < XMax; x++)
                 {
-                    var elements = pathsMatrix[x, y].Trim().Split(',');
+                    var elements = PathsMatrix[x, y].Trim().Split(',');
                     int quadrant = int.Parse(elements[0]);
                     int pointIndex = int.Parse(elements[1]);
 
                     if (quadrant == 1)
                     {
-                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
 
-                            drawing.DrawRectangle(new Pen(wallColor), (x * 50), (y * 50), 50, 50);
-                            drawing.FillRectangle(new SolidBrush(wallColor), (x * 50), (y * 50), 50, 50);
-                            game.pacMan.BackgroundImage = buffer;
+                            drawing.DrawRectangle(new Pen(WallColor), (x * 50), (y * 50), 50, 50);
+                            drawing.FillRectangle(new SolidBrush(WallColor), (x * 50), (y * 50), 50, 50);
+                            Game.pacMan.BackgroundImage = Buffer;
 
                         }
                     }
@@ -112,12 +125,12 @@ namespace FarthorlPacMan
                     if (pointIndex == 1)
                     {
                         Point point = new Point((x * 50) + 25, (y * 50) + 25);
-                        points.Add(point);
+                        Points.Add(point);
 
-                        using (Graphics drawing = Graphics.FromImage(buffer))
+                        using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
                             drawing.FillEllipse(new SolidBrush(point.fillColor()), (x * 50) + 25 - (point.getDiameter() / 2), (y * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
-                            game.pacMan.BackgroundImage = buffer;
+                            Game.pacMan.BackgroundImage = Buffer;
                         }
                     }
                 }
@@ -158,7 +171,7 @@ namespace FarthorlPacMan
                         }
 
                         //Add element data in to the specific point in the 2D array
-                        this.pathsMatrix[arrayX, arrayY] = arrayValue;
+                        this.PathsMatrix[arrayX, arrayY] = arrayValue;
                     }
                 }
             }
@@ -170,33 +183,33 @@ namespace FarthorlPacMan
 
         private void inicializeLeftScores()
         {
-            foreach (var point in points)
+            foreach (var point in Points)
             {
                 if (!point.isEatPoint())
                 {
-                    leftScore = leftScore + 1;
+                    LeftScore = LeftScore + 1;
                 }
             }
-            game.UpdateLeftScore(leftScore);
+            Game.UpdateLeftScore(LeftScore);
         }
 
         //Heare is the logic for gaming
         private async void RenderPacMan()
         {
-            while (run)
+            while (Run)
             {
-                pacMan.DrawPacMan();
-                await pacMan.Run(moveDirection);
+                PacMan.DrawPacMan();
+                await PacMan.Run(MoveDirection);
             }
         }
 
         private async void RenderGhost()
         {
-            while (run)
+            while (Run)
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    foreach (var ghost in ghosts)
+                    foreach (var ghost in Ghosts)
                     {
                         await ghost.Move();
                     }
@@ -206,11 +219,11 @@ namespace FarthorlPacMan
 
         private void UpdateLeftSores(int pacManScores)
         {
-            game.UpdateLeftScore(leftScore - pacManScores);
-            if (leftScore - pacManScores == 0)
+            Game.UpdateLeftScore(LeftScore - pacManScores);
+            if (LeftScore - pacManScores == 0)
             {
-                this.run = false;
-                game.panel1.Visible = true;
+                this.Run = false;
+                Game.panel1.Visible = true;
             }
         }
 
@@ -227,25 +240,25 @@ namespace FarthorlPacMan
 
         public void PauseGame()
         {
-            this.run = false;
-            game.PausePanel.Visible = true;
+            this.Run = false;
+            Game.PausePanel.Visible = true;
         }
 
         public void ResumeGame()
         {
 
-            game.PausePanel.Visible = false;
-            this.run = true;
+            Game.PausePanel.Visible = false;
+            this.Run = true;
         }
 
         public bool IsPaused()
         {
-            return !run;
+            return !Run;
         }
 
         public string[] GetQuadrantElements(int quadrantX, int quandrantY)
         {
-            string[] elements = pathsMatrix[quadrantX, quandrantY].Trim().Split(',');
+            string[] elements = PathsMatrix[quadrantX, quandrantY].Trim().Split(',');
             return elements;
         }
 
@@ -253,27 +266,27 @@ namespace FarthorlPacMan
         {
 
             var stringValue = $"{element[0]},{element[1]}";
-            pathsMatrix[quadrantX, quandrantY] = stringValue;
+            PathsMatrix[quadrantX, quandrantY] = stringValue;
             int pointDiameter = 0;
-            foreach (var point in points)
+            foreach (var point in Points)
             {
                 if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
                 {
                     point.EatPoint();
                     pointDiameter = point.getDiameter();
-                    pacManEatScores = pacManEatScores + 1;
+                    PacManEatScores = PacManEatScores + 1;
                     break;
                 }
             }
 
-            using (Graphics drawing = Graphics.FromImage(buffer))
+            using (Graphics drawing = Graphics.FromImage(Buffer))
             {
                 drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
-                this.game.pacMan.BackgroundImage = buffer;
+                this.Game.pacMan.BackgroundImage = Buffer;
             }
 
-            game.UpdateScores(pacManEatScores);
-            UpdateLeftSores(pacManEatScores);
+            Game.UpdateScores(PacManEatScores);
+            UpdateLeftSores(PacManEatScores);
         }
 
         //TODO Refactoring
@@ -285,7 +298,7 @@ namespace FarthorlPacMan
                 Point point = new Point();
                 try
                 {
-                    pointsGraphics.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+                    PointsGraphics.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
 
                 }
                 catch (Exception)
@@ -298,17 +311,17 @@ namespace FarthorlPacMan
 
         public void changeDirection(string newDirection)
         {
-            this.moveDirection = newDirection;
+            this.MoveDirection = newDirection;
         }
 
         public bool isDirectionChanged(string myDirection)
         {
-            if (myDirection == "Up" && this.moveDirection == "Down" || myDirection == "Down" && this.moveDirection == "Up")
+            if (myDirection == "Up" && this.MoveDirection == "Down" || myDirection == "Down" && this.MoveDirection == "Up")
             {
                 return true;
             }
 
-            if (myDirection == "Right" && this.moveDirection == "Left" || myDirection == "Left" && this.moveDirection == "Right")
+            if (myDirection == "Right" && this.MoveDirection == "Left" || myDirection == "Left" && this.MoveDirection == "Right")
             {
                 return true;
             }
@@ -318,12 +331,12 @@ namespace FarthorlPacMan
 
         public string GetDirection()
         {
-            return moveDirection;
+            return MoveDirection;
         }
 
         public bool isExistGhost(int quadrantX, int quadrantY)
         {
-            foreach (var ghost in ghosts)
+            foreach (var ghost in Ghosts)
             {
                 if (ghost.GetQuadrantX() == quadrantX && ghost.GetQuadrantY() == quadrantY)
                 {
@@ -335,12 +348,12 @@ namespace FarthorlPacMan
 
         public int GetMaxX()
         {
-            return this.xMax;
+            return this.XMax;
         }
 
         public int GetMaxY()
         {
-            return this.yMax;
+            return this.YMax;
 
         }
 
@@ -355,29 +368,29 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (taskRenderingPacMan != null)
+                if (TaskRenderingPacMan != null)
                 {
-                    taskRenderingPacMan.Dispose();
+                    TaskRenderingPacMan.Dispose();
                 }
 
-                if (taskRenderingGhost != null)
+                if (TaskRenderingGhost != null)
                 {
-                    taskRenderingGhost.Dispose();
+                    TaskRenderingGhost.Dispose();
                 }
 
-                if (buffer != null)
+                if (Buffer != null)
                 {
-                    buffer.Dispose();
+                    Buffer.Dispose();
                 }
 
-                if (player != null)
+                if (Player != null)
                 {
-                    player.Dispose();
+                    Player.Dispose();
                 }
 
-                if (pacMan != null)
+                if (PacMan != null)
                 {
-                    pacMan.Dispose();
+                    PacMan.Dispose();
                 }
             }
         }

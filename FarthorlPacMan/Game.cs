@@ -1,49 +1,53 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Drawing;
 
 namespace FarthorlPacMan
 {
-    using System.Drawing;
-
-    class Game : IDisposable
+    public class Game : IDisposable
     {
         private Engine graphicEngine;
 
         // 4. Starts drawing the graphics, Ghosts, points, and the level design itself
         public void startDraw(Graphics graphic, Graphics graphicsGhost,Graphics pointsGraphics, GameWindow game)
         {
-            this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
-            this.graphicEngine.Initialize();
+            this.GraphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
+            this.GraphicEngine.Initialize();
         }
-        
+
+        public Engine GraphicEngine
+        {
+            get { return graphicEngine; }
+            set { graphicEngine = value; }
+        }
+
         public void Redraw()
         {
-            graphicEngine.DrawContent();
+            GraphicEngine.DrawContent();
         }
 
         public void ChangeDirection(string direction)
         {
-            if (graphicEngine.IsPaused())
+            if (GraphicEngine.IsPaused())
             {
-                graphicEngine.ResumeGame();
+                GraphicEngine.ResumeGame();
             }
-            graphicEngine.changeDirection(direction);
+            GraphicEngine.changeDirection(direction);
         }
 
         public void PauseGame()
         {
-            graphicEngine.PauseGame();
+            GraphicEngine.PauseGame();
         }
 
         public void stopGame()
         {
-            this.graphicEngine.StopGame();
+            this.GraphicEngine.StopGame();
 
         }
 
         public void Dispose()
         {
-            graphicEngine.Dispose();
+            GraphicEngine.Dispose();
         }
     }
 }

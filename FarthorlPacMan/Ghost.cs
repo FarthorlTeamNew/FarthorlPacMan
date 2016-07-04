@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Drawing;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FarthorlPacMan
 {
-    using System;
-    using System.Drawing;
-    using System.Collections.Generic;
-    class Ghost
+    public class Ghost
     {
         private Random random = new Random();
         private int positionQuadrantX = 0;
@@ -242,7 +242,7 @@ namespace FarthorlPacMan
                     CheckExistDirections();
                     var newDirection = SelectRandomRoad("Right");
 
-                    if (!String.IsNullOrEmpty(newDirection))
+                    if (!string.IsNullOrEmpty(newDirection))
                     {
                         if (newDirection == "Left")
                         {
@@ -266,7 +266,7 @@ namespace FarthorlPacMan
                 CheckExistDirections();
                 var newDirection = SelectRandomRoad("Right");
 
-                if (!String.IsNullOrEmpty(newDirection))
+                if (!string.IsNullOrEmpty(newDirection))
                 {
                     if (newDirection == "Left")
                     {
@@ -422,7 +422,7 @@ namespace FarthorlPacMan
                     CheckExistDirections();
                     var newDirection = SelectRandomRoad("Down");
 
-                    if (!String.IsNullOrEmpty(newDirection))
+                    if (!string.IsNullOrEmpty(newDirection))
                     {
                         if (newDirection == "Right")
                         {
@@ -444,7 +444,7 @@ namespace FarthorlPacMan
                 CheckExistDirections();
                 var newDirection = SelectRandomRoad("Down");
 
-                if (!String.IsNullOrEmpty(newDirection))
+                if (!string.IsNullOrEmpty(newDirection))
                 {
                     if (newDirection == "Right")
                     {
