@@ -6,12 +6,12 @@ namespace FarthorlPacMan
 {
     public class PlayerSound : IDisposable
     {
-        public SoundPlayer Player { get; private set; }
+        public SoundPlayer soundPlayer { get; private set; }
         public Dictionary<string, string> Sounds { get; }
 
         public PlayerSound()
         {
-            this.Player = new SoundPlayer();
+            this.soundPlayer = new SoundPlayer();
             this.Sounds = new Dictionary<string, string>
             {
                 {"begining", "DataFiles/Sounds/pacman_beginning.wav" },
@@ -26,10 +26,10 @@ namespace FarthorlPacMan
             {
                 throw new KeyNotFoundException("The current sound is not added in the playlist");
             }
-            Player = new SoundPlayer(Sounds[sound]);
-            Player.Play();
+            soundPlayer = new SoundPlayer(Sounds[sound]);
+            soundPlayer.Play();
         }
-
+       
         public void Dispose()
         {
             Dispose(true);
@@ -41,9 +41,9 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (Player != null)
+                if (soundPlayer != null)
                 {
-                    Player.Dispose();
+                    soundPlayer.Dispose();
                 }
             }
         }

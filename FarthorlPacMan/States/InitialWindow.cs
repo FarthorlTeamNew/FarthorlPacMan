@@ -30,6 +30,7 @@ namespace FarthorlPacMan
         private void gameWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             gameWindow.stopGame();
+            Application.Run();
             this.Show();
         }
 
@@ -39,7 +40,7 @@ namespace FarthorlPacMan
         }
 
 
-        //Change level switch
+        //Change level 
         private void Change_Level_Click(object sender, EventArgs e)
         {
             levelWindow.FormClosed += new FormClosedEventHandler(levelWindow_FormClosed);
