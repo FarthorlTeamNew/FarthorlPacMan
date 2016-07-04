@@ -1,11 +1,13 @@
-﻿namespace FarthorlPacMan
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Media;
+﻿using System;
+using System.Collections.Generic;
+using System.Media;
 
+namespace FarthorlPacMan
+{
     public class PlayerSound : IDisposable
     {
+        public SoundPlayer Player { get; private set; }
+        public Dictionary<string, string> Sounds { get; }
         public PlayerSound()
         {
             this.Player = new SoundPlayer();
@@ -16,9 +18,6 @@
                 {"pause", "DataFiles/Sounds/pause.wav" }
             };
         }
-
-        public SoundPlayer Player { get; private set; }
-        public Dictionary<string, string> Sounds { get; }
 
         public void Play(string sound)
         {
@@ -35,6 +34,7 @@
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

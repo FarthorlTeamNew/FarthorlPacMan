@@ -129,7 +129,7 @@ namespace FarthorlPacMan
 
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
-                            drawing.FillEllipse(new SolidBrush(point.fillColor()), (x * 50) + 25 - (point.getDiameter() / 2), (y * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+                            drawing.FillEllipse(new SolidBrush(point.PointFillColor), (x * 50) + 25 - (point.PointDiameter / 2), (y * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
                             Game.pacMan.BackgroundImage = Buffer;
                         }
                     }
@@ -185,7 +185,7 @@ namespace FarthorlPacMan
         {
             foreach (var point in Points)
             {
-                if (!point.isEatPoint())
+                if (!point.IsPointCollected)
                 {
                     LeftScore = LeftScore + 1;
                 }
@@ -270,10 +270,10 @@ namespace FarthorlPacMan
             int pointDiameter = 0;
             foreach (var point in Points)
             {
-                if (point.getX() == (quadrantX * 50) + 25 && point.getY() == (quandrantY * 50) + 25)
+                if (point.CenterX == (quadrantX * 50) + 25 && point.CenterY == (quandrantY * 50) + 25)
                 {
                     point.EatPoint();
-                    pointDiameter = point.getDiameter();
+                    pointDiameter = point.PointDiameter;
                     PacManEatScores = PacManEatScores + 1;
                     break;
                 }
@@ -298,7 +298,7 @@ namespace FarthorlPacMan
                 Point point = new Point();
                 try
                 {
-                    PointsGraphics.FillEllipse(new SolidBrush(point.fillColor()), (quadrantX * 50) + 25 - (point.getDiameter() / 2), (quandrantY * 50) + 25 - (point.getDiameter() / 2), point.getDiameter(), point.getDiameter());
+                    PointsGraphics.FillEllipse(new SolidBrush(point.PointFillColor), (quadrantX * 50) + 25 - (point.PointDiameter / 2), (quandrantY * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
 
                 }
                 catch (Exception)
