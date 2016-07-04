@@ -8,6 +8,7 @@ namespace FarthorlPacMan
     {
         public SoundPlayer Player { get; private set; }
         public Dictionary<string, string> Sounds { get; }
+
         public PlayerSound()
         {
             this.Player = new SoundPlayer();

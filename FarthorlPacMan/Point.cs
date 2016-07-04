@@ -29,35 +29,5 @@ namespace FarthorlPacMan
         {
             this.IsPointCollected= true;
         }
-
-        //public int getX()
-        //{
-        //    return this.CenterX;
-        //}
-
-        //public int getY()
-        //{
-        //    return this.CenterY;
-        //}
-
-        //public bool isEatPoint()
-        //{
-        //    return this.IsCollected;
-        //}
-
-        //public int getDiameter()
-        //{
-        //    return PointDiameter;
-        //}
-
-        //public Color color()
-        //{
-        //    return this.PointColor;
-        //}
-
-        //public Color fillColor()
-        //{
-        //    return this.PointFillColor;
-        //}
     }
 }

@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace FarthorlPacMan
 {
-    static class Startup
+    public static class Startup
     {
         // Game starts from here
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

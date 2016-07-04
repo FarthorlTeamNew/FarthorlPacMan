@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
+using FarthorlPacMan.States;
 
 namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
         GameWindow gameWindow = new GameWindow();
+        LevelsWindow levelWindow=new LevelsWindow();
         PlayerSound player =new PlayerSound();
+
         public InitialWindow()
         {
             InitializeComponent();
@@ -34,5 +37,20 @@ namespace FarthorlPacMan
         {
             player.Play("begining");
         }
+
+
+        //Change level switch
+        private void Change_Level_Click(object sender, EventArgs e)
+        {
+            levelWindow.FormClosed += new FormClosedEventHandler(levelWindow_FormClosed);
+            Hide();
+            levelWindow.Show();
+        }
+        private void levelWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            levelWindow.Hide();
+            this.Show();
+        }
     }
 }
+
