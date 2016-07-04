@@ -511,6 +511,5 @@ namespace FarthorlPacMan
                 }
             }
         }
-
     }
 }

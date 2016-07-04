@@ -250,7 +250,6 @@ namespace FarthorlPacMan
 
         public void ResumeGame()
         {
-
             Game.PausePanel.Visible = false;
             Engine.Run = true;
         }
@@ -268,7 +267,6 @@ namespace FarthorlPacMan
 
         public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
-
             var stringValue = $"{element[0]},{element[1]}";
             PathsMatrix[quadrantX, quandrantY] = stringValue;
             int pointDiameter = 0;

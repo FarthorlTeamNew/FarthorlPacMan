@@ -7,18 +7,18 @@ namespace FarthorlPacMan
 {
     public class Ghost
     {
+        private const int Diameter = 40;
+        private const int QuadrantDimension = 50;
+        private const int PacManDistanceX = 3;
+        private const int PacManDistanceY = 0;
+        private const int SpeedDrawing = 6;
         private Random random = new Random();
-        private int positionQuadrantX = 0;
-        private int positionQuadrantY = 0;
-        private int drawingX = 0;
-        private int drawingY = 0;
+        private int positionQuadrantX ;
+        private int positionQuadrantY;
+        private int drawingX ;
+        private int drawingY ;
         private int positionPacManQaundarntX;
         private int positionPacManQaundarntY;
-        private const int diameter = 40;
-        private const int quadrantDimension = 50;
-        private const int pacManDistanceX = 3;
-        private const int pacManDistanceY = 0;
-        private const int speedDrawing = 6;
         private string movedDirection;
         private string previousDirection;
         private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
@@ -54,7 +54,7 @@ namespace FarthorlPacMan
             {
                 for (int x = 0; x < engine.GetMaxX() - 1; x++)
                 {
-                    if (x <= pacManX - pacManDistanceX && y <= pacManY - pacManDistanceY || x >= pacManX + pacManDistanceX && y >= pacManY + pacManDistanceY)
+                    if (x <= pacManX - PacManDistanceX && y <= pacManY - PacManDistanceY || x >= pacManX + PacManDistanceX && y >= pacManY + PacManDistanceY)
                     {
                         var elements = engine.GetQuadrantElements(x, y);
 
@@ -464,7 +464,7 @@ namespace FarthorlPacMan
 
         public void Draw()
         {
-            graphicsGhost.DrawImage(image, (positionQuadrantX * quadrantDimension) + 8, positionQuadrantY * quadrantDimension + 4);
+            graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, positionQuadrantY * QuadrantDimension + 4);
         }
 
         public async Task<bool> Move()
@@ -481,17 +481,17 @@ namespace FarthorlPacMan
                     }
 
                     drawingX = drawingX + 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), drawingX - 1, (positionQuadrantY * quadrantDimension) + 1, drawingX - 1, (positionQuadrantY * quadrantDimension) + 49);
-                    if (drawingX > (positionQuadrantX * quadrantDimension) + 20)
+                    graphicsGhost.DrawLine(new Pen(Color.Black), drawingX - 1, (positionQuadrantY * QuadrantDimension) + 1, drawingX - 1, (positionQuadrantY * QuadrantDimension) + 49);
+                    if (drawingX > (positionQuadrantX * QuadrantDimension) + 20)
                     {
                         engine.DrawPoint(positionQuadrantX, positionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * quadrantDimension + 4);
+                    graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * QuadrantDimension + 4);
 
-                    System.Threading.Thread.Sleep(speedDrawing);
+                    System.Threading.Thread.Sleep(SpeedDrawing);
 
-                    if (drawingX == ((positionQuadrantX + 1) * quadrantDimension) + 8)
+                    if (drawingX == ((positionQuadrantX + 1) * QuadrantDimension) + 8)
                     {
                         graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
                         {
@@ -513,17 +513,17 @@ namespace FarthorlPacMan
                         this.MoveNext();
                     }
                     drawingX = drawingX - 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (drawingX + image.Width) + 1, (positionQuadrantY * quadrantDimension) + 1, (drawingX + image.Width) + 1, (positionQuadrantY * quadrantDimension) + 49);
-                    if (drawingX < (positionQuadrantX * quadrantDimension) + 20)
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (drawingX + image.Width) + 1, (positionQuadrantY * QuadrantDimension) + 1, (drawingX + image.Width) + 1, (positionQuadrantY * QuadrantDimension) + 49);
+                    if (drawingX < (positionQuadrantX * QuadrantDimension) + 20)
                     {
                         engine.DrawPoint(positionQuadrantX, positionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * quadrantDimension + 4);
+                    graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * QuadrantDimension + 4);
 
-                    System.Threading.Thread.Sleep(speedDrawing);
+                    System.Threading.Thread.Sleep(SpeedDrawing);
 
-                    if (drawingX == ((positionQuadrantX - 1) * quadrantDimension) + 8)
+                    if (drawingX == ((positionQuadrantX - 1) * QuadrantDimension) + 8)
                     {
                         graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
                         {
@@ -547,16 +547,16 @@ namespace FarthorlPacMan
 
                     drawingY = drawingY - 1;
 
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * quadrantDimension) + 1, (drawingY + 4 + image.Height) + 1, (positionQuadrantX * quadrantDimension) + 49, (drawingY + 4 + image.Height) + 1);
-                    if (drawingY < (positionQuadrantY * quadrantDimension) - 11)
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * QuadrantDimension) + 1, (drawingY + 4 + image.Height) + 1, (positionQuadrantX * QuadrantDimension) + 49, (drawingY + 4 + image.Height) + 1);
+                    if (drawingY < (positionQuadrantY * QuadrantDimension) - 11)
                     {
                         engine.DrawPoint(positionQuadrantX, positionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (positionQuadrantX * quadrantDimension) + 8, drawingY + 4);
-                    System.Threading.Thread.Sleep(speedDrawing);
+                    graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingY + 4);
+                    System.Threading.Thread.Sleep(SpeedDrawing);
 
-                    if (drawingY == ((positionQuadrantY - 1) * quadrantDimension) + 4)
+                    if (drawingY == ((positionQuadrantY - 1) * QuadrantDimension) + 4)
                     {
                         graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
                         {
@@ -578,16 +578,16 @@ namespace FarthorlPacMan
                     }
 
                     drawingY = drawingY + 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * quadrantDimension) + 1, (drawingY + 4) - 1, (positionQuadrantX * quadrantDimension) + 49, (drawingY + 4) - 1);
-                    if (drawingY > (positionQuadrantY * quadrantDimension) + 20)
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * QuadrantDimension) + 1, (drawingY + 4) - 1, (positionQuadrantX * QuadrantDimension) + 49, (drawingY + 4) - 1);
+                    if (drawingY > (positionQuadrantY * QuadrantDimension) + 20)
                     {
                         engine.DrawPoint(positionQuadrantX, positionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (positionQuadrantX * quadrantDimension) + 8, drawingY + 4);
-                    System.Threading.Thread.Sleep(speedDrawing);
+                    graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingY + 4);
+                    System.Threading.Thread.Sleep(SpeedDrawing);
 
-                    if (drawingY == ((positionQuadrantY + 1) * quadrantDimension) + 4)
+                    if (drawingY == ((positionQuadrantY + 1) * QuadrantDimension) + 4)
                     {
                         graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
                         {
@@ -603,9 +603,7 @@ namespace FarthorlPacMan
                     }
                     break;
             }
-
             return true;
-
         }
 
         public int GetQuadrantX()

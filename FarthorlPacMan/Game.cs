@@ -42,7 +42,6 @@ namespace FarthorlPacMan
         public void stopGame()
         {
             this.GraphicEngine.StopGame();
-
         }
 
         public void Dispose()
