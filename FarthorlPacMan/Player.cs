@@ -4,25 +4,30 @@
     using System.Collections.Generic;
     using System.Media;
 
-    class PlayerSound : IDisposable
+    public class PlayerSound : IDisposable
     {
-        private SoundPlayer player = new SoundPlayer();
-        Dictionary<string, string> sounds = new Dictionary<string, string>();
-
         public PlayerSound()
         {
-            sounds.Add("begining", "DataFiles/Sounds/pacman_beginning.wav");
-            sounds.Add("eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav");
-            sounds.Add("pause", "DataFiles/Sounds/pause.wav");
+            this.Player = new SoundPlayer();
+            this.Sounds = new Dictionary<string, string>
+            {
+                {"begining", "DataFiles/Sounds/pacman_beginning.wav" },
+                {"eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav" },
+                {"pause", "DataFiles/Sounds/pause.wav" }
+            };
         }
+
+        public SoundPlayer Player { get; private set; }
+        public Dictionary<string, string> Sounds { get; }
 
         public void Play(string sound)
         {
-            if (sounds.ContainsKey(sound))
+            if (!Sounds.ContainsKey(sound))
             {
-                player = new SoundPlayer(sounds[sound]);
-                player.Play();
+                throw new KeyNotFoundException("The current sound is not added in the playlist");
             }
+            Player = new SoundPlayer(Sounds[sound]);
+            Player.Play();
         }
 
         public void Dispose()
@@ -35,9 +40,9 @@
             if (disposing)
             {
                 // free managed resources
-                if (player != null)
+                if (Player != null)
                 {
-                    player.Dispose();
+                    Player.Dispose();
                 }
             }
         }

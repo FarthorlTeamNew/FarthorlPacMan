@@ -425,7 +425,6 @@
 
         public void DrawPacMan()
         {
-
             graphics.FillEllipse(
               new SolidBrush(pacManColor),
               (drawingCoordinatesX) - (diameter / 2),
@@ -433,7 +432,6 @@
               diameter,
               diameter
               );
-
         }
 
         public int getScore()

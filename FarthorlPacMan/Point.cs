@@ -1,61 +1,64 @@
-﻿using System.Media;
+﻿using System.Drawing;
 
 namespace FarthorlPacMan
 {
-    using System;
-    using System.Drawing;
-    class Point
+    public class Point
     {
-        private int centerX;
-        private int centerY;
-        private Color pointColor = Color.Blue;
-        private Color pointFillColor = Color.BlueViolet;
-        private int pointDiameter = 10;
-        private Boolean isCollected = false;
+        public Point()
+        {
+
+        }
 
         public Point(int centerX, int centerY)
         {
-            this.centerX = centerX;
-            this.centerY = centerY;
+            this.CenterX = centerX;
+            this.CenterY = centerY;
+            this.PointColor = Color.Blue;
+            this.PointFillColor = Color.BlueViolet;
+            this.PointDiameter = 10;
+            this.IsCollected = false;
         }
 
-        public Point()
-        {
-        }
+        public int CenterX { get; set; }
+        public int CenterY { get; set; }
+        public Color PointColor { get; }
+        public Color PointFillColor { get; }
+        public int PointDiameter { get; }
+        public bool IsCollected { get; private set; }
 
         public void EatPoint()
         {
-            this.isCollected = true;
+            this.IsCollected = true;
         }
 
         public int getX()
         {
-            return this.centerX;
+            return this.CenterX;
         }
 
         public int getY()
         {
-            return this.centerY;
+            return this.CenterY;
         }
 
         public bool isEatPoint()
         {
-            return this.isCollected;
+            return this.IsCollected;
         }
 
         public int getDiameter()
         {
-            return pointDiameter;
+            return PointDiameter;
         }
 
         public Color color()
         {
-            return this.pointColor;
+            return this.PointColor;
         }
 
         public Color fillColor()
         {
-            return this.pointFillColor;
+            return this.PointFillColor;
         }
     }
 }
