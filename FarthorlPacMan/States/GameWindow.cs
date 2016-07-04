@@ -82,7 +82,6 @@ namespace FarthorlPacMan
 
         public void stopGame()
         {
-            Engine.Run = false;
             game.stopGame();
         }
     }
