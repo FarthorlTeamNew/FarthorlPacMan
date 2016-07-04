@@ -31,7 +31,7 @@ namespace FarthorlPacMan
         public List<Point> Points { get; private set; }
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
-        public string Level { get;  set; }
+        public static string Level { get;  set; }
 
         public Engine()
         {
@@ -46,7 +46,7 @@ namespace FarthorlPacMan
             this.Points = new List<Point>();
             this.Ghosts = new List<Ghost>();
             this.Player = new PlayerSound();
-            this.Level = @"DataFiles\Levels\Labirint.txt";
+            Engine.Level = @"DataFiles\Levels\Labirint.txt";
         }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
@@ -146,7 +146,7 @@ namespace FarthorlPacMan
             var testLevels = new ExtractAllLevels().ExctractLevels();
             try
             {
-                using (var fileMatrix = new StreamReader(this.Level))
+                using (var fileMatrix = new StreamReader(Engine.Level))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)

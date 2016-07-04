@@ -12,11 +12,23 @@ namespace FarthorlPacMan.States
 {
     public partial class LevelsWindow : Form
     {
+        private List<string> levelsFilePaths;
         public LevelsWindow()
         {
             InitializeComponent();
+            this.levelsFilePaths = new ExtractAllLevels().ExctractLevels();
         }
 
+        private void Labirint_Level_Click(object sender, EventArgs e)
+        {
+            Engine.Level = levelsFilePaths[0];
+            Close();
+        }
 
+        private void CsharpLevel_Click(object sender, EventArgs e)
+        {
+            Engine.Level = levelsFilePaths[1];
+            Close();
+        }
     }
 }
