@@ -19,13 +19,12 @@ namespace FarthorlPacMan.States
             this.levelsFilePaths = new ExtractAllLevels().ExctractLevels();
         }
 
-        private void Labirint_Level_Click(object sender, EventArgs e)
+        private void CsharpLevel_Click(object sender, EventArgs e)
         {
             Engine.Level = levelsFilePaths[0];
             Close();
         }
-
-        private void CsharpLevel_Click(object sender, EventArgs e)
+        private void Labirint_Level_Click(object sender, EventArgs e)
         {
             Engine.Level = levelsFilePaths[1];
             Close();
