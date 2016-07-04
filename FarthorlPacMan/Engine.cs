@@ -13,49 +13,45 @@ namespace FarthorlPacMan
         public Graphics Graphics { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
         public Graphics PointsGraphics { get; private set; }
-        public Bitmap Buffer { get; private set; }
+        public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
-        public string[,] PathsMatrix { get; private set; }
-        public int XMax { get; private set; }
-        public int YMax { get; private set; }
-        public int LeftScore { get; private set; }
+        public static string[,] PathsMatrix { get; private set; }
+        public static int XMax { get; private set; }
+        public static int YMax { get; private set; }
+        public static int LeftScore { get; private set; }
         public int GhostElements { get; private set; }
-        public int PacManEatScores { get; private set; }
-        public static bool Run { get;  set; }
-        public string MoveDirection { get; private set; }
+        public static int PacManEatScores { get; private set; }
+        public static bool Run { get; set; }
+        public static string MoveDirection { get; private set; }
         public Color WallColor { get; private set; }
-        public GameWindow Game { get; }
+        public static GameWindow Game { get; private set; }
         public bool IsInicialize { get; private set; }
         private PacMan PacMan { get; set; }
-        public List<Point> Points { get; private set; }
+        public static List<Point> Points { get; private set; }
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
         public static string Level { get; set; }
 
-        public Engine()
-        {
-            this.Buffer = new Bitmap(1200, 650);
-            this.PathsMatrix = new string[24, 13];
-            this.XMax = 24;
-            this.YMax = 13;
-            this.GhostElements = 4;
-            Engine.Run = true;
-            this.WallColor = Color.Cyan;
-            this.IsInicialize = false;
-            this.Points = new List<Point>();
-            this.Ghosts = new List<Ghost>();
-            this.Player = new PlayerSound();
-            Engine.Level = @"DataFiles\Levels\Labirint.txt";
-        }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
-            : this()
         {
             this.Graphics = graphic;
             this.GraphicsGhost = graphicsGhost;
             this.PointsGraphics = pointsGraphics;
-            this.Game = game;
+            Game = game;
+            Buffer = new Bitmap(1200, 650);
+            PathsMatrix = new string[24, 13];
+            XMax = 24;
+            YMax = 13;
+            this.GhostElements = 4;
+            Engine.Run = true;
+            this.WallColor = Color.Cyan;
+            this.IsInicialize = false;
+            Points = new List<Point>();
+            this.Ghosts = new List<Ghost>();
+            this.Player = new PlayerSound();
+            Engine.Level = @"DataFiles\Levels\Labirint.txt";
         }
 
         public void Initialize()
@@ -70,7 +66,7 @@ namespace FarthorlPacMan
 
                 TaskRenderingPacMan = new Task(RenderPacMan);
                 TaskRenderingGhost = new Task(RenderGhost);
-                PacMan = new PacMan(0, 0, this.Graphics, this);
+                PacMan = new PacMan(0, 0, this.Graphics);
 
                 for (int i = 0; i < GhostElements; i++)
                 {
@@ -172,7 +168,7 @@ namespace FarthorlPacMan
                         }
 
                         //Add element data in to the specific point in the 2D array
-                        this.PathsMatrix[arrayX, arrayY] = arrayValue;
+                        PathsMatrix[arrayX, arrayY] = arrayValue;
                     }
                 }
             }
@@ -221,7 +217,7 @@ namespace FarthorlPacMan
             }
         }
 
-        private void UpdateLeftSores(int pacManScores)
+        private static void UpdateLeftSores(int pacManScores)
         {
             Game.UpdateLeftScore(LeftScore - pacManScores);
             if (LeftScore - pacManScores == 0)
@@ -259,13 +255,13 @@ namespace FarthorlPacMan
             return !Run;
         }
 
-        public string[] GetQuadrantElements(int quadrantX, int quandrantY)
+        public static string[] GetQuadrantElements(int quadrantX, int quandrantY)
         {
             string[] elements = PathsMatrix[quadrantX, quandrantY].Trim().Split(',');
             return elements;
         }
 
-        public void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
+        public static void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
         {
             var stringValue = $"{element[0]},{element[1]}";
             PathsMatrix[quadrantX, quandrantY] = stringValue;
@@ -284,7 +280,7 @@ namespace FarthorlPacMan
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
                 drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
-                this.Game.pacMan.BackgroundImage = Buffer;
+                Game.pacMan.BackgroundImage = Buffer;
             }
 
             Game.UpdateScores(PacManEatScores);
@@ -304,17 +300,18 @@ namespace FarthorlPacMan
 
         public void changeDirection(string newDirection)
         {
-            this.MoveDirection = newDirection;
+            MoveDirection = newDirection;
         }
 
-        public bool isDirectionChanged(string myDirection)
+        public static bool isDirectionChanged(string myDirection)
         {
-            if (myDirection == "Up" && this.MoveDirection == "Down" || myDirection == "Down" && this.MoveDirection == "Up")
+
+            if (myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up")
             {
                 return true;
             }
 
-            if (myDirection == "Right" && this.MoveDirection == "Left" || myDirection == "Left" && this.MoveDirection == "Right")
+            if (myDirection == "Right" && MoveDirection == "Left" || myDirection == "Left" && MoveDirection == "Right")
             {
                 return true;
             }
@@ -322,7 +319,12 @@ namespace FarthorlPacMan
             return false;
         }
 
-        public string GetDirection()
+        public string Direction()
+        {
+            return MoveDirection;
+        }
+
+        public static string GetDirection()
         {
             return MoveDirection;
         }
@@ -339,14 +341,14 @@ namespace FarthorlPacMan
             return false;
         }
 
-        public int GetMaxX()
+        public static int GetMaxX()
         {
-            return this.XMax;
+            return XMax;
         }
 
-        public int GetMaxY()
+        public static int GetMaxY()
         {
-            return this.YMax;
+            return YMax;
 
         }
 

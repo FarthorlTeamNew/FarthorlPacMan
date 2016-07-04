@@ -20,7 +20,6 @@ namespace FarthorlPacMan
         private int animateCoeficent ;
         private Color pacManColor;
         private Boolean isAlive;
-        private Engine engine;
         private Graphics graphics;
         private PlayerSound player ;
 
@@ -31,14 +30,13 @@ namespace FarthorlPacMan
             this.player= new PlayerSound();
         }
 
-        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics, Engine engine)
+        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics)
             : this()
         {
             this.positionQuadrantX = positionXQaundarnt;
             this.positionQuadrantY = positionYQuadrant;
             drawingCoordinatesX = positionQuadrantX * QuadrantDimension + QuadrantDimension / 2;
             drawingCoordinatesY = positionQuadrantY * QuadrantDimension + QuadrantDimension / 2;
-            this.engine = engine;
             this.graphics = graphics;
             this.initializePacMan();
         }
@@ -50,9 +48,9 @@ namespace FarthorlPacMan
 
         private void tryMoveRight()
         {
-            if (this.positionQuadrantX < engine.GetMaxX() - 1)
+            if (this.positionQuadrantX < Engine.GetMaxX() - 1)
             {
-                string[] elements = engine.GetQuadrantElements(this.positionQuadrantX + 1, this.positionQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(this.positionQuadrantX + 1, this.positionQuadrantY);
 
                 if (isAlive && elements[0] == "0")
                 {
@@ -77,7 +75,7 @@ namespace FarthorlPacMan
         {
             if (positionQuadrantX > 0)
             {
-                string[] elements = engine.GetQuadrantElements(positionQuadrantX - 1, positionQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(positionQuadrantX - 1, positionQuadrantY);
 
                 if (isAlive && elements[0] == "0")
                 {
@@ -102,7 +100,7 @@ namespace FarthorlPacMan
         {
             if (positionQuadrantY > 0)
             {
-                string[] elements = engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1);
+                string[] elements = Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1);
 
                 if (isAlive && elements[0] == "0")
                 {
@@ -127,9 +125,9 @@ namespace FarthorlPacMan
 
         private void tryMoveDown()
         {
-            if (positionQuadrantY < engine.GetMaxY() - 1)
+            if (positionQuadrantY < Engine.GetMaxY() - 1)
             {
-                string[] elements = engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1);
+                string[] elements = Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1);
 
                 if (isAlive && elements[0] == "0")
                 {
@@ -159,16 +157,16 @@ namespace FarthorlPacMan
                 Move(direction);
             }
 
-            if (engine.isDirectionChanged(movedDirection))
+            if (Engine.isDirectionChanged(movedDirection))
             {
-                this.movedDirection = engine.GetDirection();
+                movedDirection = Engine.GetDirection();
             }
 
             switch (movedDirection)
             {
                 case "Right":
 
-                    if (drawingCoordinatesX < (engine.GetMaxX()-1) * QuadrantDimension + QuadrantDimension/2)
+                    if (drawingCoordinatesX < (Engine.GetMaxX()-1) * QuadrantDimension + QuadrantDimension/2)
                     {
                         drawingCoordinatesX = drawingCoordinatesX + 1;
                     }
@@ -347,7 +345,7 @@ namespace FarthorlPacMan
 
                 case "Down":
 
-                    if (drawingCoordinatesY < (engine.GetMaxY()-1) * QuadrantDimension + QuadrantDimension / 2)
+                    if (drawingCoordinatesY < (Engine.GetMaxY()-1) * QuadrantDimension + QuadrantDimension / 2)
                     {
                         drawingCoordinatesY = drawingCoordinatesY + 1;
                     }
@@ -472,14 +470,14 @@ namespace FarthorlPacMan
 
         public void EatPoint(int quadrantX, int quadrantY)
         {
-            string[] elements = engine.GetQuadrantElements(quadrantX, quadrantY);
+            string[] elements = Engine.GetQuadrantElements(quadrantX, quadrantY);
 
             if (elements[1] == "1")
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
                 player.Play("eatfruit");
-                engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
+                Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
             }
         }
 
