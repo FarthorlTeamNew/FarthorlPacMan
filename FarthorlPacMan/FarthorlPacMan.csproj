@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="States\ExtractAllLevels.cs" />
     <Compile Include="States\GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,7 +107,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="DataFiles\Levels\coordinates.txt">
+    <Content Include="DataFiles\Levels\Labirint.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Levels\CSharpLove.txt">

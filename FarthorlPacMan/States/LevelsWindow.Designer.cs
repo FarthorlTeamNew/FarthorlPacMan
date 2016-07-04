@@ -29,7 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelsWindow));
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(418, 48);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
+            this.checkedListBox1.TabIndex = 0;
             // 
             // LevelsWindow
             // 
@@ -38,6 +47,7 @@
             this.BackColor = System.Drawing.Color.Navy;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 408);
+            this.Controls.Add(this.checkedListBox1);
             this.MaximumSize = new System.Drawing.Size(600, 446);
             this.MinimumSize = new System.Drawing.Size(600, 446);
             this.Name = "LevelsWindow";
@@ -48,5 +58,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }

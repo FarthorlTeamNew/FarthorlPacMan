@@ -4,6 +4,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using FarthorlPacMan.States;
 
 namespace FarthorlPacMan
 {
@@ -45,7 +46,7 @@ namespace FarthorlPacMan
             this.Points = new List<Point>();
             this.Ghosts = new List<Ghost>();
             this.Player = new PlayerSound();
-            this.Level = @"DataFiles\Levels\coordinates.txt";
+            this.Level = @"DataFiles\Levels\Labirint.txt";
         }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
@@ -142,6 +143,7 @@ namespace FarthorlPacMan
 
         private void initializeMatrix()
         {
+            var testLevels = new ExtractAllLevels().ExctractLevels();
             try
             {
                 using (var fileMatrix = new StreamReader(this.Level))
