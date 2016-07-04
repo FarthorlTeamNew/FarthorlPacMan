@@ -30,7 +30,6 @@ namespace FarthorlPacMan
         private void gameWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             gameWindow.stopGame();
-            Application.Run();
             this.Show();
         }
 
