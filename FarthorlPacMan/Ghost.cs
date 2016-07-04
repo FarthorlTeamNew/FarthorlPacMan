@@ -13,10 +13,10 @@ namespace FarthorlPacMan
         private const int PacManDistanceY = 0;
         private const int SpeedDrawing = 6;
         private Random random = new Random();
-        private int positionQuadrantX ;
+        private int positionQuadrantX;
         private int positionQuadrantY;
-        private int drawingX ;
-        private int drawingY ;
+        private int drawingX;
+        private int drawingY;
         private int positionPacManQaundarntX;
         private int positionPacManQaundarntY;
         private string movedDirection;
@@ -50,13 +50,13 @@ namespace FarthorlPacMan
             System.Threading.Thread.Sleep(random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
-            for (int y = 0; y < engine.GetMaxY() - 1; y++)
+            for (int y = 0; y < Engine.GetMaxY() - 1; y++)
             {
-                for (int x = 0; x < engine.GetMaxX() - 1; x++)
+                for (int x = 0; x < Engine.GetMaxX() - 1; x++)
                 {
                     if (x <= pacManX - PacManDistanceX && y <= pacManY - PacManDistanceY || x >= pacManX + PacManDistanceX && y >= pacManY + PacManDistanceY)
                     {
-                        var elements = engine.GetQuadrantElements(x, y);
+                        var elements = Engine.GetQuadrantElements(x, y);
 
                         if (elements[0] == "0")
                         {
@@ -99,7 +99,7 @@ namespace FarthorlPacMan
 
         private void CheckExistDirections()
         {
-            if (positionQuadrantY > 0 && engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1)[0] == "0")
+            if (positionQuadrantY > 0 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1)[0] == "0")
             {
                 existDirections["Up"] = true;
             }
@@ -108,7 +108,7 @@ namespace FarthorlPacMan
                 existDirections["Up"] = false;
             }
 
-            if (positionQuadrantY < engine.GetMaxY() - 1 && engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1)[0] == "0")
+            if (positionQuadrantY < Engine.GetMaxY() - 1 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1)[0] == "0")
             {
                 existDirections["Down"] = true;
             }
@@ -117,7 +117,7 @@ namespace FarthorlPacMan
                 existDirections["Down"] = false;
             }
 
-            if (positionQuadrantX > 0 && engine.GetQuadrantElements(positionQuadrantX - 1, positionQuadrantY)[0] == "0")
+            if (positionQuadrantX > 0 && Engine.GetQuadrantElements(positionQuadrantX - 1, positionQuadrantY)[0] == "0")
             {
                 existDirections["Left"] = true;
             }
@@ -126,7 +126,7 @@ namespace FarthorlPacMan
                 existDirections["Left"] = false;
             }
 
-            if (positionQuadrantX < engine.GetMaxX() - 1 && engine.GetQuadrantElements(positionQuadrantX + 1, positionQuadrantY)[0] == "0")
+            if (positionQuadrantX < Engine.GetMaxX() - 1 && Engine.GetQuadrantElements(positionQuadrantX + 1, positionQuadrantY)[0] == "0")
             {
                 existDirections["Right"] = true;
             }
@@ -225,11 +225,11 @@ namespace FarthorlPacMan
 
         private void tryMoveRight()
         {
-            if (positionQuadrantX < engine.GetMaxX() - 1)
+            if (positionQuadrantX < Engine.GetMaxX() - 1)
             {
                 int nextQuandrantX = this.positionQuadrantX + 1;
                 int nextQuadrantY = this.positionQuadrantY;
-                string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
@@ -292,7 +292,7 @@ namespace FarthorlPacMan
             {
                 int nextQuandrantX = this.positionQuadrantX - 1;
                 int nextQuadrantY = this.positionQuadrantY;
-                string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
@@ -350,7 +350,7 @@ namespace FarthorlPacMan
             {
                 int nextQuandrantX = this.positionQuadrantX;
                 int nextQuadrantY = this.positionQuadrantY - 1;
-                string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
@@ -406,11 +406,11 @@ namespace FarthorlPacMan
 
         private void tryMoveDown()
         {
-            if (positionQuadrantY < engine.GetMaxY() - 1)
+            if (positionQuadrantY < Engine.GetMaxY() - 1)
             {
                 int nextQuandrantX = this.positionQuadrantX;
                 int nextQuadrantY = this.positionQuadrantY + 1;
-                string[] elements = engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
+                string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {

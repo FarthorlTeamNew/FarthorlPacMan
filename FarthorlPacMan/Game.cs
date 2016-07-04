@@ -10,8 +10,8 @@ namespace FarthorlPacMan
         // 4. Starts drawing the graphics, Ghosts, points, and the level design itself
         public void startDraw(Graphics graphic, Graphics graphicsGhost,Graphics pointsGraphics, GameWindow game)
         {
-            this.GraphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
-            this.GraphicEngine.Initialize();
+            this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
+            this.graphicEngine.Initialize();
         }
 
         public Engine GraphicEngine
@@ -22,31 +22,31 @@ namespace FarthorlPacMan
 
         public void Redraw()
         {
-            GraphicEngine.DrawContent();
+            graphicEngine.DrawContent();
         }
 
         public void ChangeDirection(string direction)
         {
-            if (GraphicEngine.IsPaused())
+            if (graphicEngine.IsPaused())
             {
-                GraphicEngine.ResumeGame();
+                graphicEngine.ResumeGame();
             }
-            GraphicEngine.changeDirection(direction);
+            graphicEngine.changeDirection(direction);
         }
 
         public void PauseGame()
         {
-            GraphicEngine.PauseGame();
+            graphicEngine.PauseGame();
         }
 
         public void stopGame()
         {
-            this.GraphicEngine.StopGame();
+            this.graphicEngine.StopGame();
         }
 
         public void Dispose()
         {
-            GraphicEngine.Dispose();
+            graphicEngine.Dispose();
         }
     }
 }
