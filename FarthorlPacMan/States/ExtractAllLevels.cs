@@ -30,7 +30,7 @@ namespace FarthorlPacMan.States
                 var levelName = file.Name.Substring(0,file.Name.Length-4);
                 if (!levels.ContainsKey(levelName))
                 {
-                    levels.Add(levelName, levelFolder + @"\" + file.Name);
+                    levels.Add(levelName, levelFolder + $@"\{file.Name}");
                 }
             }
 

@@ -6,18 +6,18 @@ namespace FarthorlPacMan
     public class Game : IDisposable
     {
         private Engine graphicEngine;
+        private string level  = @"DataFiles\Levels\Labirint.txt";
 
         // 4. Starts drawing the graphics, Ghosts, points, and the level design itself
         public void startDraw(Graphics graphic, Graphics graphicsGhost,Graphics pointsGraphics, GameWindow game)
         {
-            this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game);
+            this.graphicEngine = new Engine(graphic, graphicsGhost, pointsGraphics, game,this.level);
             this.graphicEngine.Initialize();
         }
 
-        public Engine GraphicEngine
+        public  void SetNewLevel(string path)
         {
-            get { return graphicEngine; }
-            set { graphicEngine = value; }
+            graphicEngine.Level = path;
         }
 
         public void Redraw()

@@ -32,10 +32,10 @@ namespace FarthorlPacMan
         public static List<Point> Points { get; private set; }
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
-        public static string Level { get; set; }
+        public string Level { get; set; }
         public Fruit Fruit { get; set; }
 
-        public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
+        public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game,string level)
         {
             this.Graphics = graphic;
             this.GraphicsGhost = graphicsGhost;
@@ -52,7 +52,7 @@ namespace FarthorlPacMan
             Points = new List<Point>();
             this.Ghosts = new List<Ghost>();
             this.Player = new PlayerSound();
-            Engine.Level = @"DataFiles\Levels\Labirint.txt";
+            this.Level = level;
         }
 
         public void Initialize()
@@ -142,7 +142,7 @@ namespace FarthorlPacMan
         {
             try
             {
-                using (var fileMatrix = new StreamReader(Engine.Level))
+                using (var fileMatrix = new StreamReader(this.Level))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)
@@ -217,6 +217,7 @@ namespace FarthorlPacMan
                 }
             }
         }
+
 
         private static void UpdateLeftSores(int pacManScores)
         {

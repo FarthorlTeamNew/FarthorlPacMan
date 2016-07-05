@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FarthorlPacMan;
 
 namespace FarthorlPacMan.States
 {
     public partial class LevelsWindow : Form
     {
+        GameWindow gameWindow = new GameWindow();
         private Dictionary<string, string> levelsFilePaths;
         public LevelsWindow()
         {
@@ -21,12 +22,12 @@ namespace FarthorlPacMan.States
 
         private void CsharpLevel_Click(object sender, EventArgs e)
         {
-            Engine.Level = levelsFilePaths["CSharpLove"];
+            gameWindow.level =  levelsFilePaths["CSharpLove"];
             Close();
         }
         private void Labirint_Level_Click(object sender, EventArgs e)
         {
-            Engine.Level = levelsFilePaths["Labirint"];
+            gameWindow.level = levelsFilePaths["Labirint"];
             Close();
         }
     }
