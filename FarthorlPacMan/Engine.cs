@@ -32,7 +32,7 @@ namespace FarthorlPacMan
         public static List<Point> Points { get; private set; }
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
-        public string Level { get; set; }
+        private string level { get; set; }
         public Fruit Fruit { get; set; }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game,string level)
@@ -52,7 +52,7 @@ namespace FarthorlPacMan
             Points = new List<Point>();
             this.Ghosts = new List<Ghost>();
             this.Player = new PlayerSound();
-            this.Level = level;
+            this.level = level;
         }
 
         public void Initialize()
@@ -142,7 +142,7 @@ namespace FarthorlPacMan
         {
             try
             {
-                using (var fileMatrix = new StreamReader(this.Level))
+                using (var fileMatrix = new StreamReader(this.level))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)

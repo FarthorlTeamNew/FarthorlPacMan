@@ -6,7 +6,7 @@ namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
-        GameWindow gameWindow = new GameWindow();
+        public GameWindow gameWindow = new GameWindow();
         LevelsWindow levelWindow=new LevelsWindow();
         PlayerSound player =new PlayerSound();
 

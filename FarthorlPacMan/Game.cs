@@ -17,7 +17,7 @@ namespace FarthorlPacMan
 
         public  void SetNewLevel(string path)
         {
-            graphicEngine.Level = path;
+            this.level = path;
         }
 
         public void Redraw()

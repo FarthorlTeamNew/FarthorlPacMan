@@ -6,7 +6,7 @@ namespace FarthorlPacMan
 {
     public partial class GameWindow : Form
     {
-        public string level = null;
+        public static string Level;
         private Game game = new Game();
         private bool isInicialize = false;
         PlayerSound player = new PlayerSound();
@@ -24,9 +24,9 @@ namespace FarthorlPacMan
                 Graphics graphics = pacMan.CreateGraphics();
                 Graphics graphicsGhost = pacMan.CreateGraphics();
                 Graphics pointsGraphics = pacMan.CreateGraphics();
-                if (this.level!=null)
+                if (Level!=null)
                 {
-                    game.SetNewLevel(this.level);
+                    game.SetNewLevel(Level);
                 }
                 this.game.startDraw(graphics, graphicsGhost, pointsGraphics, this);
                 this.isInicialize = true;
