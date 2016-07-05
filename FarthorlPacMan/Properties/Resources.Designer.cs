@@ -93,6 +93,26 @@ namespace FarthorlPacMan.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CsharpLove_Button {
+            get {
+                object obj = ResourceManager.GetObject("CsharpLove_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Euro2016_Button {
+            get {
+                object obj = ResourceManager.GetObject("Euro2016_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EuroLevelImage {
             get {
                 object obj = ResourceManager.GetObject("EuroLevelImage", resourceCulture);
@@ -106,6 +126,26 @@ namespace FarthorlPacMan.Properties {
         internal static System.Drawing.Bitmap Exit_Button {
             get {
                 object obj = ResourceManager.GetObject("Exit_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Labirint_Button {
+            get {
+                object obj = ResourceManager.GetObject("Labirint_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Labirint2_Button {
+            get {
+                object obj = ResourceManager.GetObject("Labirint2_Button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
