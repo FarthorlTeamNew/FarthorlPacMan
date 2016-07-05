@@ -191,9 +191,7 @@ namespace FarthorlPacMan
 
                 return existRoads[randomIndex];
             }
-
             return notEqualDirection;
-
         }
 
         private void MoveNext()
@@ -201,8 +199,7 @@ namespace FarthorlPacMan
             CheckExistDirections();
             var newDirection = SelectRandomRoad(movedDirection);
 
-
-            if (!String.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(newDirection))
             {
                 if (movedDirection == "Right")
                 {
@@ -239,51 +236,35 @@ namespace FarthorlPacMan
                 }
                 else
                 {
-                    CheckExistDirections();
-                    var newDirection = SelectRandomRoad("Right");
-
-                    if (!string.IsNullOrEmpty(newDirection))
-                    {
-                        if (newDirection == "Left")
-                        {
-                            tryMoveLeft();
-                        }
-                        else if (newDirection == "Up")
-                        {
-                            tryMoveUp();
-
-                        }
-                        else if (newDirection == "Down")
-                        {
-                            tryMoveDown();
-                        }
-                    }
+                    GetNewDirectionRight();
                 }
 
             }
             else
             {
-                CheckExistDirections();
-                var newDirection = SelectRandomRoad("Right");
+                GetNewDirectionRight();
+            }
+        }
 
-                if (!string.IsNullOrEmpty(newDirection))
+        private void GetNewDirectionRight()
+        {
+            CheckExistDirections();
+            var newDirection = SelectRandomRoad("Right");
+            if (!string.IsNullOrEmpty(newDirection))
+            {
+                if (newDirection == "Left")
                 {
-                    if (newDirection == "Left")
-                    {
-                        tryMoveLeft();
-                    }
-                    else if (newDirection == "Up")
-                    {
-                        tryMoveUp();
-
-                    }
-                    else if (newDirection == "Down")
-                    {
-                        tryMoveDown();
-                    }
+                    tryMoveLeft();
+                }
+                else if (newDirection == "Up")
+                {
+                    tryMoveUp();
+                }
+                else if (newDirection == "Down")
+                {
+                    tryMoveDown();
                 }
             }
-
         }
 
         private void tryMoveLeft()
@@ -301,45 +282,32 @@ namespace FarthorlPacMan
                 }
                 else
                 {
-                    CheckExistDirections();
-                    var newDirection = SelectRandomRoad("Left");
-
-                    if (!String.IsNullOrEmpty(newDirection))
-                    {
-                        if (newDirection == "Right")
-                        {
-                            tryMoveRight();
-                        }
-                        else if (newDirection == "Up")
-                        {
-                            tryMoveUp();
-                        }
-                        else if (newDirection == "Down")
-                        {
-                            tryMoveDown();
-                        }
-                    }
+                    GetNewDirectionLeft();
                 }
             }
             else
             {
-                CheckExistDirections();
-                var newDirection = SelectRandomRoad("Left");
+                GetNewDirectionLeft();
+            }
+        }
 
-                if (!String.IsNullOrEmpty(newDirection))
+        private void GetNewDirectionLeft()
+        {
+            CheckExistDirections();
+            var newDirection = SelectRandomRoad("Left");
+            if (!string.IsNullOrEmpty(newDirection))
+            {
+                if (newDirection == "Right")
                 {
-                    if (newDirection == "Right")
-                    {
-                        tryMoveRight();
-                    }
-                    else if (newDirection == "Up")
-                    {
-                        tryMoveUp();
-                    }
-                    else if (newDirection == "Down")
-                    {
-                        tryMoveDown();
-                    }
+                    tryMoveRight();
+                }
+                else if (newDirection == "Up")
+                {
+                    tryMoveUp();
+                }
+                else if (newDirection == "Down")
+                {
+                    tryMoveDown();
                 }
             }
         }
@@ -360,46 +328,32 @@ namespace FarthorlPacMan
                 }
                 else
                 {
-                    CheckExistDirections();
-                    var newDirection = SelectRandomRoad("Up");
-
-                    if (!String.IsNullOrEmpty(newDirection))
-                    {
-                        if (newDirection == "Right")
-                        {
-                            tryMoveRight();
-                        }
-                        else if (newDirection == "Left")
-                        {
-                            tryMoveLeft();
-                        }
-                        else if (newDirection == "Down")
-                        {
-                            tryMoveDown();
-                        }
-                    }
+                    GetNewDirectionUp();
                 }
             }
             else
             {
+               GetNewDirectionUp();
+            }
+        }
 
-                CheckExistDirections();
-                var newDirection = SelectRandomRoad("Up");
-
-                if (!String.IsNullOrEmpty(newDirection))
+        private void GetNewDirectionUp()
+        {
+            CheckExistDirections();
+            var newDirection = SelectRandomRoad("Up");
+            if (!string.IsNullOrEmpty(newDirection))
+            {
+                if (newDirection == "Right")
                 {
-                    if (newDirection == "Right")
-                    {
-                        tryMoveRight();
-                    }
-                    else if (newDirection == "Left")
-                    {
-                        tryMoveLeft();
-                    }
-                    else if (newDirection == "Down")
-                    {
-                        tryMoveDown();
-                    }
+                    tryMoveRight();
+                }
+                else if (newDirection == "Left")
+                {
+                    tryMoveLeft();
+                }
+                else if (newDirection == "Down")
+                {
+                    tryMoveDown();
                 }
             }
         }
@@ -419,45 +373,32 @@ namespace FarthorlPacMan
                 }
                 else
                 {
-                    CheckExistDirections();
-                    var newDirection = SelectRandomRoad("Down");
-
-                    if (!string.IsNullOrEmpty(newDirection))
-                    {
-                        if (newDirection == "Right")
-                        {
-                            tryMoveRight();
-                        }
-                        else if (newDirection == "Left")
-                        {
-                            tryMoveLeft();
-                        }
-                        else if (newDirection == "Up")
-                        {
-                            tryMoveUp();
-                        }
-                    }
+                    GetNewDirectionDown();
                 }
             }
             else
             {
-                CheckExistDirections();
-                var newDirection = SelectRandomRoad("Down");
+                GetNewDirectionDown();
+            }
+        }
 
-                if (!string.IsNullOrEmpty(newDirection))
+        private void GetNewDirectionDown()
+        {
+            CheckExistDirections();
+            var newDirection = SelectRandomRoad("Down");
+            if (!string.IsNullOrEmpty(newDirection))
+            {
+                if (newDirection == "Right")
                 {
-                    if (newDirection == "Right")
-                    {
-                        tryMoveRight();
-                    }
-                    else if (newDirection == "Left")
-                    {
-                        tryMoveLeft();
-                    }
-                    else if (newDirection == "Up")
-                    {
-                        tryMoveUp();
-                    }
+                    tryMoveRight();
+                }
+                else if (newDirection == "Left")
+                {
+                    tryMoveLeft();
+                }
+                else if (newDirection == "Up")
+                {
+                    tryMoveUp();
                 }
             }
         }
