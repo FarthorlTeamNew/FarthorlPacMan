@@ -6,7 +6,7 @@ namespace FarthorlPacMan
 {
     public class PacMan
     {
-        private int Diameter => Global.Diameter;
+        private int Diameter => Global.PacManDiameter;
         private int QuadrantDimension => Global.QuadrantSize;
         private int positionQuadrantX;
         private int positionQuadrantY;

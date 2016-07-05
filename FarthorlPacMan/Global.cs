@@ -8,7 +8,7 @@ namespace FarthorlPacMan
 {
     public static class Global
     {
-        public static int Diameter { get { return 35; } }
+        public static int PacManDiameter { get { return 35; } }
         public static int QuadrantSize { get { return 50; } }
         public static int DrawingSpeed { get { return 6; } }
     }

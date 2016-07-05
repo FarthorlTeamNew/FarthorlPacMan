@@ -14,7 +14,7 @@ namespace FarthorlPacMan
     {
         public Graphics GraphicsPacMan { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
-        public Graphics PointsGraphics { get; private set; }
+        public static Graphics PointsGraphics { get; private set; }
         public Graphics GraphicsFruit { get; private set; }
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
@@ -32,7 +32,7 @@ namespace FarthorlPacMan
         public bool IsInicialize { get; private set; }
         private PacMan PacMan { get; set; }
         public static List<Point> Points { get; private set; }
-        private List<Ghost> Ghosts { get; set; }
+        private static List<Ghost> Ghosts { get; set; }
         private string level { get; set; }
         public Fruit Fruit { get; set; }
 
@@ -40,7 +40,7 @@ namespace FarthorlPacMan
         {
             this.GraphicsPacMan = graphicPacMan;
             this.GraphicsGhost = graphicsGhost;
-            this.PointsGraphics = pointsGraphics;
+            PointsGraphics = pointsGraphics;
             Game = game;
             Buffer = new Bitmap(1200, 650);
             PathsMatrix = new string[24, 13];
@@ -51,7 +51,7 @@ namespace FarthorlPacMan
             this.WallColor = Color.Cyan;
             this.IsInicialize = false;
             Points = new List<Point>();
-            this.Ghosts = new List<Ghost>();
+            Ghosts = new List<Ghost>();
             this.level = level;
         }
 
@@ -71,7 +71,7 @@ namespace FarthorlPacMan
 
                 for (int i = 0; i < GhostElements; i++)
                 {
-                    Ghosts.Add(new Ghost(PacMan.getQuadrantX(), PacMan.getQuadrantY(), GraphicsGhost, this));
+                    Ghosts.Add(new Ghost(PacMan.getQuadrantX(), PacMan.getQuadrantY(), GraphicsGhost));
                 }
 
                 TaskRenderingPacMan.Start();
@@ -291,7 +291,7 @@ namespace FarthorlPacMan
 
         //TODO Refactoring
         //Remove try section
-        public void DrawPoint(int quadrantX, int quandrantY)
+        public static void DrawPoint(int quadrantX, int quandrantY)
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
@@ -316,7 +316,7 @@ namespace FarthorlPacMan
             return false;
         }
 
-        public bool isExistGhost(int quadrantX, int quadrantY)
+        public static bool isExistGhost(int quadrantX, int quadrantY)
         {
             foreach (var ghost in Ghosts)
             {
