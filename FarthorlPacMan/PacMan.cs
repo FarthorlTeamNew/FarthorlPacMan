@@ -47,7 +47,7 @@ namespace FarthorlPacMan
 
         private void tryMoveRight()
         {
-            if (this.positionQuadrantX < Engine.GetMaxX() - 1)
+            if (this.positionQuadrantX < Engine.XMax - 1)
             {
                 string[] elements = Engine.GetQuadrantElements(this.positionQuadrantX + 1, this.positionQuadrantY);
 
@@ -104,7 +104,7 @@ namespace FarthorlPacMan
 
         private void tryMoveDown()
         {
-            if (positionQuadrantY < Engine.GetMaxY() - 1)
+            if (positionQuadrantY < Engine.YMax - 1)
             {
                 string[] elements = Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1);
 
@@ -142,14 +142,14 @@ namespace FarthorlPacMan
 
             if (Engine.isDirectionChanged(movedDirection))
             {
-                movedDirection = Engine.GetDirection();
+                movedDirection = Engine.MoveDirection;
             }
 
             switch (movedDirection)
             {
                 case "Right":
 
-                    if (drawingCoordinatesX < (Engine.GetMaxX()-1) * QuadrantDimension + QuadrantDimension/2)
+                    if (drawingCoordinatesX < (Engine.XMax-1) * QuadrantDimension + QuadrantDimension/2)
                     {
                         drawingCoordinatesX += 1;
                     }
@@ -312,7 +312,7 @@ namespace FarthorlPacMan
 
                 case "Down":
 
-                    if (drawingCoordinatesY < (Engine.GetMaxY()-1) * QuadrantDimension + QuadrantDimension / 2)
+                    if (drawingCoordinatesY < (Engine.YMax-1) * QuadrantDimension + QuadrantDimension / 2)
                     {
                         drawingCoordinatesY += 1;
                     }

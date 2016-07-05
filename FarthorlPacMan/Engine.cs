@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using FarthorlPacMan.States;
 
 namespace FarthorlPacMan
 {
+
     public class Engine : IDisposable
     {
-        public Graphics Graphics { get; private set; }
+        public Graphics GraphicsPacMan { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
         public Graphics PointsGraphics { get; private set; }
         public Graphics GraphicsFruit { get; private set; }
@@ -24,7 +26,7 @@ namespace FarthorlPacMan
         public int GhostElements { get; private set; }
         public static int PacManEatScores { get; private set; }
         public static bool Run { get; set; }
-        public static string MoveDirection { get; private set; }
+        public static string MoveDirection { get; set; }
         public Color WallColor { get; private set; }
         public static GameWindow Game { get; private set; }
         public bool IsInicialize { get; private set; }
@@ -35,9 +37,9 @@ namespace FarthorlPacMan
         private string level { get; set; }
         public Fruit Fruit { get; set; }
 
-        public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game,string level)
+        public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game, string level)
         {
-            this.Graphics = graphic;
+            this.GraphicsPacMan = graphicPacMan;
             this.GraphicsGhost = graphicsGhost;
             this.PointsGraphics = pointsGraphics;
             Game = game;
@@ -67,7 +69,7 @@ namespace FarthorlPacMan
 
                 TaskRenderingPacMan = new Task(RenderPacMan);
                 TaskRenderingGhost = new Task(RenderGhost);
-                PacMan = new PacMan(0, 0, this.Graphics);
+                PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
                 for (int i = 0; i < GhostElements; i++)
                 {
@@ -98,7 +100,7 @@ namespace FarthorlPacMan
         {
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.DrawRectangle(new Pen(WallColor), 0, 0, GetMaxX() * 50, GetMaxY() * 50);
+                drawing.DrawRectangle(new Pen(WallColor), 0, 0, XMax * 50, YMax * 50);
                 Game.pacMan.BackgroundImage = Buffer;
             }
 
@@ -300,11 +302,6 @@ namespace FarthorlPacMan
             }
         }
 
-        public void changeDirection(string newDirection)
-        {
-            MoveDirection = newDirection;
-        }
-
         public static bool isDirectionChanged(string myDirection)
         {
 
@@ -321,16 +318,6 @@ namespace FarthorlPacMan
             return false;
         }
 
-        public string Direction()
-        {
-            return MoveDirection;
-        }
-
-        public static string GetDirection()
-        {
-            return MoveDirection;
-        }
-
         public bool isExistGhost(int quadrantX, int quadrantY)
         {
             foreach (var ghost in Ghosts)
@@ -341,17 +328,6 @@ namespace FarthorlPacMan
                 }
             }
             return false;
-        }
-
-        public static int GetMaxX()
-        {
-            return XMax;
-        }
-
-        public static int GetMaxY()
-        {
-            return YMax;
-
         }
 
         public void Dispose()

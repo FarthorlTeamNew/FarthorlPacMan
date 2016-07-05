@@ -50,9 +50,9 @@ namespace FarthorlPacMan
             System.Threading.Thread.Sleep(random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
-            for (int y = 0; y < Engine.GetMaxY() - 1; y++)
+            for (int y = 0; y < Engine.YMax- 1; y++)
             {
-                for (int x = 0; x < Engine.GetMaxX() - 1; x++)
+                for (int x = 0; x < Engine.XMax - 1; x++)
                 {
                     if (x <= pacManX - PacManDistanceX && y <= pacManY - PacManDistanceY || x >= pacManX + PacManDistanceX && y >= pacManY + PacManDistanceY)
                     {
@@ -108,7 +108,7 @@ namespace FarthorlPacMan
                 existDirections["Up"] = false;
             }
 
-            if (positionQuadrantY < Engine.GetMaxY() - 1 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1)[0] == "0")
+            if (positionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1)[0] == "0")
             {
                 existDirections["Down"] = true;
             }
@@ -126,7 +126,7 @@ namespace FarthorlPacMan
                 existDirections["Left"] = false;
             }
 
-            if (positionQuadrantX < Engine.GetMaxX() - 1 && Engine.GetQuadrantElements(positionQuadrantX + 1, positionQuadrantY)[0] == "0")
+            if (positionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(positionQuadrantX + 1, positionQuadrantY)[0] == "0")
             {
                 existDirections["Right"] = true;
             }
@@ -222,7 +222,7 @@ namespace FarthorlPacMan
 
         private void tryMoveRight()
         {
-            if (positionQuadrantX < Engine.GetMaxX() - 1)
+            if (positionQuadrantX < Engine.YMax - 1)
             {
                 int nextQuandrantX = this.positionQuadrantX + 1;
                 int nextQuadrantY = this.positionQuadrantY;
@@ -324,7 +324,6 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    //await moveGhost(nextQuandrantX, nextQuadrantY, "Up");
                 }
                 else
                 {
@@ -360,7 +359,7 @@ namespace FarthorlPacMan
 
         private void tryMoveDown()
         {
-            if (positionQuadrantY < Engine.GetMaxY() - 1)
+            if (positionQuadrantY < Engine.YMax - 1)
             {
                 int nextQuandrantX = this.positionQuadrantX;
                 int nextQuadrantY = this.positionQuadrantY + 1;
