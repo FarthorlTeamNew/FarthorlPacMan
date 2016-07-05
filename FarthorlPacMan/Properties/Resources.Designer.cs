@@ -73,6 +73,36 @@ namespace FarthorlPacMan.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CsharpImage {
+            get {
+                object obj = ResourceManager.GetObject("CsharpImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EuroLevelImage {
+            get {
+                object obj = ResourceManager.GetObject("EuroLevelImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Labirint2Image {
+            get {
+                object obj = ResourceManager.GetObject("Labirint2Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LabirintImage {
             get {
                 object obj = ResourceManager.GetObject("LabirintImage", resourceCulture);

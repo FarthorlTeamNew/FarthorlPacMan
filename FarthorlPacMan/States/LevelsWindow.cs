@@ -25,24 +25,24 @@ namespace FarthorlPacMan.States
         private void CsharpLevel_Click(object sender, EventArgs e)
         {
             this.selectedLevel = "CSharpLove";
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.CsharpImage;
         }
         private void Labirint_Level_Click(object sender, EventArgs e)
         {
             this.selectedLevel = "Labirint";
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.LabirintImage;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.selectedLevel = "Labirint2";
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Labirint2Image;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.selectedLevel="Euro2016";
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
+            this.selectedLevel = "Euro2016";
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.EuroLevelImage;
         }
 
         private void ChooseLevel_Click(object sender, EventArgs e)

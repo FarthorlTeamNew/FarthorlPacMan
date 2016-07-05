@@ -88,7 +88,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.LabirintImage1;
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Change_level_background;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(31, 30);
             this.pictureBox1.Name = "pictureBox1";
