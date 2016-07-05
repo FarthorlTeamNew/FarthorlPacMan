@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace FarthorlPacMan
 {
-    public class PacMan : IDisposable
+    public class PacMan
     {
         private int Diameter => Global.Diameter;
         private int QuadrantDimension => Global.QuadrantSize;
@@ -20,13 +20,11 @@ namespace FarthorlPacMan
         private Color pacManColor;
         private Boolean isAlive;
         private Graphics graphics;
-        private PlayerSound player;
 
         public PacMan()
         {
             this.isAlive = true;
             this.pacManColor = Color.Yellow;
-            this.player= new PlayerSound();
         }
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics)
@@ -446,7 +444,7 @@ namespace FarthorlPacMan
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
-                player.Play("eatfruit");
+                SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
             }
         }
@@ -461,23 +459,6 @@ namespace FarthorlPacMan
             }
 
             Move(movedDirection);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (player != null)
-                {
-                    player.Dispose();
-                }
-            }
         }
     }
 }

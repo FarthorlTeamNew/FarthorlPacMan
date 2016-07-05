@@ -32,8 +32,7 @@ namespace FarthorlPacMan
         public bool IsInicialize { get; private set; }
         private PacMan PacMan { get; set; }
         public static List<Point> Points { get; private set; }
-        public List<Ghost> Ghosts { get; private set; }
-        public PlayerSound Player { get; private set; }
+        private List<Ghost> Ghosts { get; set; }
         private string level { get; set; }
         public Fruit Fruit { get; set; }
 
@@ -53,7 +52,6 @@ namespace FarthorlPacMan
             this.IsInicialize = false;
             Points = new List<Point>();
             this.Ghosts = new List<Ghost>();
-            this.Player = new PlayerSound();
             this.level = level;
         }
 
@@ -354,16 +352,6 @@ namespace FarthorlPacMan
                 if (Buffer != null)
                 {
                     Buffer.Dispose();
-                }
-
-                if (Player != null)
-                {
-                    Player.Dispose();
-                }
-
-                if (PacMan != null)
-                {
-                    PacMan.Dispose();
                 }
             }
         }

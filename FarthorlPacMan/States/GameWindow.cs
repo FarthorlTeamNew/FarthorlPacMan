@@ -9,7 +9,6 @@ namespace FarthorlPacMan
         public static string Level;
         private Game game = new Game();
         private bool isInicialize = false;
-        PlayerSound player = new PlayerSound();
       
         //1. Initialize the Windows Forms Properties. menus, etc...
         public GameWindow()
@@ -74,7 +73,7 @@ namespace FarthorlPacMan
         {
             if (isInicialize)
             {
-                player.Play("pause");
+                SoundPlayer.Play("pause");
                 game.PauseGame();
             }
         }

@@ -8,7 +8,6 @@ namespace FarthorlPacMan
     {
         public GameWindow gameWindow ;
         private LevelsWindow levelWindow;
-        PlayerSound player =new PlayerSound();
 
         public InitialWindow()
         {
@@ -37,7 +36,7 @@ namespace FarthorlPacMan
 
         private void InitialWindow_Load(object sender, EventArgs e)
         {
-            player.Play("begining");
+            SoundPlayer.Play("begining");
         }
 
 
