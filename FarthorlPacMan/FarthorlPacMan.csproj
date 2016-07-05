@@ -50,6 +50,7 @@
     <Compile Include="Fruit.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="Participant.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

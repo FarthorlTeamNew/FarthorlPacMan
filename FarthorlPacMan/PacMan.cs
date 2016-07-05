@@ -12,7 +12,7 @@ namespace FarthorlPacMan
         private string stopDirection = String.Empty;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
-        private Boolean isAlive=true;
+        private Boolean isAlive = true;
         private Graphics graphics;
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
