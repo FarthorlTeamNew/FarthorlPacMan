@@ -6,8 +6,8 @@ namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
-        public GameWindow gameWindow = new GameWindow();
-        LevelsWindow levelWindow=new LevelsWindow();
+        public GameWindow gameWindow ;
+        private LevelsWindow levelWindow;
         PlayerSound player =new PlayerSound();
 
         public InitialWindow()
@@ -23,8 +23,10 @@ namespace FarthorlPacMan
 
         private void button4_Click(object sender, EventArgs e)
         {
+            gameWindow = new GameWindow();
             gameWindow.FormClosed += new FormClosedEventHandler(gameWindow_FormClosed);
             Hide();
+            
             gameWindow.Show();
         }
         private void gameWindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -42,6 +44,7 @@ namespace FarthorlPacMan
         //Change level 
         private void Change_Level_Click(object sender, EventArgs e)
         {
+            levelWindow = new LevelsWindow();
             levelWindow.FormClosed += new FormClosedEventHandler(levelWindow_FormClosed);
             Hide();
             levelWindow.Show();
