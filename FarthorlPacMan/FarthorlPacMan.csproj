@@ -50,6 +50,11 @@
     <Compile Include="Fruit.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="States\ExtractAllLevels.cs" />
     <Compile Include="States\GameWindow.cs">
       <SubType>Form</SubType>
@@ -83,14 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="States\LevelsWindow.resx">
       <DependentUpon>LevelsWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,14 +172,14 @@
     <Content Include="DataFiles\Sounds\pause.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\MenuBackGround.png" />
-    <None Include="Resources\Change_level_background.jpg" />
-    <None Include="Resources\LabirintImage.jpg">
+    <None Include="DataFiles\Images\Menu\MenuBackGround.png" />
+    <None Include="DataFiles\Images\Menu\Change_level_background.jpg" />
+    <None Include="DataFiles\Images\Menu\LabirintImage.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\CsharpImage.jpg" />
-    <None Include="Resources\EuroLevelImage.jpg" />
-    <None Include="Resources\Labirint2Image.jpg" />
+    <None Include="DataFiles\Images\Menu\CsharpImage.jpg" />
+    <None Include="DataFiles\Images\Menu\EuroLevelImage.jpg" />
+    <None Include="DataFiles\Images\Menu\Labirint2Image.jpg" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
