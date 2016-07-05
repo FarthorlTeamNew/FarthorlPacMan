@@ -73,6 +73,16 @@ namespace FarthorlPacMan.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ChangeLevel_Button {
+            get {
+                object obj = ResourceManager.GetObject("ChangeLevel_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CsharpImage {
             get {
                 object obj = ResourceManager.GetObject("CsharpImage", resourceCulture);
@@ -86,6 +96,16 @@ namespace FarthorlPacMan.Properties {
         internal static System.Drawing.Bitmap EuroLevelImage {
             get {
                 object obj = ResourceManager.GetObject("EuroLevelImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exit_Button {
+            get {
+                object obj = ResourceManager.GetObject("Exit_Button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +136,26 @@ namespace FarthorlPacMan.Properties {
         internal static System.Drawing.Bitmap MenuBackGround {
             get {
                 object obj = ResourceManager.GetObject("MenuBackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Scores_Button {
+            get {
+                object obj = ResourceManager.GetObject("Scores_Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StartGame_Button {
+            get {
+                object obj = ResourceManager.GetObject("StartGame_Button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

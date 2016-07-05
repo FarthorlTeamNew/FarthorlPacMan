@@ -181,6 +181,10 @@
     <None Include="DataFiles\Images\Menu\CsharpImage.jpg" />
     <None Include="DataFiles\Images\Menu\EuroLevelImage.jpg" />
     <None Include="DataFiles\Images\Menu\Labirint2Image.jpg" />
+    <None Include="Resources\StartGame_Button.jpg" />
+    <None Include="Resources\ChangeLevel_Button.jpg" />
+    <None Include="Resources\Scores_Button.jpg" />
+    <None Include="Resources\Exit_Button.jpg" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

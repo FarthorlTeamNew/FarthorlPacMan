@@ -21,25 +21,25 @@
             // 
             // button4
             // 
+            this.button4.BackgroundImage = global::FarthorlPacMan.Properties.Resources.StartGame_Button;
             this.button4.Font = new System.Drawing.Font("Snap ITC", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Maroon;
             this.button4.Location = new System.Drawing.Point(262, 92);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(255, 34);
             this.button4.TabIndex = 0;
-            this.button4.Text = "START GAME";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
+            this.button5.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Exit_Button;
             this.button5.Font = new System.Drawing.Font("Snap ITC", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.Maroon;
             this.button5.Location = new System.Drawing.Point(262, 216);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(255, 35);
             this.button5.TabIndex = 1;
-            this.button5.Text = "EXIT";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.Exit_Button);
             // 
@@ -56,25 +56,25 @@
             // 
             // Change_Level
             // 
+            this.Change_Level.BackgroundImage = global::FarthorlPacMan.Properties.Resources.ChangeLevel_Button;
             this.Change_Level.Font = new System.Drawing.Font("Snap ITC", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Change_Level.ForeColor = System.Drawing.Color.Maroon;
             this.Change_Level.Location = new System.Drawing.Point(262, 132);
             this.Change_Level.Name = "Change_Level";
             this.Change_Level.Size = new System.Drawing.Size(255, 37);
             this.Change_Level.TabIndex = 3;
-            this.Change_Level.Text = "CHANGE LEVEL";
             this.Change_Level.UseVisualStyleBackColor = true;
             this.Change_Level.Click += new System.EventHandler(this.Change_Level_Click);
             // 
             // button2
             // 
+            this.button2.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Scores_Button;
             this.button2.Font = new System.Drawing.Font("Snap ITC", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Maroon;
             this.button2.Location = new System.Drawing.Point(262, 175);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(255, 35);
             this.button2.TabIndex = 4;
-            this.button2.Text = "SCORES";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // InitialWindow
@@ -82,11 +82,11 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
             this.ClientSize = new System.Drawing.Size(550, 307);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.Change_Level);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(566, 345);
