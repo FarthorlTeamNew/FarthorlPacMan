@@ -131,7 +131,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Levels\EuroFrance.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Levels\Labirint.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
