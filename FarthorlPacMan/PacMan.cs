@@ -27,80 +27,17 @@ namespace FarthorlPacMan
             EatPoint(base.PositionQuadrantX, base.PositionQuadrantY);
         }
 
-        private void tryMoveRight()
+        private void TryMoveThere(string[] quadrantToMove, string toDirection)
         {
-            if (base.PositionQuadrantX < Engine.XMax - 1)
+            if (isAlive && quadrantToMove[0] == "0")
             {
-                string[] elements = Engine.GetQuadrantElements(base.PositionQuadrantX + 1, base.PositionQuadrantY);
-
-                if (isAlive && elements[0] == "0")
-                {
-                    base.PreviousDirection = "Right";
-                    base.MovedDirection = "Right";
-                    stopDirection = String.Empty;
-                }
-                else if (elements[0] == "1")
-                {
-                    MoveCheck();
-                }
+                base.PreviousDirection = toDirection;
+                base.MovedDirection = toDirection;
+                stopDirection = String.Empty;
             }
-        }
-
-        private void tryMoveLeft()
-        {
-            if (base.PositionQuadrantX > 0)
+            else if (quadrantToMove[0] == "1")
             {
-                string[] elements = Engine.GetQuadrantElements(base.PositionQuadrantX - 1, base.PositionQuadrantY);
-
-                if (isAlive && elements[0] == "0")
-                {
-                    base.PreviousDirection = "Left";
-                    base.MovedDirection = "Left";
-                    stopDirection = String.Empty;
-                }
-                else if (elements[0] == "1")
-                {
-                    MoveCheck();
-                }
-            }
-        }
-
-        private void tryMoveUp()
-        {
-            if (base.PositionQuadrantY > 0)
-            {
-                string[] elements = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY - 1);
-
-                if (isAlive && elements[0] == "0")
-                {
-                    base.PreviousDirection = "Up";
-                    base.MovedDirection = "Up";
-                    stopDirection = String.Empty;
-                }
-                else if (elements[0] == "1")
-                {
-                    MoveCheck();
-                }
-            }
-        }
-
-        private void tryMoveDown()
-        {
-            if (base.PositionQuadrantY < Engine.YMax - 1)
-            {
-                string[] elements = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY + 1);
-
-                if (isAlive && elements[0] == "0")
-                {
-                    base.PreviousDirection = "Down";
-                    base.MovedDirection = "Down";
-                    stopDirection = String.Empty;
-
-                }
-                else if (elements[0] == "1")
-                {
-                    MoveCheck();
-                }
+                MoveCheck();
             }
         }
 
@@ -115,9 +52,77 @@ namespace FarthorlPacMan
             this.Move(base.PreviousDirection);
         }
 
+        public void Move(string direction)
+        {
+            if (!string.IsNullOrEmpty(direction) && direction != stopDirection)
+            {
+                if (direction == "Right")
+                {
+                    if (base.PositionQuadrantX < Engine.XMax - 1)
+                    {
+                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX + 1, base.PositionQuadrantY);
+                        TryMoveThere(quadrantToMove, direction);
+                    }
+                    else
+                    {
+                        MoveCheck();
+                    }
+                }
+                else if (direction == "Left")
+                {
+                    if (base.PositionQuadrantX > 0)
+                    {
+                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX - 1, base.PositionQuadrantY);
+                        TryMoveThere(quadrantToMove, direction);
+                    }
+                    else
+                    {
+                        MoveCheck();
+                    }
+                }
+                else if (direction == "Up")
+                {
+                    if (base.PositionQuadrantY > 0)
+                    {
+                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY - 1);
+                        TryMoveThere(quadrantToMove, direction);
+                    }
+                    else
+                    {
+                        MoveCheck();
+                    }
+                }
+                else if (direction == "Down")
+                {
+                    if (base.PositionQuadrantY < Engine.YMax - 1)
+                    {
+                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY + 1);
+                        TryMoveThere(quadrantToMove, direction);
+                    }
+                    else
+                    {
+                        MoveCheck();
+                    }
+                }
+            }
+        }
+
+        public void ChangeDirection(string newDirection)
+        {
+            base.MovedDirection = newDirection;
+
+            if (String.IsNullOrEmpty(base.PreviousDirection))
+            {
+                base.PreviousDirection = base.MovedDirection;
+            }
+
+            Move(base.MovedDirection);
+        }
+
         public async Task<bool> Run(string direction)
         {
-            if (base.DrawingCoordinatesX == base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 && base.DrawingCoordinatesY == base.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
+            if (base.DrawingCoordinatesX == base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2
+                && base.DrawingCoordinatesY == base.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
             {
                 Move(direction);
             }
@@ -359,29 +364,6 @@ namespace FarthorlPacMan
             }
         }
 
-        public void Move(string direction)
-        {
-            if (!string.IsNullOrEmpty(direction) && direction != stopDirection)
-            {
-                if (direction == "Right")
-                {
-                    tryMoveRight();
-                }
-                else if (direction == "Left")
-                {
-                    tryMoveLeft();
-                }
-                else if (direction == "Up")
-                {
-                    tryMoveUp();
-                }
-                else if (direction == "Down")
-                {
-                    tryMoveDown();
-                }
-            }
-        }
-
         public void DrawPacMan()
         {
             try
@@ -420,7 +402,7 @@ namespace FarthorlPacMan
             return base.MovedDirection;
         }
 
-        public void EatPoint(int quadrantX, int quadrantY)
+        public void EatPoint(int quadrantX, int quadrantY) // TODO make drawing of points
         {
             string[] elements = Engine.GetQuadrantElements(quadrantX, quadrantY);
 
@@ -431,18 +413,6 @@ namespace FarthorlPacMan
                 SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
             }
-        }
-
-        public void ChangeDirection(string newDirection)
-        {
-            base.MovedDirection = newDirection;
-
-            if (String.IsNullOrEmpty(base.PreviousDirection))
-            {
-                base.PreviousDirection = base.MovedDirection;
-            }
-
-            Move(base.MovedDirection);
         }
     }
 }
