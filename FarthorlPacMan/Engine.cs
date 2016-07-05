@@ -13,6 +13,7 @@ namespace FarthorlPacMan
         public Graphics Graphics { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
         public Graphics PointsGraphics { get; private set; }
+        public Graphics GraphicsFruit { get; private set; }
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
@@ -32,7 +33,7 @@ namespace FarthorlPacMan
         public List<Ghost> Ghosts { get; private set; }
         public PlayerSound Player { get; private set; }
         public static string Level { get; set; }
-
+        public Fruit Fruit { get; set; }
 
         public Engine(Graphics graphic, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game)
         {

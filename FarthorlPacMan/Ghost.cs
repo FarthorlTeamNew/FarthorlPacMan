@@ -24,6 +24,7 @@ namespace FarthorlPacMan
         private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Engine engine;
         private Graphics graphicsGhost;
+        private Graphics graphicsFruit;
 
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost, Engine engine)
         {
