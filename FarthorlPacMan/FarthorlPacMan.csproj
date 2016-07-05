@@ -114,17 +114,12 @@
     <Content Include="DataFiles\Levels\CSharpLove.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DataFiles\Images\Fruit.jpg" />
     <Content Include="DataFiles\Images\Ghost.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Images\mixedImagesAndAnimations.png" />
     <Content Include="DataFiles\Images\modernGhosts.jpg" />
-    <Content Include="DataFiles\Images\PacDown.gif" />
-    <Content Include="DataFiles\Images\PacLeft.gif" />
     <Content Include="DataFiles\Images\PacMan.ico" />
-    <Content Include="DataFiles\Images\PacRight.gif" />
-    <Content Include="DataFiles\Images\PacUp.gif" />
     <Content Include="DataFiles\Sounds\munch.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
