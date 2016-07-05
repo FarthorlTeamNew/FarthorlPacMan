@@ -294,12 +294,8 @@ namespace FarthorlPacMan
         public static bool isDirectionChanged(string myDirection)
         {
 
-            if (myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up")
-            {
-                return true;
-            }
-
-            if (myDirection == "Right" && MoveDirection == "Left" || myDirection == "Left" && MoveDirection == "Right")
+            if ( myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up"
+               || myDirection == "Right" && MoveDirection == "Left" || myDirection == "Left" && MoveDirection == "Right")
             {
                 return true;
             }
