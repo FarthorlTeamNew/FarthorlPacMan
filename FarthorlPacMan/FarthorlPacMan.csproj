@@ -142,14 +142,9 @@
     <Content Include="DataFiles\Images\mixedImagesAndAnimations.png" />
     <Content Include="DataFiles\Images\modernGhosts.jpg" />
     <Content Include="DataFiles\Images\PacMan.ico" />
-<<<<<<< HEAD
-    <Content Include="DataFiles\Levels\Level3.txt" />
-    <Content Include="DataFiles\Levels\Level4.txt" />
-=======
     <Content Include="DataFiles\Levels\Level4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
->>>>>>> bb354c934d608303d2da32f33dc7894a01114f9f
     <Content Include="DataFiles\Sounds\munch.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
