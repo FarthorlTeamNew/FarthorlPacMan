@@ -205,14 +205,11 @@ namespace FarthorlPacMan
         {
             while (Run)
             {
-                for (int i = 0; i < 50; i++)
+                foreach (var ghost in Ghosts)
                 {
-                    foreach (var ghost in Ghosts)
+                    if (Engine.Run)
                     {
-                        if (Engine.Run)
-                        {
-                            await ghost.Move();
-                        }
+                        await ghost.Move();
                     }
                 }
             }
