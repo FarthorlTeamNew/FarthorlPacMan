@@ -4,19 +4,19 @@ namespace FarthorlPacMan
 {
     public class Point
     {
-        public int PointDiameter { get; private set; }
+        public static int PointDiameter { get; private set; }
         public int CenterX { get; private set; }
         public int CenterY { get; private set; }
         public Color PointColor { get; private set; }
-        public Color PointFillColor { get; private set; }
+        public static Color PointFillColor { get; private set; }
         public bool IsPointCollected { get; private set; }
 
         public Point()
         {
             this.PointColor = Color.Blue;
-            this.PointFillColor = Color.BlueViolet;
+            PointFillColor = Color.BlueViolet;
             this.IsPointCollected = false;
-            this.PointDiameter = 10;
+            PointDiameter = 10;
         }
 
         public Point(int centerX, int centerY) :this()

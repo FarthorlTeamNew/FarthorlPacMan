@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using FarthorlPacMan.States;
@@ -124,12 +126,12 @@ namespace FarthorlPacMan
 
                     if (pointIndex == 1)
                     {
-                        Point point = new Point((x * 50) + 25, (y * 50) + 25);
-                        Points.Add(point);
+
+                        Points.Add(new Point((x * 50) + 25, (y * 50) + 25));
 
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
-                            drawing.FillEllipse(new SolidBrush(point.PointFillColor), (x * 50) + 25 - (point.PointDiameter / 2), (y * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
+                            drawing.FillEllipse(new SolidBrush(Point.PointFillColor), (x * 50) + 25 - (Point.PointDiameter / 2), (y * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
                             Game.pacMan.BackgroundImage = Buffer;
                         }
                     }
@@ -181,14 +183,7 @@ namespace FarthorlPacMan
 
         private void inicializeLeftScores()
         {
-            foreach (var point in Points)
-            {
-                if (!point.IsPointCollected)
-                {
-                    LeftScore = LeftScore + 1;
-                }
-            }
-            Game.UpdateLeftScore(LeftScore);
+            Game.UpdateLeftScore(Points.Count(p => p.IsPointCollected == false));
         }
 
         //Heare is the logic for gaming
@@ -198,6 +193,7 @@ namespace FarthorlPacMan
             {
                 PacMan.DrawPacMan();
                 await PacMan.Run(MoveDirection);
+
             }
         }
 
@@ -207,10 +203,7 @@ namespace FarthorlPacMan
             {
                 foreach (var ghost in Ghosts)
                 {
-                    if (Engine.Run)
-                    {
-                        await ghost.Move();
-                    }
+                    await ghost.Move();
                 }
             }
         }
@@ -264,21 +257,16 @@ namespace FarthorlPacMan
         {
             var stringValue = $"{element[0]},{element[1]}";
             PathsMatrix[quadrantX, quandrantY] = stringValue;
-            int pointDiameter = 0;
-            foreach (var point in Points)
+            var point = Points.FirstOrDefault(p => p.CenterX == (quadrantX * 50) + 25 && p.CenterY == (quandrantY * 50) + 25);
+            if (point != null)
             {
-                if (point.CenterX == (quadrantX * 50) + 25 && point.CenterY == (quandrantY * 50) + 25)
-                {
-                    point.EatPoint();
-                    pointDiameter = point.PointDiameter;
-                    PacManEatScores = PacManEatScores + 1;
-                    break;
-                }
+                point.EatPoint();
+                PacManEatScores += 1;
             }
 
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (pointDiameter / 2), (quandrantY * 50) + 25 - (pointDiameter / 2), pointDiameter, pointDiameter);
+                drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (Point.PointDiameter / 2), (quandrantY * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
                 Game.pacMan.BackgroundImage = Buffer;
             }
 
@@ -292,8 +280,7 @@ namespace FarthorlPacMan
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
-                Point point = new Point();
-                PointsGraphics.FillEllipse(new SolidBrush(point.PointFillColor), (quadrantX * 50) + 25 - (point.PointDiameter / 2), (quandrantY * 50) + 25 - (point.PointDiameter / 2), point.PointDiameter, point.PointDiameter);
+                PointsGraphics.FillEllipse(new SolidBrush(Point.PointFillColor), (quadrantX * 50) + 25 - (Point.PointDiameter / 2), (quandrantY * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
             }
         }
 

@@ -20,11 +20,6 @@ namespace FarthorlPacMan
             this.level = path;
         }
 
-        public void Redraw()
-        {
-            graphicEngine.DrawContent();
-        }
-
         public void ChangeDirection(string direction)
         {
             if (graphicEngine.IsPaused())
