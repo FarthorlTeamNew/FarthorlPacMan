@@ -167,7 +167,6 @@ namespace FarthorlPacMan
                         catch (Exception)
                         {
                             throw new ArgumentException("Cannot conver string to integer");
-
                         }
 
                         //Add element data in to the specific point in the 2D array
@@ -183,7 +182,9 @@ namespace FarthorlPacMan
 
         private void inicializeLeftScores()
         {
-            Game.UpdateLeftScore(Points.Count(p => p.IsPointCollected == false));
+            int scores = Points.Count(p => p.IsPointCollected == false);
+            LeftScore = scores;
+            Game.UpdateLeftScore(scores);
         }
 
         //Heare is the logic for gaming
@@ -202,7 +203,11 @@ namespace FarthorlPacMan
             {
                 foreach (var ghost in Ghosts)
                 {
-                    await ghost.Move();
+                    if (Run)
+                    {
+                        await ghost.Move();
+                    }
+                    
                 }
             }
         }
@@ -212,7 +217,7 @@ namespace FarthorlPacMan
             Game.UpdateLeftScore(LeftScore - pacManScores);
             if (LeftScore - pacManScores == 0)
             {
-                Engine.Run = false;
+                Run = false;
                 Game.panel1.Visible = true;
             }
         }
@@ -225,19 +230,22 @@ namespace FarthorlPacMan
 
         public void StopGame()
         {
-            Engine.Run = false;
+            Run = false;
+            //Dispose();
         }
 
         public void PauseGame()
         {
-            Engine.Run = false;
+            Run = false;
             Game.PausePanel.Visible = true;
         }
 
         public void ResumeGame()
         {
             Game.PausePanel.Visible = false;
-            Engine.Run = true;
+            Run = true;
+            TaskRenderingPacMan.Start();
+            TaskRenderingGhost.Start();
         }
 
         public bool IsPaused()
@@ -247,8 +255,7 @@ namespace FarthorlPacMan
 
         public static string[] GetQuadrantElements(int quadrantX, int quandrantY)
         {
-            string[] elements = PathsMatrix[quadrantX, quandrantY].Trim().Split(',');
-            return elements;
+            return PathsMatrix[quadrantX, quandrantY].Trim().Split(',');
         }
 
         public static void EatPointAndUpdateMatrix(int quadrantX, int quandrantY, string[] element)
