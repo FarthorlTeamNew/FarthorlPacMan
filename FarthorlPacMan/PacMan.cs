@@ -55,17 +55,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Right";
                     movedDirection = "Right";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-                    if (movedDirection == "")
-                    {
-                        previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -80,17 +74,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-                    if (movedDirection == "")
-                    {
-                        stopDirection = movedDirection;
-                        previousDirection = "";
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -105,19 +93,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    stopDirection = "";
-
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-
-                    if (movedDirection == "")
-                    {
-                        previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -130,23 +110,27 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
 
                 }
                 else if (elements[0] == "1")
                 {
-                    if (this.movedDirection == "")
-                    {
-                        this.previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    this.movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
+        }
+
+        private void MoveCheck()
+        {
+            if (movedDirection == String.Empty)
+            {
+                previousDirection = String.Empty;
+                stopDirection = movedDirection;
+            }
+            movedDirection = String.Empty;
+            this.Move(previousDirection);
         }
 
         public async Task<bool> Run(string direction)
