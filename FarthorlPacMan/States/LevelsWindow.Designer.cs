@@ -90,9 +90,9 @@
             // 
             this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Change_level_background;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(31, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 30);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(341, 208);
+            this.pictureBox1.Size = new System.Drawing.Size(360, 208);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
@@ -100,7 +100,7 @@
             // 
             this.ChooseLevel.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChooseLevel.ForeColor = System.Drawing.Color.Maroon;
-            this.ChooseLevel.Location = new System.Drawing.Point(31, 234);
+            this.ChooseLevel.Location = new System.Drawing.Point(31, 244);
             this.ChooseLevel.Name = "ChooseLevel";
             this.ChooseLevel.Size = new System.Drawing.Size(341, 77);
             this.ChooseLevel.TabIndex = 5;
