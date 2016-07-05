@@ -193,7 +193,6 @@ namespace FarthorlPacMan
             {
                 PacMan.DrawPacMan();
                 await PacMan.Run(MoveDirection);
-
             }
         }
 
@@ -207,7 +206,6 @@ namespace FarthorlPacMan
                 }
             }
         }
-
 
         private static void UpdateLeftSores(int pacManScores)
         {
@@ -302,14 +300,7 @@ namespace FarthorlPacMan
 
         public static bool isExistGhost(int quadrantX, int quadrantY)
         {
-            foreach (var ghost in Ghosts)
-            {
-                if (ghost.GetQuadrantX() == quadrantX && ghost.GetQuadrantY() == quadrantY)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Convert.ToBoolean(Ghosts.FirstOrDefault(g => g.GetQuadrantX() == quadrantX && g.GetQuadrantY() == quadrantY));
         }
 
         public void Dispose()
