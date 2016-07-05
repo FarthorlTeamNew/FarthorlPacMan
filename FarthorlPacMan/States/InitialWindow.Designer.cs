@@ -14,9 +14,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InitialWindow));
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.Change_Level = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button4
@@ -43,17 +44,6 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.Exit_Button);
             // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.Navy;
-            this.textBox2.Font = new System.Drawing.Font("Showcard Gothic", 21F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Orange;
-            this.textBox2.Location = new System.Drawing.Point(262, 44);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(255, 42);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "TEAM FARTHORL";
-            // 
             // Change_Level
             // 
             this.Change_Level.BackgroundImage = global::FarthorlPacMan.Properties.Resources.ChangeLevel_Button;
@@ -77,15 +67,24 @@
             this.button2.TabIndex = 4;
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.TeamLogo;
+            this.pictureBox1.Location = new System.Drawing.Point(262, 46);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(255, 40);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // InitialWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
             this.ClientSize = new System.Drawing.Size(550, 307);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.Change_Level);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button5);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -95,16 +94,16 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl PacMan Game";
             this.Load += new System.EventHandler(this.InitialWindow_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button Change_Level;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
