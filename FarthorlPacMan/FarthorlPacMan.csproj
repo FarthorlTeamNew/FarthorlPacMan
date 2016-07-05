@@ -185,6 +185,7 @@
     <None Include="Resources\ChangeLevel_Button.jpg" />
     <None Include="Resources\Scores_Button.jpg" />
     <None Include="Resources\Exit_Button.jpg" />
+    <None Include="Resources\TeamLogo.jpg" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

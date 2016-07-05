@@ -121,20 +121,23 @@
   <data name="CsharpImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\datafiles\images\menu\csharpimage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Labirint2Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\datafiles\images\menu\labirint2image.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChangeLevel_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChangeLevel_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="StartGame_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StartGame_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Scores_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Scores_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Exit_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LabirintImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\datafiles\images\menu\labirintimage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Labirint2Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\datafiles\images\menu\labirint2image.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MenuBackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\datafiles\images\menu\menubackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Scores_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Scores_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Change_level_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\datafiles\images\menu\change_level_background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,10 +145,10 @@
   <data name="EuroLevelImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\datafiles\images\menu\eurolevelimage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ChangeLevel_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ChangeLevel_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MenuBackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\datafiles\images\menu\menubackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Exit_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exit_Button.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="TeamLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TeamLogo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
