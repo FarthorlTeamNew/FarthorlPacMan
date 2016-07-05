@@ -12,6 +12,8 @@ namespace FarthorlPacMan.States
 {
     public partial class LevelsWindow : Form
     {
+        private string selectedLevel = string.Empty;
+
         private Dictionary<string, string> levelsFilePaths;
 
         public LevelsWindow()
@@ -22,24 +24,30 @@ namespace FarthorlPacMan.States
 
         private void CsharpLevel_Click(object sender, EventArgs e)
         {
-            GameWindow.Level =  levelsFilePaths["CSharpLove"];
-            Close();
+            this.selectedLevel = "CSharpLove";
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
         }
         private void Labirint_Level_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Labirint"];
-            Close();
+            this.selectedLevel = "Labirint";
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Labirint2"];
-            Close();
+            this.selectedLevel = "Labirint2";
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Euro2016"];
+            this.selectedLevel="Euro2016";
+            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.MenuBackGround;
+        }
+
+        private void ChooseLevel_Click(object sender, EventArgs e)
+        {
+            GameWindow.Level = levelsFilePaths[this.selectedLevel];
             Close();
         }
     }
