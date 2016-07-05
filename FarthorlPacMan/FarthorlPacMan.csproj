@@ -130,6 +130,9 @@
     <Content Include="DataFiles\Images\Fruit\Strawberry.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="DataFiles\Levels\EuroFrance.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="DataFiles\Levels\Labirint.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
