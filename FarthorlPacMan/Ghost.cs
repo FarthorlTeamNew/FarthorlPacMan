@@ -5,26 +5,20 @@ using System.Threading.Tasks;
 
 namespace FarthorlPacMan
 {
-    public class Ghost
+    public class Ghost : Participant
     {
         private int QuadrantDimension => Global.QuadrantSize;
         private const int PacManDistanceX = 3;
         private const int PacManDistanceY = 0;
         private Random random = new Random();
-        private int positionQuadrantX;
-        private int positionQuadrantY;
-        private int drawingCoordinatesX;
-        private int drawingCoordinatesY;
         private int positionPacManQaundarntX;
         private int positionPacManQaundarntY;
-        private string movedDirection;
-        private string previousDirection;
         private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
         private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Graphics graphicsGhost;
         private Graphics graphicsFruit;
 
-        public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost)
+        public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost) : base()
         {
             this.positionPacManQaundarntX = positionPacManQaundarntX;
             this.positionPacManQaundarntY = positionPacManQaundarntY;
@@ -32,12 +26,9 @@ namespace FarthorlPacMan
             this.InicializeGhost();
         }
 
-        public Ghost(Graphics graphicsGhost,int X, int Y)
+        public Ghost(Graphics graphicsGhost, int positionQuadrantX, int positionQuadrantY) : base(positionQuadrantX, positionQuadrantY)
         {
             this.graphicsGhost = graphicsGhost;
-            positionQuadrantX = X;
-            positionQuadrantY = Y;
-            
         }
 
         private Dictionary<string, int> createCoordinatesXY(int pacManX, int pacManY)
@@ -47,7 +38,7 @@ namespace FarthorlPacMan
             System.Threading.Thread.Sleep(random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
-            for (int y = 0; y < Engine.YMax- 1; y++)
+            for (int y = 0; y < Engine.YMax - 1; y++)
             {
                 for (int x = 0; x < Engine.XMax - 1; x++)
                 {
@@ -80,11 +71,11 @@ namespace FarthorlPacMan
         private void InicializeGhost()
         {
             var getCoordinates = this.createCoordinatesXY(positionPacManQaundarntX, positionPacManQaundarntY);
-            this.positionQuadrantX = getCoordinates["QuadrantX"];
-            this.positionQuadrantY = getCoordinates["QuadrantY"];
+            base.PositionQuadrantX = getCoordinates["QuadrantX"];
+            base.PositionQuadrantY = getCoordinates["QuadrantY"];
 
-            this.drawingCoordinatesX = positionQuadrantX * 50 + 8;
-            this.drawingCoordinatesY = positionQuadrantY * 50 + 4;
+            base.DrawingCoordinatesX = base.PositionQuadrantX * 50 + 8;
+            base.DrawingCoordinatesY = base.PositionQuadrantY * 50 + 4;
 
             existDirections.Add("Up", false);
             existDirections.Add("Down", false);
@@ -96,7 +87,7 @@ namespace FarthorlPacMan
 
         private void CheckExistDirections()
         {
-            if (positionQuadrantY > 0 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY - 1)[0] == "0")
+            if (base.PositionQuadrantY > 0 && Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY - 1)[0] == "0")
             {
                 existDirections["Up"] = true;
             }
@@ -105,7 +96,7 @@ namespace FarthorlPacMan
                 existDirections["Up"] = false;
             }
 
-            if (positionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(positionQuadrantX, positionQuadrantY + 1)[0] == "0")
+            if (base.PositionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY + 1)[0] == "0")
             {
                 existDirections["Down"] = true;
             }
@@ -114,7 +105,7 @@ namespace FarthorlPacMan
                 existDirections["Down"] = false;
             }
 
-            if (positionQuadrantX > 0 && Engine.GetQuadrantElements(positionQuadrantX - 1, positionQuadrantY)[0] == "0")
+            if (base.PositionQuadrantX > 0 && Engine.GetQuadrantElements(base.PositionQuadrantX - 1, base.PositionQuadrantY)[0] == "0")
             {
                 existDirections["Left"] = true;
             }
@@ -123,7 +114,7 @@ namespace FarthorlPacMan
                 existDirections["Left"] = false;
             }
 
-            if (positionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(positionQuadrantX + 1, positionQuadrantY)[0] == "0")
+            if (base.PositionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(base.PositionQuadrantX + 1, base.PositionQuadrantY)[0] == "0")
             {
                 existDirections["Right"] = true;
             }
@@ -146,8 +137,8 @@ namespace FarthorlPacMan
             }
 
             var index = random.Next(0, existRoads.Count - 1);
-            this.movedDirection = existRoads[index];
-            this.previousDirection = movedDirection;
+            base.MovedDirection = existRoads[index];
+            base.PreviousDirection = base.MovedDirection;
 
         }
 
@@ -194,23 +185,23 @@ namespace FarthorlPacMan
         private void MoveNext()
         {
             CheckExistDirections();
-            var newDirection = SelectRandomRoad(movedDirection);
+            var newDirection = SelectRandomRoad(base.MovedDirection);
 
             if (!string.IsNullOrEmpty(newDirection))
             {
-                if (movedDirection == "Right")
+                if (base.MovedDirection == "Right")
                 {
                     tryMoveRight();
                 }
-                else if (movedDirection == "Left")
+                else if (base.MovedDirection == "Left")
                 {
                     tryMoveLeft();
                 }
-                else if (movedDirection == "Up")
+                else if (base.MovedDirection == "Up")
                 {
                     tryMoveUp();
                 }
-                else if (movedDirection == "Down")
+                else if (base.MovedDirection == "Down")
                 {
                     tryMoveDown();
                 }
@@ -219,16 +210,16 @@ namespace FarthorlPacMan
 
         private void tryMoveRight()
         {
-            if (positionQuadrantX < Engine.YMax - 1)
+            if (base.PositionQuadrantX < Engine.YMax - 1)
             {
-                int nextQuandrantX = this.positionQuadrantX + 1;
-                int nextQuadrantY = this.positionQuadrantY;
+                int nextQuandrantX = base.PositionQuadrantX + 1;
+                int nextQuadrantY = base.PositionQuadrantY;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    previousDirection = "Right";
-                    movedDirection = "Right";
+                    base.PreviousDirection = "Right";
+                    base.MovedDirection = "Right";
                     //await moveGhost(nextQuandrantX, nextQuadrantY, "Right");
                 }
                 else
@@ -266,16 +257,16 @@ namespace FarthorlPacMan
 
         private void tryMoveLeft()
         {
-            if (positionQuadrantX > 0)
+            if (base.PositionQuadrantX > 0)
             {
-                int nextQuandrantX = this.positionQuadrantX - 1;
-                int nextQuadrantY = this.positionQuadrantY;
+                int nextQuandrantX = base.PositionQuadrantX - 1;
+                int nextQuadrantY = base.PositionQuadrantY;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    previousDirection = "Left";
-                    movedDirection = "Left";
+                    base.PreviousDirection = "Left";
+                    base.MovedDirection = "Left";
                 }
                 else
                 {
@@ -311,16 +302,16 @@ namespace FarthorlPacMan
 
         private void tryMoveUp()
         {
-            if (positionQuadrantY > 0)
+            if (base.PositionQuadrantY > 0)
             {
-                int nextQuandrantX = this.positionQuadrantX;
-                int nextQuadrantY = this.positionQuadrantY - 1;
+                int nextQuandrantX = base.PositionQuadrantX;
+                int nextQuadrantY = base.PositionQuadrantY - 1;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    previousDirection = "Up";
-                    movedDirection = "Up";
+                    base.PreviousDirection = "Up";
+                    base.MovedDirection = "Up";
                 }
                 else
                 {
@@ -329,7 +320,7 @@ namespace FarthorlPacMan
             }
             else
             {
-               GetNewDirectionUp();
+                GetNewDirectionUp();
             }
         }
 
@@ -356,16 +347,16 @@ namespace FarthorlPacMan
 
         private void tryMoveDown()
         {
-            if (positionQuadrantY < Engine.YMax - 1)
+            if (base.PositionQuadrantY < Engine.YMax - 1)
             {
-                int nextQuandrantX = this.positionQuadrantX;
-                int nextQuadrantY = this.positionQuadrantY + 1;
+                int nextQuandrantX = base.PositionQuadrantX;
+                int nextQuadrantY = base.PositionQuadrantY + 1;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    previousDirection = "Down";
-                    movedDirection = "Down";
+                    base.PreviousDirection = "Down";
+                    base.MovedDirection = "Down";
                 }
                 else
                 {
@@ -401,113 +392,117 @@ namespace FarthorlPacMan
 
         public void Draw()
         {
-            graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, positionQuadrantY * QuadrantDimension + 4);
+            graphicsGhost.DrawImage(image, (base.PositionQuadrantX * QuadrantDimension) + 8, base.PositionQuadrantY * QuadrantDimension + 4);
         }
 
         public async Task<bool> Move()
         {
-            string moving = this.movedDirection;
+            string moving = base.MovedDirection;
 
             switch (moving)
             {
                 case "Right":
 
-                    if (drawingCoordinatesX == 0)
+                    if (base.DrawingCoordinatesX == 0)
                     {
                         this.MoveNext();
                     }
 
-                    drawingCoordinatesX += 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), drawingCoordinatesX - 1, (positionQuadrantY * QuadrantDimension) + 1, drawingCoordinatesX - 1, (positionQuadrantY * QuadrantDimension) + 49);
-                    if (drawingCoordinatesX > (positionQuadrantX * QuadrantDimension) + 20)
+                    base.DrawingCoordinatesX += 1;
+                    graphicsGhost.DrawLine(new Pen(Color.Black), base.DrawingCoordinatesX - 1, (base.PositionQuadrantY * QuadrantDimension) + 1, base.DrawingCoordinatesX - 1, (base.PositionQuadrantY * QuadrantDimension) + 49);
+                    if (base.DrawingCoordinatesX > (base.PositionQuadrantX * QuadrantDimension) + 20)
                     {
-                        Engine.DrawPoint(positionQuadrantX, positionQuadrantY);
+                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (drawingCoordinatesX), positionQuadrantY * QuadrantDimension + 4);
+                    graphicsGhost.DrawImage(image, (base.DrawingCoordinatesX), base.PositionQuadrantY * QuadrantDimension + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (drawingCoordinatesX == ((positionQuadrantX + 1) * QuadrantDimension) + 8)
+                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX + 1) * QuadrantDimension) + 8)
                     {
                         DrawBlackPolygon();
 
-                        positionQuadrantX += 1;
+                        base.PositionQuadrantX += 1;
                         this.MoveNext();
                     }
                     break;
 
                 case "Left":
-                    if (drawingCoordinatesX == 0)
+                    if (base.DrawingCoordinatesX == 0)
                     {
                         this.MoveNext();
                     }
-                    drawingCoordinatesX -= 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (drawingCoordinatesX + image.Width) + 1, (positionQuadrantY * QuadrantDimension) + 1, (drawingCoordinatesX + image.Width) + 1, (positionQuadrantY * QuadrantDimension) + 49);
-                    if (drawingCoordinatesX < (positionQuadrantX * QuadrantDimension) + 20)
+                    base.DrawingCoordinatesX -= 1;
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.DrawingCoordinatesX + image.Width) + 1,
+                        (base.PositionQuadrantY * QuadrantDimension) + 1,
+                        (base.DrawingCoordinatesX + image.Width) + 1,
+                        (base.PositionQuadrantY * QuadrantDimension) + 49);
+
+                    if (base.DrawingCoordinatesX < (base.PositionQuadrantX * QuadrantDimension) + 20)
                     {
-                        Engine.DrawPoint(positionQuadrantX, positionQuadrantY);
+                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (drawingCoordinatesX), positionQuadrantY * QuadrantDimension + 4);
+                    graphicsGhost.DrawImage(image, (base.DrawingCoordinatesX), base.PositionQuadrantY * QuadrantDimension + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (drawingCoordinatesX == ((positionQuadrantX - 1) * QuadrantDimension) + 8)
+                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX - 1) * QuadrantDimension) + 8)
                     {
                         DrawBlackPolygon();
 
-                        positionQuadrantX -= 1;
+                        base.PositionQuadrantX -= 1;
                         this.MoveNext();
                     }
                     break;
 
                 case "Up":
-                    if (drawingCoordinatesY == 0)
+                    if (base.DrawingCoordinatesY == 0)
                     {
                         this.MoveNext();
                     }
 
-                    drawingCoordinatesY -= 1;
+                    base.DrawingCoordinatesY -= 1;
 
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * QuadrantDimension) + 1, (drawingCoordinatesY + 4 + image.Height) + 1, (positionQuadrantX * QuadrantDimension) + 49, (drawingCoordinatesY + 4 + image.Height) + 1);
-                    if (drawingCoordinatesY < (positionQuadrantY * QuadrantDimension) - 11)
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.PositionQuadrantX * QuadrantDimension) + 1, (base.DrawingCoordinatesY + 4 + image.Height) + 1, (base.PositionQuadrantX * QuadrantDimension) + 49, (base.DrawingCoordinatesY + 4 + image.Height) + 1);
+                    if (base.DrawingCoordinatesY < (base.PositionQuadrantY * QuadrantDimension) - 11)
                     {
-                        Engine.DrawPoint(positionQuadrantX, positionQuadrantY);
+                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingCoordinatesY + 4);
+                    graphicsGhost.DrawImage(image, (base.PositionQuadrantX * QuadrantDimension) + 8, base.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (drawingCoordinatesY == ((positionQuadrantY - 1) * QuadrantDimension) + 4)
+                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY - 1) * QuadrantDimension) + 4)
                     {
                         DrawBlackPolygon();
 
-                        positionQuadrantY -= 1;
+                        base.PositionQuadrantY -= 1;
                         this.MoveNext();
                     }
                     break;
                 case "Down":
-                    if (drawingCoordinatesY == 0)
+                    if (base.DrawingCoordinatesY == 0)
                     {
                         this.MoveNext();
                     }
 
-                    drawingCoordinatesY += 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (positionQuadrantX * QuadrantDimension) + 1, (drawingCoordinatesY + 4) - 1, (positionQuadrantX * QuadrantDimension) + 49, (drawingCoordinatesY + 4) - 1);
-                    if (drawingCoordinatesY > (positionQuadrantY * QuadrantDimension) + 20)
+                    base.DrawingCoordinatesY += 1;
+                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.PositionQuadrantX * QuadrantDimension) + 1, (base.DrawingCoordinatesY + 4) - 1, (base.PositionQuadrantX * QuadrantDimension) + 49, (base.DrawingCoordinatesY + 4) - 1);
+                    if (base.DrawingCoordinatesY > (base.PositionQuadrantY * QuadrantDimension) + 20)
                     {
-                        Engine.DrawPoint(positionQuadrantX, positionQuadrantY);
+                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingCoordinatesY + 4);
+                    graphicsGhost.DrawImage(image, (base.PositionQuadrantX * QuadrantDimension) + 8, base.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (drawingCoordinatesY == ((positionQuadrantY + 1) * QuadrantDimension) + 4)
+                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY + 1) * QuadrantDimension) + 4)
                     {
                         DrawBlackPolygon();
 
-                        positionQuadrantY += 1;
+                        base.PositionQuadrantY += 1;
                         this.MoveNext();
                     }
                     break;
@@ -519,27 +514,27 @@ namespace FarthorlPacMan
         {
             graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
             {
-                new System.Drawing.Point(drawingCoordinatesX, drawingCoordinatesY),
-                new System.Drawing.Point(drawingCoordinatesX + image.Width, drawingCoordinatesY),
-                new System.Drawing.Point(drawingCoordinatesX + image.Width, drawingCoordinatesY + image.Height),
-                new System.Drawing.Point(drawingCoordinatesX, drawingCoordinatesY + image.Height),
-                new System.Drawing.Point(drawingCoordinatesX, drawingCoordinatesY),
+                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY),
+                new System.Drawing.Point(base.DrawingCoordinatesX + image.Width, base.DrawingCoordinatesY),
+                new System.Drawing.Point(base.DrawingCoordinatesX + image.Width, base.DrawingCoordinatesY + image.Height),
+                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY + image.Height),
+                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY),
             });
         }
 
         public int GetQuadrantX()
         {
-            return positionQuadrantX;
+            return base.PositionQuadrantX;
         }
 
         public int GetQuadrantY()
         {
-            return positionQuadrantY;
+            return base.PositionQuadrantY;
         }
 
         public string getDirection()
         {
-            return this.movedDirection;
+            return base.MovedDirection;
         }
     }
 }
