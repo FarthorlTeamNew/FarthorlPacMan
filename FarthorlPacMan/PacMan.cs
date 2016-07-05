@@ -6,22 +6,21 @@ namespace FarthorlPacMan
 {
     public class PacMan : IDisposable
     {
-        private const int Diameter = 35;
-        private const int QuadrantDimension = 50;
-        private const int SpeedDrawing = 6;
-        private int positionQuadrantX ;
-        private int positionQuadrantY ;
+        private int Diameter => Global.Diameter;
+        private int QuadrantDimension => Global.QuadrantSize;
+        private int positionQuadrantX;
+        private int positionQuadrantY;
         private string movedDirection;
         private string previousDirection;
-        private int eatPoints ;
+        private int eatPoints;
         private string stopDirection = "";
         private int drawingCoordinatesX;
         private int drawingCoordinatesY;
-        private int animateCoeficent ;
+        private int animateCoeficent;
         private Color pacManColor;
         private Boolean isAlive;
         private Graphics graphics;
-        private PlayerSound player ;
+        private PlayerSound player;
 
         public PacMan()
         {
@@ -220,7 +219,7 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX + 1;
 
                     }
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
                     break;
 
                 case "Left":
@@ -278,7 +277,7 @@ namespace FarthorlPacMan
                         positionQuadrantX = positionQuadrantX - 1;
                     }
 
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
                     break;
 
                 case "Up":
@@ -340,7 +339,7 @@ namespace FarthorlPacMan
                         positionQuadrantY = positionQuadrantY - 1;
                     }
 
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
                     break;
 
                 case "Down":
@@ -400,7 +399,7 @@ namespace FarthorlPacMan
                     {
                         positionQuadrantY = positionQuadrantY + 1;
                     }
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
                     break;
             }
 

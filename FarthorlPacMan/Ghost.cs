@@ -7,11 +7,10 @@ namespace FarthorlPacMan
 {
     public class Ghost
     {
-        private const int Diameter = 40;
-        private const int QuadrantDimension = 50;
+        private int Diameter => Global.Diameter;
+        private int QuadrantDimension => Global.QuadrantSize;
         private const int PacManDistanceX = 3;
         private const int PacManDistanceY = 0;
-        private const int SpeedDrawing = 6;
         private Random random = new Random();
         private int positionQuadrantX;
         private int positionQuadrantY;
@@ -489,7 +488,7 @@ namespace FarthorlPacMan
 
                     graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * QuadrantDimension + 4);
 
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (drawingX == ((positionQuadrantX + 1) * QuadrantDimension) + 8)
                     {
@@ -521,7 +520,7 @@ namespace FarthorlPacMan
 
                     graphicsGhost.DrawImage(image, (drawingX), positionQuadrantY * QuadrantDimension + 4);
 
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (drawingX == ((positionQuadrantX - 1) * QuadrantDimension) + 8)
                     {
@@ -554,7 +553,7 @@ namespace FarthorlPacMan
                     }
 
                     graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingY + 4);
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (drawingY == ((positionQuadrantY - 1) * QuadrantDimension) + 4)
                     {
@@ -585,7 +584,7 @@ namespace FarthorlPacMan
                     }
 
                     graphicsGhost.DrawImage(image, (positionQuadrantX * QuadrantDimension) + 8, drawingY + 4);
-                    System.Threading.Thread.Sleep(SpeedDrawing);
+                    System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (drawingY == ((positionQuadrantY + 1) * QuadrantDimension) + 4)
                     {
