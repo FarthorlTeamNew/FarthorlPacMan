@@ -39,7 +39,7 @@ namespace FarthorlPacMan.States
 
         private void button2_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["EuroFrance"];
+            GameWindow.Level = levelsFilePaths["Euro2016"];
             Close();
         }
     }
