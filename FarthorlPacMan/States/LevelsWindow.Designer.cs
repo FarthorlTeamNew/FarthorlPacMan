@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelsWindow));
             this.Labirint_Level = new System.Windows.Forms.Button();
             this.CsharpLevel = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Labirint_Level
@@ -39,7 +40,7 @@
             this.Labirint_Level.ForeColor = System.Drawing.Color.Maroon;
             this.Labirint_Level.Location = new System.Drawing.Point(398, 30);
             this.Labirint_Level.Name = "Labirint_Level";
-            this.Labirint_Level.Size = new System.Drawing.Size(155, 54);
+            this.Labirint_Level.Size = new System.Drawing.Size(174, 54);
             this.Labirint_Level.TabIndex = 0;
             this.Labirint_Level.Text = "LABIRINT";
             this.Labirint_Level.UseVisualStyleBackColor = true;
@@ -49,13 +50,25 @@
             // 
             this.CsharpLevel.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CsharpLevel.ForeColor = System.Drawing.Color.Maroon;
-            this.CsharpLevel.Location = new System.Drawing.Point(398, 90);
+            this.CsharpLevel.Location = new System.Drawing.Point(398, 150);
             this.CsharpLevel.Name = "CsharpLevel";
-            this.CsharpLevel.Size = new System.Drawing.Size(155, 54);
+            this.CsharpLevel.Size = new System.Drawing.Size(174, 54);
             this.CsharpLevel.TabIndex = 1;
             this.CsharpLevel.Text = "C# LOVE";
             this.CsharpLevel.UseVisualStyleBackColor = true;
             this.CsharpLevel.Click += new System.EventHandler(this.CsharpLevel_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Maroon;
+            this.button1.Location = new System.Drawing.Point(398, 90);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(174, 54);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "LABIRINT 2";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // LevelsWindow
             // 
@@ -64,6 +77,7 @@
             this.BackColor = System.Drawing.Color.Navy;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(584, 408);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CsharpLevel);
             this.Controls.Add(this.Labirint_Level);
             this.MaximumSize = new System.Drawing.Size(600, 446);
@@ -79,5 +93,6 @@
 
         private System.Windows.Forms.Button Labirint_Level;
         private System.Windows.Forms.Button CsharpLevel;
+        private System.Windows.Forms.Button button1;
     }
 }

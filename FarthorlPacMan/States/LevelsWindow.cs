@@ -30,5 +30,11 @@ namespace FarthorlPacMan.States
             GameWindow.Level = levelsFilePaths["Labirint"];
             Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GameWindow.Level = levelsFilePaths["Labirint2"];
+            Close();
+        }
     }
 }
