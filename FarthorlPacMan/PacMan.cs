@@ -13,7 +13,7 @@ namespace FarthorlPacMan
         private string movedDirection;
         private string previousDirection;
         private int eatPoints;
-        private string stopDirection = "";
+        private string stopDirection = String.Empty;
         private int drawingCoordinatesX;
         private int drawingCoordinatesY;
         private int animateCoeficent;
@@ -55,17 +55,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Right";
                     movedDirection = "Right";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-                    if (movedDirection == "")
-                    {
-                        previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -80,17 +74,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Left";
                     movedDirection = "Left";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-                    if (movedDirection == "")
-                    {
-                        stopDirection = movedDirection;
-                        previousDirection = "";
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -105,19 +93,11 @@ namespace FarthorlPacMan
                 {
                     previousDirection = "Up";
                     movedDirection = "Up";
-                    stopDirection = "";
-
+                    stopDirection = String.Empty;
                 }
                 else if (elements[0] == "1")
                 {
-
-                    if (movedDirection == "")
-                    {
-                        previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
         }
@@ -130,23 +110,27 @@ namespace FarthorlPacMan
 
                 if (isAlive && elements[0] == "0")
                 {
-
                     this.previousDirection = "Down";
                     this.movedDirection = "Down";
-                    stopDirection = "";
+                    stopDirection = String.Empty;
 
                 }
                 else if (elements[0] == "1")
                 {
-                    if (this.movedDirection == "")
-                    {
-                        this.previousDirection = "";
-                        stopDirection = movedDirection;
-                    }
-                    this.movedDirection = "";
-                    this.Move(previousDirection);
+                    MoveCheck();
                 }
             }
+        }
+
+        private void MoveCheck()
+        {
+            if (movedDirection == String.Empty)
+            {
+                previousDirection = String.Empty;
+                stopDirection = movedDirection;
+            }
+            movedDirection = String.Empty;
+            this.Move(previousDirection);
         }
 
         public async Task<bool> Run(string direction)
@@ -167,7 +151,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesX < (Engine.GetMaxX()-1) * QuadrantDimension + QuadrantDimension/2)
                     {
-                        drawingCoordinatesX = drawingCoordinatesX + 1;
+                        drawingCoordinatesX += 1;
                     }
 
                     graphics.DrawEllipse(
@@ -203,11 +187,7 @@ namespace FarthorlPacMan
                                 new System.Drawing.Point(drawingCoordinatesX, (this.positionQuadrantY * QuadrantDimension)+QuadrantDimension/2)
                             });
 
-                    animateCoeficent += 1;
-                    if (animateCoeficent == 12)
-                    {
-                        animateCoeficent = 0;
-                    }
+                    ChangeCoefficient();
 
                     if (drawingCoordinatesX == (positionQuadrantX + 1) * QuadrantDimension + QuadrantDimension / 2 - 22)
                     {
@@ -226,7 +206,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesX > (positionQuadrantX-1) * QuadrantDimension + QuadrantDimension / 2 && drawingCoordinatesX > QuadrantDimension / 2)
                     {
-                        drawingCoordinatesX = drawingCoordinatesX - 1;
+                        drawingCoordinatesX -= 1;
                     }
 
                     graphics.DrawEllipse(
@@ -261,11 +241,7 @@ namespace FarthorlPacMan
                             new System.Drawing.Point(drawingCoordinatesX, (this.positionQuadrantY * QuadrantDimension)+QuadrantDimension/2)
                         });
 
-                    animateCoeficent += 1;
-                    if (animateCoeficent == 12)
-                    {
-                        animateCoeficent = 0;
-                    }
+                    ChangeCoefficient();
 
                     if (drawingCoordinatesX == (positionQuadrantX - 1) * QuadrantDimension + QuadrantDimension / 2 + 22)
                     {
@@ -274,7 +250,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesX == ((positionQuadrantX - 1) * QuadrantDimension) + 25)
                     {
-                        positionQuadrantX = positionQuadrantX - 1;
+                        positionQuadrantX -= 1;
                     }
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
@@ -284,7 +260,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesY > (positionQuadrantY-1) * QuadrantDimension + QuadrantDimension / 2 && drawingCoordinatesY > QuadrantDimension / 2)
                     {
-                        drawingCoordinatesY = drawingCoordinatesY - 1;
+                        drawingCoordinatesY -= 1;
                     }
 
                     graphics.DrawEllipse(
@@ -312,7 +288,6 @@ namespace FarthorlPacMan
                     Diameter / 5
                     );
 
-
                     graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
                                 new System.Drawing.Point(this.positionQuadrantX * QuadrantDimension + QuadrantDimension/2, drawingCoordinatesY),
                                 new System.Drawing.Point(this.positionQuadrantX * QuadrantDimension + 15+animateCoeficent, drawingCoordinatesY - QuadrantDimension/2+2),
@@ -320,14 +295,7 @@ namespace FarthorlPacMan
                                 new System.Drawing.Point(this.positionQuadrantX * QuadrantDimension + QuadrantDimension/2, drawingCoordinatesY)
                             });
 
-                    animateCoeficent += 1;
-                    if (animateCoeficent == 12)
-                    {
-                        animateCoeficent = 0;
-                    }
-
-
-
+                    ChangeCoefficient();
 
                     if (drawingCoordinatesY == (positionQuadrantY - 1) * QuadrantDimension + QuadrantDimension / 2 + 22)
                     {
@@ -336,7 +304,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesY == ((positionQuadrantY - 1) * QuadrantDimension) + QuadrantDimension/2)
                     {
-                        positionQuadrantY = positionQuadrantY - 1;
+                        positionQuadrantY -= 1;
                     }
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
@@ -346,7 +314,7 @@ namespace FarthorlPacMan
 
                     if (drawingCoordinatesY < (Engine.GetMaxY()-1) * QuadrantDimension + QuadrantDimension / 2)
                     {
-                        drawingCoordinatesY = drawingCoordinatesY + 1;
+                        drawingCoordinatesY += 1;
                     }
 
                     graphics.DrawEllipse(
@@ -382,13 +350,7 @@ namespace FarthorlPacMan
                                 new System.Drawing.Point(this.positionQuadrantX * QuadrantDimension + QuadrantDimension/2, drawingCoordinatesY)
                             });
 
-                    animateCoeficent += 1;
-                    if (animateCoeficent == 12)
-                    {
-                        animateCoeficent = 0;
-                    }
-
-
+                    ChangeCoefficient();
 
                     if (drawingCoordinatesY == (positionQuadrantY + 1) * QuadrantDimension + QuadrantDimension / 2 - 22)
                     {
@@ -406,23 +368,32 @@ namespace FarthorlPacMan
             return true;
         }
 
+        private void ChangeCoefficient()
+        {
+            animateCoeficent += 1;
+            if (animateCoeficent == 12)
+            {
+                animateCoeficent = 0;
+            }
+        }
+
         public void Move(string direction)
         {
-            if (!String.IsNullOrEmpty(direction))
+            if (!string.IsNullOrEmpty(direction) && direction != stopDirection)
             {
-                if (direction == "Right" && direction != stopDirection)
+                if (direction == "Right")
                 {
                     tryMoveRight();
                 }
-                else if (direction == "Left" && direction != stopDirection)
+                else if (direction == "Left")
                 {
                     tryMoveLeft();
                 }
-                else if (direction == "Up" && direction != stopDirection)
+                else if (direction == "Up")
                 {
                     tryMoveUp();
                 }
-                else if (direction == "Down" && direction != stopDirection)
+                else if (direction == "Down")
                 {
                     tryMoveDown();
                 }
