@@ -39,7 +39,7 @@
             // 
             // Labirint_Level
             // 
-            this.Labirint_Level.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Labirint_Level.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Labirint_Level.ForeColor = System.Drawing.Color.Maroon;
             this.Labirint_Level.Location = new System.Drawing.Point(398, 30);
             this.Labirint_Level.Name = "Labirint_Level";
@@ -52,7 +52,7 @@
             // 
             // CsharpLevel
             // 
-            this.CsharpLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CsharpLevel.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CsharpLevel.ForeColor = System.Drawing.Color.Maroon;
             this.CsharpLevel.Location = new System.Drawing.Point(398, 150);
             this.CsharpLevel.Name = "CsharpLevel";
@@ -65,7 +65,7 @@
             // 
             // Labirint2
             // 
-            this.Labirint2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Labirint2.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Labirint2.ForeColor = System.Drawing.Color.Maroon;
             this.Labirint2.Location = new System.Drawing.Point(398, 90);
             this.Labirint2.Name = "Labirint2";
@@ -78,7 +78,7 @@
             // 
             // EuroLevel
             // 
-            this.EuroLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EuroLevel.Font = new System.Drawing.Font("Snap ITC", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EuroLevel.ForeColor = System.Drawing.Color.Maroon;
             this.EuroLevel.Location = new System.Drawing.Point(398, 210);
             this.EuroLevel.Name = "EuroLevel";
@@ -105,7 +105,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Navy;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(584, 407);
+            this.ClientSize = new System.Drawing.Size(584, 408);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.EuroLevel);
             this.Controls.Add(this.Labirint2);
