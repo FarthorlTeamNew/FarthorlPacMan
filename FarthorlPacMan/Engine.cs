@@ -244,6 +244,8 @@ namespace FarthorlPacMan
         {
             Game.PausePanel.Visible = false;
             Run = true;
+            TaskRenderingPacMan = new Task(RenderPacMan);
+            TaskRenderingGhost = new Task(RenderGhost);
             TaskRenderingPacMan.Start();
             TaskRenderingGhost.Start();
         }
