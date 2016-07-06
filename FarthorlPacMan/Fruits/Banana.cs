@@ -6,13 +6,13 @@ namespace FarthorlPacMan.Fruits
     {
         private static Image banana = Image.FromFile(@"DataFiles\Images\Fruit\Banana.bmp");
 
-        public Banana(int X, int Y, Graphics graphicsFruit, Engine engine) : base(X, Y, graphicsFruit, engine)
+        public Banana(int x, int y, Graphics graphicsFruit, Engine engine) : base(x, y, graphicsFruit, engine)
         {
         }
 
         public override void DrawFruit()
         {
-            this.graphicsFruit.DrawImage(banana, this.fruitPositionX *this.QuadrantDimension, this.fruitPositionY *this.QuadrantDimension);
+            this.graphicsFruit.DrawImage(banana, this.fruitPositionX * this.QuadrantDimension, this.fruitPositionY * this.QuadrantDimension);
         }
     }
 }

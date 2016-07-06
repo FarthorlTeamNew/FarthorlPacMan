@@ -19,7 +19,7 @@
             PointDiameter = 10;
         }
 
-        public Point(int centerX, int centerY) :this()
+        public Point(int centerX, int centerY) : this()
         {
             this.CenterX = centerX;
             this.CenterY = centerY;
@@ -27,7 +27,7 @@
 
         public void EatPoint()
         {
-            this.IsPointCollected= true;
+            this.IsPointCollected = true;
         }
     }
 }

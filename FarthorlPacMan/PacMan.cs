@@ -119,15 +119,15 @@
         {
             this.graphics.FillEllipse(
                 new SolidBrush(this.pacManColor),
-                (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                this.DrawingCoordinatesY - (PacManDiameter / 2),
+                this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
+                this.DrawingCoordinatesY - PacManDiameter / 2,
                 PacManDiameter,
                 PacManDiameter
                 );
 
             this.graphics.FillEllipse(
                new SolidBrush(Color.Black),
-               (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
+               this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
                PacManDiameter / 5,
                PacManDiameter / 5
                );
@@ -147,7 +147,7 @@
                 this.EatPoint(this.PositionQuadrantX, this.PositionQuadrantY + 1);
             }
 
-            if (this.DrawingCoordinatesY == ((this.PositionQuadrantY + 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
+            if (this.DrawingCoordinatesY == (this.PositionQuadrantY + 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
             {
                 this.PositionQuadrantY = this.PositionQuadrantY + 1;
             }
@@ -158,24 +158,24 @@
         {
             this.graphics.FillEllipse(
             new SolidBrush(this.pacManColor),
-            (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-            this.DrawingCoordinatesY - (PacManDiameter / 2),
+            this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
+            this.DrawingCoordinatesY - PacManDiameter / 2,
             PacManDiameter,
             PacManDiameter
             );
 
             this.graphics.FillEllipse(
             new SolidBrush(Color.Black),
-            (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
+            this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
             PacManDiameter / 5,
             PacManDiameter / 5
             );
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize / 2 + 2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize / 2 + 2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY)
                             });
 
             this.ChangeCoefficient();
@@ -185,7 +185,7 @@
                 this.EatPoint(this.PositionQuadrantX, this.PositionQuadrantY - 1);
             }
 
-            if (this.DrawingCoordinatesY == ((this.PositionQuadrantY - 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
+            if (this.DrawingCoordinatesY == (this.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
             {
                 this.PositionQuadrantY -= 1;
             }
@@ -198,16 +198,16 @@
             this.graphics.FillEllipse(
                  new SolidBrush(Color.Black),
                  this.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
-                 (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+                 this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5),
                  PacManDiameter / 5,
                  PacManDiameter / 5
                  );
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
-                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize) + Global.QuadrantSize / 2),
-                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, (this.PositionQuadrantY * Global.QuadrantSize) + 15 + this.animateCoeficent),
-                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, (this.PositionQuadrantY * Global.QuadrantSize) + 35- this.animateCoeficent),
-                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize / 2)
+                            new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2),
+                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, this.PositionQuadrantY * Global.QuadrantSize + 15 + this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, this.PositionQuadrantY * Global.QuadrantSize + 35 - this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
                         });
 
             this.ChangeCoefficient();
@@ -217,7 +217,7 @@
                 this.EatPoint(this.PositionQuadrantX - 1, this.PositionQuadrantY);
             }
 
-            if (this.DrawingCoordinatesX == ((this.PositionQuadrantX - 1) * Global.QuadrantSize) + 25)
+            if (this.DrawingCoordinatesX == (this.PositionQuadrantX - 1) * Global.QuadrantSize + 25)
             {
                 this.PositionQuadrantX -= 1;
             }
@@ -230,16 +230,16 @@
             this.graphics.FillEllipse(
             new SolidBrush(Color.Black),
             this.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
-            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+            this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5),
             PacManDiameter / 5,
             PacManDiameter / 5
             );
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
-                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, (this.PositionQuadrantY * Global.QuadrantSize) + 15 + this.animateCoeficent),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, (this.PositionQuadrantY * Global.QuadrantSize) + 35 - this.animateCoeficent),
-                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize) + Global.QuadrantSize / 2)
+                                new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, this.PositionQuadrantY * Global.QuadrantSize + 15 + this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, this.PositionQuadrantY * Global.QuadrantSize + 35 - this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
                             });
 
             this.ChangeCoefficient();
@@ -249,7 +249,7 @@
                 this.EatPoint(this.PositionQuadrantX + 1, this.PositionQuadrantY);
             }
 
-            if (this.DrawingCoordinatesX == ((this.PositionQuadrantX + 1) * Global.QuadrantSize) + 25)
+            if (this.DrawingCoordinatesX == (this.PositionQuadrantX + 1) * Global.QuadrantSize + 25)
             {
                 this.PositionQuadrantX = this.PositionQuadrantX + 1;
 
@@ -302,8 +302,8 @@
                     this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            this.DrawingCoordinatesX - 1 - (PacManDiameter / 2),
-                            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                            this.DrawingCoordinatesX - 1 - PacManDiameter / 2,
+                            this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                             PacManDiameter,
                             PacManDiameter
                             )
@@ -311,8 +311,8 @@
 
                     this.graphics.FillEllipse(
                            new SolidBrush(this.pacManColor),
-                           this.DrawingCoordinatesX - (PacManDiameter / 2),
-                           (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                           this.DrawingCoordinatesX - PacManDiameter / 2,
+                           this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                            PacManDiameter,
                            PacManDiameter
                            );
@@ -330,16 +330,16 @@
                     this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            this.DrawingCoordinatesX + 1 - (PacManDiameter / 2),
-                            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                            this.DrawingCoordinatesX + 1 - PacManDiameter / 2,
+                            this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                             PacManDiameter,
                             PacManDiameter
                             )
                         );
 
                     this.graphics.FillEllipse(
-                        new SolidBrush(this.pacManColor), this.DrawingCoordinatesX - (PacManDiameter / 2),
-                        (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                        new SolidBrush(this.pacManColor), this.DrawingCoordinatesX - PacManDiameter / 2,
+                        this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                         PacManDiameter,
                         PacManDiameter
                         );
@@ -357,8 +357,8 @@
                     this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                            this.DrawingCoordinatesY + 1 - (PacManDiameter / 2),
+                            this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
+                            this.DrawingCoordinatesY + 1 - PacManDiameter / 2,
                             PacManDiameter,
                             PacManDiameter
                             )
@@ -377,8 +377,8 @@
                     this.graphics.DrawEllipse(
                          new Pen(Color.Black),
                          new Rectangle(
-                             (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                             this.DrawingCoordinatesY - 1 - (PacManDiameter / 2),
+                             this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
+                             this.DrawingCoordinatesY - 1 - PacManDiameter / 2,
                              PacManDiameter,
                              PacManDiameter
                              )
@@ -386,8 +386,8 @@
 
                     this.graphics.FillEllipse(
                         new SolidBrush(this.pacManColor),
-                        (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                        this.DrawingCoordinatesY - (PacManDiameter / 2),
+                        this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
+                        this.DrawingCoordinatesY - PacManDiameter / 2,
                         PacManDiameter,
                         PacManDiameter
                         );
@@ -412,8 +412,8 @@
         {
             this.graphics.FillEllipse(
                 new SolidBrush(this.pacManColor),
-                (this.DrawingCoordinatesX) - (PacManDiameter / 2),
-                ((this.DrawingCoordinatesY) - (PacManDiameter / 2)),
+                this.DrawingCoordinatesX - PacManDiameter / 2,
+                this.DrawingCoordinatesY - PacManDiameter / 2,
                 PacManDiameter,
                 PacManDiameter
                 );

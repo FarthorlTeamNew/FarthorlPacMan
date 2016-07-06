@@ -27,7 +27,7 @@ namespace FarthorlPacMan.States
             FileInfo[] files = directory.GetFiles("*.txt");
             foreach (FileInfo file in files)
             {
-                var levelName = file.Name.Substring(0, file.Name.Length-4);
+                var levelName = file.Name.Substring(0, file.Name.Length - 4);
                 if (!this.levels.ContainsKey(levelName))
                 {
                     this.levels.Add(levelName, LevelFolder + $@"\{file.Name}");

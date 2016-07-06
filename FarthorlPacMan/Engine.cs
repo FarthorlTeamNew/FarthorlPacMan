@@ -158,8 +158,8 @@
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
 
-                            drawing.DrawRectangle(new Pen(this.WallColor), (x * 50), (y * 50), 50, 50);
-                            drawing.FillRectangle(new SolidBrush(this.WallColor), (x * 50), (y * 50), 50, 50);
+                            drawing.DrawRectangle(new Pen(this.WallColor), x * 50, y * 50, 50, 50);
+                            drawing.FillRectangle(new SolidBrush(this.WallColor), x * 50, y * 50, 50, 50);
                             Game.pacMan.BackgroundImage = Buffer;
 
                         }
@@ -168,11 +168,11 @@
                     if (pointIndex == 1)
                     {
 
-                        Points.Add(new Point((x * 50) + 25, (y * 50) + 25));
+                        Points.Add(new Point(x * 50 + 25, y * 50 + 25));
 
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
-                            drawing.FillEllipse(new SolidBrush(Point.PointFillColor), (x * 50) + 25 - (Point.PointDiameter / 2), (y * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
+                            drawing.FillEllipse(new SolidBrush(Point.PointFillColor), x * 50 + 25 - Point.PointDiameter / 2, y * 50 + 25 - Point.PointDiameter / 2, Point.PointDiameter, Point.PointDiameter);
                             Game.pacMan.BackgroundImage = Buffer;
                         }
                     }
@@ -309,7 +309,7 @@
         {
             var stringValue = $"{element[0]},{element[1]}";
             PathsMatrix[quadrantX, quandrantY] = stringValue;
-            var point = Points.FirstOrDefault(p => p.CenterX == (quadrantX * 50) + 25 && p.CenterY == (quandrantY * 50) + 25);
+            var point = Points.FirstOrDefault(p => p.CenterX == quadrantX * 50 + 25 && p.CenterY == quandrantY * 50 + 25);
             if (point != null)
             {
                 point.EatPoint();
@@ -318,7 +318,7 @@
 
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.FillEllipse(new SolidBrush(Color.Black), (quadrantX * 50) + 25 - (Point.PointDiameter / 2), (quandrantY * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
+                drawing.FillEllipse(new SolidBrush(Color.Black), quadrantX * 50 + 25 - Point.PointDiameter / 2, quandrantY * 50 + 25 - Point.PointDiameter / 2, Point.PointDiameter, Point.PointDiameter);
                 Game.pacMan.BackgroundImage = Buffer;
             }
 
@@ -332,7 +332,7 @@
         {
             if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
             {
-                PointsGraphics.FillEllipse(new SolidBrush(Point.PointFillColor), (quadrantX * 50) + 25 - (Point.PointDiameter / 2), (quandrantY * 50) + 25 - (Point.PointDiameter / 2), Point.PointDiameter, Point.PointDiameter);
+                PointsGraphics.FillEllipse(new SolidBrush(Point.PointFillColor), quadrantX * 50 + 25 - Point.PointDiameter / 2, quandrantY * 50 + 25 - Point.PointDiameter / 2, Point.PointDiameter, Point.PointDiameter);
             }
         }
 

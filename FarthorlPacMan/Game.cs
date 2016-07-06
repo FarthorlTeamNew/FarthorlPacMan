@@ -26,7 +26,7 @@
             {
                 this.graphicEngine.ResumeGame();
             }
-            Engine.MoveDirection=direction;
+            Engine.MoveDirection = direction;
         }
 
         public void PauseGame()
