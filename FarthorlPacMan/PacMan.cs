@@ -11,7 +11,7 @@ namespace FarthorlPacMan
         //private string stopDirection = String.Empty;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
-        private Boolean isAlive = true;
+        public Boolean isAlive = true;
         private Graphics graphics;
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
@@ -54,7 +54,7 @@ namespace FarthorlPacMan
 
         public void Move(string direction)
         {
-            if (!string.IsNullOrEmpty(direction) /*&& direction != stopDirection*/)
+            if (!string.IsNullOrEmpty(direction) && isAlive /*&& direction != stopDirection*/)
             {
                 if (direction == "Right")
                 {
@@ -127,12 +127,17 @@ namespace FarthorlPacMan
                 Move(direction);
             }
 
-            if (Engine.isDirectionChanged(base.MovedDirection))
+            if (Engine.isDirectionChanged(base.MovedDirection) && isAlive)
             {
                 base.MovedDirection = Engine.MoveDirection;
                 // next we try to return to the same quadrant we have been. This prevent bug to pass throught walls.
                 string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY);
                 TryMoveThere(quadrantToMove, base.MovedDirection);
+            }
+
+            if (!isAlive)
+            {
+                this.MovedDirection = string.Empty;
             }
 
             switch (base.MovedDirection)
@@ -390,9 +395,15 @@ namespace FarthorlPacMan
             return this.eatPoints;
         }
 
-        public new int PositionQuadrantX { get; private set; }
+        public int GetPositionX()
+        {
+            return this.PositionQuadrantX;
+        }
 
-        public new int PositionQuadrantY { get; private set; }
+        public int GetPositionY()
+        {
+            return this.PositionQuadrantY;
+        }
 
         public string GetDirection()
         {

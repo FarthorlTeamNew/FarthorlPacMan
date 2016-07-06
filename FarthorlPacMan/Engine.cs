@@ -21,6 +21,7 @@ namespace FarthorlPacMan
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
+        public Task TaskCheckCollision { get; private set; }
         public static string[,] PathsMatrix { get; private set; }
         public static int XMax { get; private set; }
         public static int YMax { get; private set; }
@@ -69,21 +70,40 @@ namespace FarthorlPacMan
 
                 TaskRenderingPacMan = new Task(RenderPacMan);
                 TaskRenderingGhost = new Task(RenderGhost);
+                TaskCheckCollision = new Task(CheckForCollision);
                 PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
                 for (int i = 0; i < GhostElements; i++)
                 {
-                    Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, GraphicsGhost));
+                    Ghosts.Add(new Ghost(PacMan.GetPositionX(), PacMan.GetPositionY(), GraphicsGhost));
                 }
 
                 TaskRenderingPacMan.Start();
                 TaskRenderingGhost.Start();
+                TaskCheckCollision.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
             else
             {
                 this.DrawContent();
+            }
+        }
+
+        private void CheckForCollision()
+        {
+            while (Run)
+            {
+                foreach (var ghost in Ghosts)
+                {
+                    if (PacMan.GetPositionX() == ghost.GetQuadrantX()
+                        && PacMan.GetPositionY() == ghost.GetQuadrantY())
+                    {
+                        PacMan.isAlive = false;
+                        Run = false;
+                        SoundPlayer.Play("death");
+                    }
+                }
             }
         }
 

@@ -11,7 +11,8 @@ namespace FarthorlPacMan
         {
             {"begining", "DataFiles/Sounds/pacman_beginning.wav" },
             {"eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav" },
-            {"pause", "DataFiles/Sounds/pause.wav" }
+            {"pause", "DataFiles/Sounds/pause.wav" },
+            {"death", "DataFiles/Sounds/pacman_death.wav" }
         };
 
         public static void Play(string sound)
