@@ -10,11 +10,11 @@ namespace FarthorlPacMan.States
     public class ExtractAllLevels
     {
         private const string LevelFolder = @"DataFiles\Levels";
-        private Dictionary<string, string> _levels;
+        private Dictionary<string, string> levels;
 
         public ExtractAllLevels()
         {
-            this._levels = new Dictionary<string, string>();
+            this.levels = new Dictionary<string, string>();
         }
 
         public Dictionary<string,string> ExctractLevels()
@@ -28,13 +28,13 @@ namespace FarthorlPacMan.States
             foreach (FileInfo file in files)
             {
                 var levelName = file.Name.Substring(0,file.Name.Length-4);
-                if (!this._levels.ContainsKey(levelName))
+                if (!this.levels.ContainsKey(levelName))
                 {
-                    this._levels.Add(levelName, LevelFolder + $@"\{file.Name}");
+                    this.levels.Add(levelName, LevelFolder + $@"\{file.Name}");
                 }
             }
 
-            return this._levels;
+            return this.levels;
         }
     }
 }

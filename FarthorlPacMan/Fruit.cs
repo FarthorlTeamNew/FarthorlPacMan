@@ -9,30 +9,30 @@ namespace FarthorlPacMan
 {
     public class Fruit
     {
-        private Engine _engine;
-        private Graphics _graphicsFruit;
-        private int _fruitPositionX = 5;
-        private int _fruitPositionY = 6;
-        private int _quadrantDimension = Global.QuadrantSize;
-        private static Image _apple = Image.FromFile(@"DataFiles\Images\Fruit\Apple.bmp");
-        private static Image _banana = Image.FromFile(@"DataFiles\Images\Fruit\Banana.bmp");
-        private static Image _brezel = Image.FromFile(@"DataFiles\Images\Fruit\Brezel.bmp");
-        private static Image _cherry = Image.FromFile(@"DataFiles\Images\Fruit\Cherry.bmp");
-        private static Image _peach = Image.FromFile(@"DataFiles\Images\Fruit\Peach.bmp");
-        private static Image _pear = Image.FromFile(@"DataFiles\Images\Fruit\Pear.bmp");
-        private static Image _strawberry = Image.FromFile(@"DataFiles\Images\Fruit\Strawberry.bmp");
+        private Engine engine;
+        private Graphics graphicsFruit;
+        private int fruitPositionX = 5;
+        private int fruitPositionY = 6;
+        private int quadrantDimension = Global.QuadrantSize;
+        private static Image apple = Image.FromFile(@"DataFiles\Images\Fruit\Apple.bmp");
+        private static Image banana = Image.FromFile(@"DataFiles\Images\Fruit\Banana.bmp");
+        private static Image brezel = Image.FromFile(@"DataFiles\Images\Fruit\Brezel.bmp");
+        private static Image cherry = Image.FromFile(@"DataFiles\Images\Fruit\Cherry.bmp");
+        private static Image peach = Image.FromFile(@"DataFiles\Images\Fruit\Peach.bmp");
+        private static Image pear = Image.FromFile(@"DataFiles\Images\Fruit\Pear.bmp");
+        private static Image strawberry = Image.FromFile(@"DataFiles\Images\Fruit\Strawberry.bmp");
 
         public Fruit(int x, int y, Graphics graphicsFruit, Engine engine)
         {
-            this._fruitPositionX = x;
-            this._fruitPositionY = y;
-            this._engine = engine;
-            this._graphicsFruit = graphicsFruit;
+            this.fruitPositionX = x;
+            this.fruitPositionY = y;
+            this.engine = engine;
+            this.graphicsFruit = graphicsFruit;
         }
 
         public void Draw()
         {
-            this._graphicsFruit.DrawImage(_apple, this._fruitPositionX * this._quadrantDimension, this._fruitPositionY * this._quadrantDimension);
+            this.graphicsFruit.DrawImage(apple, this.fruitPositionX * this.quadrantDimension, this.fruitPositionY * this.quadrantDimension);
         }
     }
 }

@@ -7,18 +7,18 @@ namespace FarthorlPacMan
     public class PacMan : Participant
     {
         private const int PacManDiameter = 35;
-        private int _eatPoints;
+        private int eatPoints;
         //private string stopDirection = String.Empty;
-        private int _animateCoeficent;
-        private Color _pacManColor = Color.Yellow;
+        private int animateCoeficent;
+        private Color pacManColor = Color.Yellow;
         public Boolean IsAlive = true;
-        private Graphics _graphics;
+        private Graphics graphics;
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
         {
             this.DrawingCoordinatesX = this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2;
             this.DrawingCoordinatesY = this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2;
-            this._graphics = graphics;
+            this.graphics = graphics;
             this.InitializePacMan();
         }
 
@@ -31,6 +31,8 @@ namespace FarthorlPacMan
         {
             if (this.IsAlive && quadrantToMove[0] == "0")
             {
+
+
                 this.PreviousDirection = toDirection;
                 this.MovedDirection = toDirection;
                // stopDirection = String.Empty;
@@ -56,8 +58,26 @@ namespace FarthorlPacMan
         {
             if (!string.IsNullOrEmpty(direction) && this.IsAlive /*&& direction != stopDirection*/)
             {
+
+
                 if (direction == "Right")
                 {
+
+                    this.graphics.FillEllipse(
+                       new SolidBrush(Color.Black),
+                       this.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
+                       (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+                       PacManDiameter / 5,
+                       PacManDiameter / 5
+                       );
+
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                            });
+
                     if (this.PositionQuadrantX < Engine.XMax - 1)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY);
@@ -70,6 +90,22 @@ namespace FarthorlPacMan
                 }
                 else if (direction == "Left")
                 {
+                    this.graphics.FillEllipse(
+                     new SolidBrush(Color.Black),
+                     this.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
+                     (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+                     PacManDiameter / 5,
+                     PacManDiameter / 5
+                     );
+
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                        });
+
+
                     if (this.PositionQuadrantX > 0)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX - 1, this.PositionQuadrantY);
@@ -82,6 +118,21 @@ namespace FarthorlPacMan
                 }
                 else if (direction == "Up")
                 {
+
+                    this.graphics.FillEllipse(
+                    new SolidBrush(Color.Black),
+                    (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
+                    PacManDiameter / 5,
+                    PacManDiameter / 5
+                    );
+
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35-this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
+                            });
+
                     if (this.PositionQuadrantY > 0)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY - 1);
@@ -94,6 +145,21 @@ namespace FarthorlPacMan
                 }
                 else if (direction == "Down")
                 {
+
+                    this.graphics.FillEllipse(
+                       new SolidBrush(Color.Black),
+                       (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
+                       PacManDiameter / 5,
+                       PacManDiameter / 5
+                       );
+
+
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize+ 35-this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2  ),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
+                            });
                     if (this.PositionQuadrantY < Engine.YMax - 1)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1);
@@ -149,7 +215,7 @@ namespace FarthorlPacMan
                         this.DrawingCoordinatesX += 1;
                     }
 
-                    this._graphics.DrawEllipse(
+                    this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             this.DrawingCoordinatesX - 1 - (PacManDiameter / 2),
@@ -159,15 +225,15 @@ namespace FarthorlPacMan
                             )
                         );
 
-                    this._graphics.FillEllipse(
-                           new SolidBrush(this._pacManColor),
+                    this.graphics.FillEllipse(
+                           new SolidBrush(this.pacManColor),
                            this.DrawingCoordinatesX - (PacManDiameter / 2),
                            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                            PacManDiameter,
                            PacManDiameter
                            );
 
-                    this._graphics.FillEllipse(
+                    this.graphics.FillEllipse(
                        new SolidBrush(Color.Black),
                        this.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
                        (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
@@ -175,10 +241,10 @@ namespace FarthorlPacMan
                        PacManDiameter / 5
                        );
 
-                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this._animateCoeficent),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this._animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
                                 new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
                             });
 
@@ -204,7 +270,7 @@ namespace FarthorlPacMan
                         this.DrawingCoordinatesX -= 1;
                     }
 
-                    this._graphics.DrawEllipse(
+                    this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             this.DrawingCoordinatesX + 1 - (PacManDiameter / 2),
@@ -214,14 +280,14 @@ namespace FarthorlPacMan
                             )
                         );
 
-                    this._graphics.FillEllipse(
-                        new SolidBrush(this._pacManColor), this.DrawingCoordinatesX - (PacManDiameter / 2),
+                    this.graphics.FillEllipse(
+                        new SolidBrush(this.pacManColor), this.DrawingCoordinatesX - (PacManDiameter / 2),
                         (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    this._graphics.FillEllipse(
+                    this.graphics.FillEllipse(
                         new SolidBrush(Color.Black),
                         this.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
                         (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
@@ -229,10 +295,10 @@ namespace FarthorlPacMan
                         PacManDiameter / 5
                         );
 
-                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                             new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this._animateCoeficent),
-                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this._animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
                             new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
                         });
 
@@ -258,7 +324,7 @@ namespace FarthorlPacMan
                         this.DrawingCoordinatesY -= 1;
                     }
 
-                    this._graphics.DrawEllipse(
+                    this.graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
@@ -268,25 +334,25 @@ namespace FarthorlPacMan
                             )
                         );
 
-                    this._graphics.FillEllipse(
-                        new SolidBrush(this._pacManColor),
+                    this.graphics.FillEllipse(
+                        new SolidBrush(this.pacManColor),
                         (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                         this.DrawingCoordinatesY - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    this._graphics.FillEllipse(
+                    this.graphics.FillEllipse(
                     new SolidBrush(Color.Black),
                     (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
                     PacManDiameter / 5,
                     PacManDiameter / 5
                     );
 
-                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this._animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35-this._animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35-this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
                             });
 
@@ -312,7 +378,7 @@ namespace FarthorlPacMan
                         this.DrawingCoordinatesY += 1;
                     }
 
-                    this._graphics.DrawEllipse(
+                    this.graphics.DrawEllipse(
                          new Pen(Color.Black),
                          new Rectangle(
                              (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
@@ -322,15 +388,15 @@ namespace FarthorlPacMan
                              )
                          );
 
-                    this._graphics.FillEllipse(
-                        new SolidBrush(this._pacManColor),
+                    this.graphics.FillEllipse(
+                        new SolidBrush(this.pacManColor),
                         (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                         this.DrawingCoordinatesY - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    this._graphics.FillEllipse(
+                    this.graphics.FillEllipse(
                        new SolidBrush(Color.Black),
                        (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
                        PacManDiameter / 5,
@@ -338,10 +404,10 @@ namespace FarthorlPacMan
                        );
 
 
-                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                    this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this._animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize+ 35-this._animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2  ),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize+ 35-this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2  ),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
                             });
 
@@ -365,17 +431,17 @@ namespace FarthorlPacMan
 
         private void ChangeCoefficient()
         {
-            this._animateCoeficent += 1;
-            if (this._animateCoeficent == 12)
+            this.animateCoeficent += 1;
+            if (this.animateCoeficent == 12)
             {
-                this._animateCoeficent = 0;
+                this.animateCoeficent = 0;
             }
         }
 
         public void DrawPacMan()
         {
-            this._graphics.FillEllipse(
-                new SolidBrush(this._pacManColor),
+            this.graphics.FillEllipse(
+                new SolidBrush(this.pacManColor),
                 (this.DrawingCoordinatesX) - (PacManDiameter / 2),
                 ((this.DrawingCoordinatesY) - (PacManDiameter / 2)),
                 PacManDiameter,
@@ -385,7 +451,7 @@ namespace FarthorlPacMan
 
         public int GetScore()
         {
-            return this._eatPoints;
+            return this.eatPoints;
         }
 
         public int GetPositionX()
@@ -409,7 +475,7 @@ namespace FarthorlPacMan
 
             if (elements[1] == "1")
             {
-                this._eatPoints = this._eatPoints + int.Parse(elements[1]);
+                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
                 SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);

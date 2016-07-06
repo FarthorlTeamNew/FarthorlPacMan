@@ -9,32 +9,32 @@ namespace FarthorlPacMan
     {
         private const int PacManDistanceX = 3;
         private const int PacManDistanceY = 0;
-        private Random _random = new Random();
-        private int _positionPacManQaundarntX;
-        private int _positionPacManQaundarntY;
-        private Dictionary<string, bool> _existDirections = new Dictionary<string, bool>();
-        private static Image _image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
-        private Graphics _graphicsGhost;
-        private Graphics _graphicsFruit;
+        private Random random = new Random();
+        private int positionPacManQaundarntX;
+        private int positionPacManQaundarntY;
+        private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
+        private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
+        private Graphics graphicsGhost;
+        private Graphics graphicsFruit;
 
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost) : base()
         {
-            this._positionPacManQaundarntX = positionPacManQaundarntX;
-            this._positionPacManQaundarntY = positionPacManQaundarntY;
-            this._graphicsGhost = graphicsGhost;
+            this.positionPacManQaundarntX = positionPacManQaundarntX;
+            this.positionPacManQaundarntY = positionPacManQaundarntY;
+            this.graphicsGhost = graphicsGhost;
             this.InicializeGhost();
         }
 
         public Ghost(Graphics graphicsGhost, int positionQuadrantX, int positionQuadrantY) : base(positionQuadrantX, positionQuadrantY)
         {
-            this._graphicsGhost = graphicsGhost;
+            this.graphicsGhost = graphicsGhost;
         }
 
         private Dictionary<string, int> CreateCoordinatesXy(int pacManX, int pacManY)
         {
             List<int[]> ghostMatrix = new List<int[]>();
             Dictionary<string, int> resultXy = new Dictionary<string, int>();
-            System.Threading.Thread.Sleep(this._random.Next(100, 500));
+            System.Threading.Thread.Sleep(this.random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
             for (int y = 0; y < Engine.YMax - 1; y++)
@@ -55,7 +55,7 @@ namespace FarthorlPacMan
                     }
                 }
             }
-            int quadrantIndex = this._random.Next(0, ghostMatrix.Count - 1);
+            int quadrantIndex = this.random.Next(0, ghostMatrix.Count - 1);
 
             if (Engine.IsExistGhost(ghostMatrix[quadrantIndex][0], ghostMatrix[quadrantIndex][1]))
             {
@@ -69,17 +69,17 @@ namespace FarthorlPacMan
 
         private void InicializeGhost()
         {
-            var getCoordinates = this.CreateCoordinatesXy(this._positionPacManQaundarntX, this._positionPacManQaundarntY);
+            var getCoordinates = this.CreateCoordinatesXy(this.positionPacManQaundarntX, this.positionPacManQaundarntY);
             this.PositionQuadrantX = getCoordinates["QuadrantX"];
             this.PositionQuadrantY = getCoordinates["QuadrantY"];
 
             this.DrawingCoordinatesX = this.PositionQuadrantX * 50 + 8;
             this.DrawingCoordinatesY = this.PositionQuadrantY * 50 + 4;
 
-            this._existDirections.Add("Up", false);
-            this._existDirections.Add("Down", false);
-            this._existDirections.Add("Left", false);
-            this._existDirections.Add("Right", false);
+            this.existDirections.Add("Up", false);
+            this.existDirections.Add("Down", false);
+            this.existDirections.Add("Left", false);
+            this.existDirections.Add("Right", false);
             this.CheckExistDirections();
             this.SelectRandomDirection();
         }
@@ -88,38 +88,38 @@ namespace FarthorlPacMan
         {
             if (this.PositionQuadrantY > 0 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY - 1)[0] == "0")
             {
-                this._existDirections["Up"] = true;
+                this.existDirections["Up"] = true;
             }
             else
             {
-                this._existDirections["Up"] = false;
+                this.existDirections["Up"] = false;
             }
 
             if (this.PositionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1)[0] == "0")
             {
-                this._existDirections["Down"] = true;
+                this.existDirections["Down"] = true;
             }
             else
             {
-                this._existDirections["Down"] = false;
+                this.existDirections["Down"] = false;
             }
 
             if (this.PositionQuadrantX > 0 && Engine.GetQuadrantElements(this.PositionQuadrantX - 1, this.PositionQuadrantY)[0] == "0")
             {
-                this._existDirections["Left"] = true;
+                this.existDirections["Left"] = true;
             }
             else
             {
-                this._existDirections["Left"] = false;
+                this.existDirections["Left"] = false;
             }
 
             if (this.PositionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY)[0] == "0")
             {
-                this._existDirections["Right"] = true;
+                this.existDirections["Right"] = true;
             }
             else
             {
-                this._existDirections["Right"] = false;
+                this.existDirections["Right"] = false;
             }
         }
 
@@ -127,7 +127,7 @@ namespace FarthorlPacMan
         {
 
             List<string> existRoads = new List<string>();
-            foreach (var exist in this._existDirections)
+            foreach (var exist in this.existDirections)
             {
                 if (exist.Value == true)
                 {
@@ -135,7 +135,7 @@ namespace FarthorlPacMan
                 }
             }
 
-            var index = this._random.Next(0, existRoads.Count - 1);
+            var index = this.random.Next(0, existRoads.Count - 1);
             this.MovedDirection = existRoads[index];
             this.PreviousDirection = this.MovedDirection;
 
@@ -164,7 +164,7 @@ namespace FarthorlPacMan
             }
 
 
-            foreach (var exist in this._existDirections)
+            foreach (var exist in this.existDirections)
             {
                 if (exist.Key != notEqualDirection && exist.Value == true)
                 {
@@ -174,7 +174,7 @@ namespace FarthorlPacMan
 
             if (existRoads.Count > 0)
             {
-                int randomIndex = this._random.Next(0, existRoads.Count - 1);
+                int randomIndex = this.random.Next(0, existRoads.Count - 1);
 
                 return existRoads[randomIndex];
             }
@@ -391,7 +391,7 @@ namespace FarthorlPacMan
 
         public void Draw()
         {
-            this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.PositionQuadrantY * Global.QuadrantSize + 4);
+            this.graphicsGhost.DrawImage(image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.PositionQuadrantY * Global.QuadrantSize + 4);
         }
 
         public async Task<bool> Move()
@@ -408,13 +408,13 @@ namespace FarthorlPacMan
                     }
 
                     this.DrawingCoordinatesX += 1;
-                    this._graphicsGhost.DrawLine(new Pen(Color.Black), this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 1, this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 49);
+                    this.graphicsGhost.DrawLine(new Pen(Color.Black), this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 1, this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 49);
                     if (this.DrawingCoordinatesX > (this.PositionQuadrantX * Global.QuadrantSize) + 20)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    this._graphicsGhost.DrawImage(_image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
+                    this.graphicsGhost.DrawImage(image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
@@ -433,9 +433,9 @@ namespace FarthorlPacMan
                         this.MoveNext();
                     }
                     this.DrawingCoordinatesX -= 1;
-                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.DrawingCoordinatesX + _image.Width) + 1,
+                    this.graphicsGhost.DrawLine(new Pen(Color.Black), (this.DrawingCoordinatesX + image.Width) + 1,
                         (this.PositionQuadrantY * Global.QuadrantSize) + 1,
-                        (this.DrawingCoordinatesX + _image.Width) + 1,
+                        (this.DrawingCoordinatesX + image.Width) + 1,
                         (this.PositionQuadrantY * Global.QuadrantSize) + 49);
 
                     if (this.DrawingCoordinatesX < (this.PositionQuadrantX * Global.QuadrantSize) + 20)
@@ -443,7 +443,7 @@ namespace FarthorlPacMan
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    this._graphicsGhost.DrawImage(_image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
+                    this.graphicsGhost.DrawImage(image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
@@ -464,13 +464,13 @@ namespace FarthorlPacMan
 
                     this.DrawingCoordinatesY -= 1;
 
-                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4 + _image.Height) + 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4 + _image.Height) + 1);
+                    this.graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4 + image.Height) + 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4 + image.Height) + 1);
                     if (this.DrawingCoordinatesY < (this.PositionQuadrantY * Global.QuadrantSize) - 11)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
+                    this.graphicsGhost.DrawImage(image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (this.DrawingCoordinatesY == ((this.PositionQuadrantY - 1) * Global.QuadrantSize) + 4)
@@ -488,13 +488,13 @@ namespace FarthorlPacMan
                     }
 
                     this.DrawingCoordinatesY += 1;
-                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4) - 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4) - 1);
+                    this.graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4) - 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4) - 1);
                     if (this.DrawingCoordinatesY > (this.PositionQuadrantY * Global.QuadrantSize) + 20)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
+                    this.graphicsGhost.DrawImage(image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
                     if (this.DrawingCoordinatesY == ((this.PositionQuadrantY + 1) * Global.QuadrantSize) + 4)
@@ -511,12 +511,12 @@ namespace FarthorlPacMan
 
         private void DrawBlackPolygon()
         {
-            this._graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+            this.graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new[]
             {
                 new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
-                new System.Drawing.Point(this.DrawingCoordinatesX + _image.Width, this.DrawingCoordinatesY),
-                new System.Drawing.Point(this.DrawingCoordinatesX + _image.Width, this.DrawingCoordinatesY + _image.Height),
-                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY + _image.Height),
+                new System.Drawing.Point(this.DrawingCoordinatesX + image.Width, this.DrawingCoordinatesY),
+                new System.Drawing.Point(this.DrawingCoordinatesX + image.Width, this.DrawingCoordinatesY + image.Height),
+                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY + image.Height),
                 new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
             });
         }
