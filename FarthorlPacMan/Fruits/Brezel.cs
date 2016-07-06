@@ -11,7 +11,7 @@ namespace FarthorlPacMan.Fruits
 
         public override void DrawFruit()
         {
-            graphicsFruit.DrawImage(brezel, fruitPositionX * QuadrantDimension, fruitPositionY * QuadrantDimension);
+            this.graphicsFruit.DrawImage(brezel, this.fruitPositionX *this.QuadrantDimension, this.fruitPositionY *this.QuadrantDimension);
         }
     }
 }

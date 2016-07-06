@@ -12,7 +12,7 @@ namespace FarthorlPacMan.Fruits
 
         public override void DrawFruit()
         {
-            graphicsFruit.DrawImage(apple, fruitPositionX * QuadrantDimension, fruitPositionY * QuadrantDimension);
+            this.graphicsFruit.DrawImage(apple, this.fruitPositionX *this.QuadrantDimension, this.fruitPositionY *this.QuadrantDimension);
         }
     }
 }

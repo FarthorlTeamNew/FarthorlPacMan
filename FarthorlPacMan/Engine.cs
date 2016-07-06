@@ -73,7 +73,7 @@ namespace FarthorlPacMan
 
                 this.TaskRenderingPacMan = new Task(this.RenderPacMan);
                 this.TaskRenderingGhost = new Task(this.RenderGhost);
-                this.TaskRenderingFruit = new Task(GenerateFruit);
+                this.TaskRenderingFruit = new Task(this.GenerateFruit);
                 this.TaskCheckCollision = new Task(this.CheckForCollision);
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
@@ -114,13 +114,13 @@ namespace FarthorlPacMan
 
         private void GenerateFruit()
         {
-            Fruit apple = new Apple(2, 3, GraphicsFruit, this);
-            Fruit banana = new Banana(6, 8, GraphicsFruit, this);
-            Fruit brezel = new Brezel(15, 6, GraphicsFruit, this);
-            Fruit cherry = new Cherry(19, 2, GraphicsFruit, this);
-            Fruit peach = new Peach(13, 4, GraphicsFruit, this);
-            Fruit pear = new Pear(11, 12, GraphicsFruit, this);
-            Fruit strawberry = new Strawberry(4, 10, GraphicsFruit, this);
+            Fruit apple = new Apple(2, 3, this.GraphicsFruit, this);
+            Fruit banana = new Banana(6, 8, this.GraphicsFruit, this);
+            Fruit brezel = new Brezel(15, 6, this.GraphicsFruit, this);
+            Fruit cherry = new Cherry(19, 2, this.GraphicsFruit, this);
+            Fruit peach = new Peach(13, 4, this.GraphicsFruit, this);
+            Fruit pear = new Pear(11, 12, this.GraphicsFruit, this);
+            Fruit strawberry = new Strawberry(4, 10, this.GraphicsFruit, this);
 
             List<Fruit> fruits = new List<Fruit> {apple, banana, brezel, cherry, peach, pear, strawberry};
             //while (Run)
@@ -289,14 +289,14 @@ namespace FarthorlPacMan
         {
             Game.PausePanel.Visible = false;
             Run = true;
-            TaskRenderingPacMan = new Task(RenderPacMan);
-            TaskRenderingGhost = new Task(RenderGhost);
-            TaskRenderingFruit = new Task(GenerateFruit);
-            TaskCheckCollision = new Task(CheckForCollision);
-            TaskRenderingPacMan.Start();
-            TaskRenderingGhost.Start();
-            TaskRenderingFruit.Start();
-            TaskCheckCollision.Start();
+            this.TaskRenderingPacMan = new Task(this.RenderPacMan);
+            this.TaskRenderingGhost = new Task(this.RenderGhost);
+            this.TaskRenderingFruit = new Task(this.GenerateFruit);
+            this.TaskCheckCollision = new Task(this.CheckForCollision);
+            this.TaskRenderingPacMan.Start();
+            this.TaskRenderingGhost.Start();
+            this.TaskRenderingFruit.Start();
+            this.TaskCheckCollision.Start();
         }
 
         public bool IsPaused()
@@ -368,23 +368,23 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (TaskRenderingPacMan != null)
+                if (this.TaskRenderingPacMan != null)
                 {
-                    TaskRenderingPacMan.Dispose();
+                    this.TaskRenderingPacMan.Dispose();
                 }
 
-                if (TaskRenderingGhost != null)
+                if (this.TaskRenderingGhost != null)
                 {
-                    TaskRenderingGhost.Dispose();
+                    this.TaskRenderingGhost.Dispose();
                 }
 
-                if (TaskRenderingFruit != null)
+                if (this.TaskRenderingFruit != null)
                 {
-                    TaskRenderingFruit.Dispose();
+                    this.TaskRenderingFruit.Dispose();
                 }
-                if (TaskCheckCollision != null)
+                if (this.TaskCheckCollision != null)
                 {
-                    TaskCheckCollision.Dispose();
+                    this.TaskCheckCollision.Dispose();
                 }
 
                 if (Buffer != null)

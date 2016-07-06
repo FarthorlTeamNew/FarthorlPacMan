@@ -18,15 +18,15 @@ namespace FarthorlPacMan
 
         private void pacMan_Paint(object sender, PaintEventArgs e)
         {
-            if (!isInicialize)
+            if (!this.isInicialize)
             {
-                Graphics graphics = pacMan.CreateGraphics();
-                Graphics graphicsGhost = pacMan.CreateGraphics();
-                Graphics pointsGraphics = pacMan.CreateGraphics();
-                Graphics graphicsFruit = pacMan.CreateGraphics();
+                Graphics graphics = this.pacMan.CreateGraphics();
+                Graphics graphicsGhost = this.pacMan.CreateGraphics();
+                Graphics pointsGraphics = this.pacMan.CreateGraphics();
+                Graphics graphicsFruit = this.pacMan.CreateGraphics();
                 if (Level != null)
                 {
-                    game.SetNewLevel(Level);
+                    this.game.SetNewLevel(Level);
                 }
                 this.game.startDraw(graphics, graphicsGhost, pointsGraphics, graphicsFruit, this);
                 this.isInicialize = true;
