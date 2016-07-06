@@ -7,7 +7,7 @@ namespace FarthorlPacMan
     public class SoundPlayer : IDisposable
     {
         private static System.Media.SoundPlayer soundPlayer { get; set; }
-        private static Dictionary<string, string> _sounds = new Dictionary<string, string>
+        private static Dictionary<string, string> sounds = new Dictionary<string, string>
         {
             {"begining", "DataFiles/Sounds/pacman_beginning.wav" },
             {"eatfruit", "DataFiles/Sounds/pacman_eatfruit.wav" },
@@ -17,11 +17,11 @@ namespace FarthorlPacMan
 
         public static void Play(string sound)
         {
-            if (!_sounds.ContainsKey(sound))
+            if (!sounds.ContainsKey(sound))
             {
                 throw new KeyNotFoundException("The current sound is not added in the playlist");
             }
-            soundPlayer = new System.Media.SoundPlayer(_sounds[sound]);
+            soundPlayer = new System.Media.SoundPlayer(sounds[sound]);
             soundPlayer.Play();
         }
 

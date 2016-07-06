@@ -14,7 +14,6 @@ namespace FarthorlPacMan
         private const string TouchWall = "1";
         private const string FreeDirection = "0";
         private int eatPoints;
-        //private string stopDirection = String.Empty;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
         public bool IsAlive = true;
@@ -39,7 +38,6 @@ namespace FarthorlPacMan
             {
                 this.PreviousDirection = toDirection;
                 this.MovedDirection = toDirection;
-               // stopDirection = String.Empty;
             }
             else if (quadrantToMove[0] == TouchWall)
             {
@@ -52,7 +50,6 @@ namespace FarthorlPacMan
             if (this.MovedDirection == string.Empty)
             {
                 this.PreviousDirection = string.Empty;
-               // stopDirection = base.MovedDirection;
             }
             this.MovedDirection = string.Empty;
             this.Move(this.PreviousDirection);
@@ -60,7 +57,7 @@ namespace FarthorlPacMan
 
         public void Move(string direction)
         {
-            if (!string.IsNullOrEmpty(direction) && this.IsAlive /*&& direction != stopDirection*/)
+            if (!string.IsNullOrEmpty(direction) && this.IsAlive)
             {
                 if (direction == Right)
                 {
@@ -321,7 +318,7 @@ namespace FarthorlPacMan
                            PacManDiameter
                            );
  
-                   this.MovePacManRight();
+                    this.MovePacManRight();
                     break;
 
                 case Left:
