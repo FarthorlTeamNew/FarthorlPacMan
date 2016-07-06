@@ -6,8 +6,26 @@
     {
         protected Engine Engine;
         protected Graphics GraphicsFruit;
-        protected int FruitPositionX;
-        protected int FruitPositionY;
+        protected int fruitPositionX;
+        protected int fruitPositionY;
+
+        public int FruitPositionX
+        {
+            get { return fruitPositionX; }
+            protected set
+            {
+                fruitPositionX = value;
+            }
+        }
+        public int FruitPositionY
+        {
+            get { return fruitPositionY; }
+            protected set
+            {
+                fruitPositionY = value;
+            }
+        }
+
         protected int QuadrantDimension = Global.QuadrantSize;
 
         protected Fruit(int x, int y, Graphics graphicsFruit, Engine engine)

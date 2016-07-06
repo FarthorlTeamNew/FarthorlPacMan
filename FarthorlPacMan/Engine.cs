@@ -35,6 +35,7 @@
         public static List<Point> Points { get; private set; }
         private static List<Ghost> Ghosts { get; set; }
         private string Level { get; set; }
+        List<Fruit> fruits = new List<Fruit>();
 
         public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
         {
@@ -123,14 +124,32 @@
             Fruit pear = new Pear(11, 12, this.GraphicsFruit, this);
             Fruit strawberry = new Strawberry(4, 10, this.GraphicsFruit, this);
 
-            List<Fruit> fruits = new List<Fruit> {apple, banana, brezel, cherry, peach, pear, strawberry};
-            //while (Run)
-            //{
-            //    foreach (var fruit in fruits)
-            //    {
-            //        fruit.DrawFruit();
-            //    }
-            //}
+            fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
+
+            fruits.RemoveAll(x => x.FruitPositionX >= XMax || x.FruitPositionY >= YMax);
+
+            while (Run)
+            {
+                Fruit fruitToDelete = null;
+                foreach (var fruit in fruits)
+                {
+                    fruit.DrawFruit();
+
+                    if (fruit.FruitPositionX == PacMan.PositionQuadrantX
+                    && fruit.FruitPositionY == PacMan.PositionQuadrantY)
+                    {
+                        fruitToDelete = fruit;
+                    }
+                }
+                if (fruitToDelete != null)
+                {
+                    fruits.Remove(fruitToDelete);
+                    // give player 10 points
+                    PacManEatScores += 10;
+                    Game.UpdateScores(PacManEatScores);
+                }
+            }
+
         }
 
         private void DrawFontColor()
