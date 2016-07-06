@@ -11,6 +11,8 @@ namespace FarthorlPacMan
         private const string Up = "Up";
         private const string Right = "Right";
         private const string Down = "Down";
+        private const string TouchWall = "1";
+        private const string FreeDirection = "0";
         private int eatPoints;
         //private string stopDirection = String.Empty;
         private int animateCoeficent;
@@ -33,13 +35,13 @@ namespace FarthorlPacMan
 
         private void TryMoveThere(string[] quadrantToMove, string toDirection)
         {
-            if (this.IsAlive && quadrantToMove[0] == "0")
+            if (this.IsAlive && quadrantToMove[0] == FreeDirection)
             {
                 this.PreviousDirection = toDirection;
                 this.MovedDirection = toDirection;
                // stopDirection = String.Empty;
             }
-            else if (quadrantToMove[0] == "1")
+            else if (quadrantToMove[0] == TouchWall)
             {
                 this.MoveCheck();
             }
@@ -445,10 +447,10 @@ namespace FarthorlPacMan
         {
             string[] elements = Engine.GetQuadrantElements(quadrantX, quadrantY);
 
-            if (elements[1] == "1")
+            if (elements[1] == TouchWall)
             {
                 this.eatPoints = this.eatPoints + int.Parse(elements[1]);
-                elements[1] = "0";
+                elements[1] = FreeDirection;
                 SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
             }
