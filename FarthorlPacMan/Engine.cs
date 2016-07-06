@@ -14,7 +14,7 @@
         public Graphics GraphicsPacMan { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
         public static Graphics PointsGraphics { get; private set; }
-        public Graphics GraphicsFruit { get; private set; }
+        public static Graphics GraphicsFruit { get; private set; }
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
@@ -33,13 +33,13 @@
         public static List<Point> Points { get; private set; }
         private static List<Ghost> Ghosts { get; set; }
         private string Level { get; set; }
-        List<Fruit> fruits = new List<Fruit>();
+        static List<Fruit> fruits = new List<Fruit>();
 
         public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
         {
             this.GraphicsPacMan = graphicPacMan;
             this.GraphicsGhost = graphicsGhost;
-            this.GraphicsFruit = graphicsFruit;
+            GraphicsFruit = graphicsFruit;
             PointsGraphics = pointsGraphics;
             Game = game;
             Buffer = new Bitmap(1200, 650);
@@ -201,13 +201,13 @@
 
         private void InicializeFruits()
         {
-            Fruit apple = new Apple(2, 3, this.GraphicsFruit);
-            Fruit banana = new Banana(6, 8, this.GraphicsFruit);
-            Fruit brezel = new Brezel(15, 6, this.GraphicsFruit);
-            Fruit cherry = new Cherry(19, 2, this.GraphicsFruit);
-            Fruit peach = new Peach(13, 4, this.GraphicsFruit);
-            Fruit pear = new Pear(11, 12, this.GraphicsFruit);
-            Fruit strawberry = new Strawberry(4, 10, this.GraphicsFruit);
+            Fruit apple = new Apple(2, 3, GraphicsFruit);
+            Fruit banana = new Banana(6, 8, GraphicsFruit);
+            Fruit brezel = new Brezel(15, 6, GraphicsFruit);
+            Fruit cherry = new Cherry(19, 2, GraphicsFruit);
+            Fruit peach = new Peach(13, 4, GraphicsFruit);
+            Fruit pear = new Pear(11, 12, GraphicsFruit);
+            Fruit strawberry = new Strawberry(4, 10, GraphicsFruit);
 
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
@@ -337,18 +337,15 @@
             }
         }
 
-/*        public static void DrawFruit(int quadrantX, int quandrantY)
+        public static void DrawFruit(int quadrantX, int quadrantY)
         {
-            if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
-            {
-                PointsGraphics.FillEllipse(new SolidBrush(Point.PointFillColor), quadrantX * 50 + 25 - Point.PointDiameter / 2, quandrantY * 50 + 25 - Point.PointDiameter / 2, Point.PointDiameter, Point.PointDiameter);
-            }
 
-            if (fruits.Count(f=>f.FruitPositionX+10)>0)
+            var fruit = fruits.FirstOrDefault(f => f.FruitPositionX == quadrantX && f.FruitPositionY == quadrantY);
+            if (fruit!=null)
             {
-                
+                GraphicsFruit.DrawImage(fruit.Image, fruit.FruitPositionX * Global.QuadrantSize + (Global.QuadrantSize / 2 - fruit.fruitWidth / 2), fruit.FruitPositionY * Global.QuadrantSize + (Global.QuadrantSize / 2 - fruit.fruitHeigt / 2), fruit.fruitWidth, fruit.fruitHeigt);
             }
-        }*/
+        }
 
         public static bool IsDirectionChanged(string myDirection)
         {

@@ -419,7 +419,7 @@
                     if (base.DrawingCoordinatesX > base.PositionQuadrantX * Global.QuadrantSize + 20)
                     {
                         Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
-                        //Engine.Dra
+                        Engine.DrawFruit(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
                     this.graphicsGhost.DrawImage(image, base.DrawingCoordinatesX, base.PositionQuadrantY * Global.QuadrantSize + 4);
@@ -447,6 +447,7 @@
                     if (this.DrawingCoordinatesX < this.PositionQuadrantX * Global.QuadrantSize + 20)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
+                        Engine.DrawFruit(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
                     this.graphicsGhost.DrawImage(image, this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + 4);
@@ -472,6 +473,7 @@
                     if (this.DrawingCoordinatesY < this.PositionQuadrantY * Global.QuadrantSize - 11)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
+                        Engine.DrawFruit(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
                     this.graphicsGhost.DrawImage(image, this.PositionQuadrantX * Global.QuadrantSize + 8, this.DrawingCoordinatesY + 4);
@@ -494,6 +496,7 @@
                     if (this.DrawingCoordinatesY > this.PositionQuadrantY * Global.QuadrantSize + 20)
                     {
                         Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
+                        Engine.DrawFruit(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
                     this.graphicsGhost.DrawImage(image, this.PositionQuadrantX * Global.QuadrantSize + 8, this.DrawingCoordinatesY + 4);
