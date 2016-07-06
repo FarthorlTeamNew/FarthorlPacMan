@@ -8,9 +8,8 @@ namespace FarthorlPacMan
 {
     public class Participant
     {
-
-        protected int PositionQuadrantX { get; set; }
-        protected int PositionQuadrantY { get; set; }
+        public int PositionQuadrantX { get; protected set; }
+        public int PositionQuadrantY { get; protected set; }
         protected int DrawingCoordinatesX { get; set; }
         protected int DrawingCoordinatesY { get; set; }
         protected string MovedDirection { get; set; }
@@ -25,6 +24,7 @@ namespace FarthorlPacMan
         public Participant()
         {
         }
+
 
     }
 }

@@ -79,7 +79,7 @@ namespace FarthorlPacMan
 
                 for (int i = 0; i < this.GhostElements; i++)
                 {
-                    Ghosts.Add(new Ghost(this.PacMan.GetPositionX(), this.PacMan.GetPositionY(), this.GraphicsGhost));
+                    Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, this.GraphicsGhost));
                 }
 
                 this.TaskRenderingPacMan.Start();
@@ -101,8 +101,8 @@ namespace FarthorlPacMan
             {
                 foreach (var ghost in Ghosts)
                 {
-                    if (this.PacMan.GetPositionX() == ghost.GetQuadrantX()
-                        && this.PacMan.GetPositionY() == ghost.GetQuadrantY())
+                    if (PacMan.PositionQuadrantX == ghost.PositionQuadrantX
+                        && PacMan.PositionQuadrantY == ghost.PositionQuadrantY)
                     {
                         this.PacMan.IsAlive = false;
                         Run = false;
@@ -354,7 +354,7 @@ namespace FarthorlPacMan
 
         public static bool IsExistGhost(int quadrantX, int quadrantY)
         {
-            return Convert.ToBoolean(Ghosts.FirstOrDefault(g => g.GetQuadrantX() == quadrantX && g.GetQuadrantY() == quadrantY));
+            return Convert.ToBoolean(Ghosts.FirstOrDefault(g => g.PositionQuadrantX == quadrantX && g.PositionQuadrantY == quadrantY));
         }
 
         public void Dispose()

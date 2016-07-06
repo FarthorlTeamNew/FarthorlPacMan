@@ -425,16 +425,6 @@ namespace FarthorlPacMan
             return this.eatPoints;
         }
 
-        public int GetPositionX()
-        {
-            return this.PositionQuadrantX;
-        }
-
-        public int GetPositionY()
-        {
-            return this.PositionQuadrantY;
-        }
-
         public string GetDirection()
         {
             return this.MovedDirection;
