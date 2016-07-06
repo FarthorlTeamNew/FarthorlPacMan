@@ -10,7 +10,7 @@ namespace FarthorlPacMan
         protected int fruitPositionY;
         protected int QuadrantDimension = Global.QuadrantSize;
 
-        public Fruit(int X, int Y, Graphics graphicsFruit, Engine engine)
+        protected Fruit(int X, int Y, Graphics graphicsFruit, Engine engine)
         {
             this.fruitPositionX = X;
             this.fruitPositionY = Y;
