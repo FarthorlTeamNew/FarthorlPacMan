@@ -420,7 +420,7 @@ namespace FarthorlPacMan
 
                     if (base.DrawingCoordinatesX == ((base.PositionQuadrantX + 1) * Global.QuadrantSize) + 8)
                     {
-                        DrawBlackPolygon();
+                        //DrawBlackPolygon();
 
                         base.PositionQuadrantX += 1;
                         this.MoveNext();
@@ -449,7 +449,7 @@ namespace FarthorlPacMan
 
                     if (base.DrawingCoordinatesX == ((base.PositionQuadrantX - 1) * Global.QuadrantSize) + 8)
                     {
-                        DrawBlackPolygon();
+                        //DrawBlackPolygon();
 
                         base.PositionQuadrantX -= 1;
                         this.MoveNext();
@@ -475,7 +475,7 @@ namespace FarthorlPacMan
 
                     if (base.DrawingCoordinatesY == ((base.PositionQuadrantY - 1) * Global.QuadrantSize) + 4)
                     {
-                        DrawBlackPolygon();
+                        //DrawBlackPolygon();
 
                         base.PositionQuadrantY -= 1;
                         this.MoveNext();
@@ -499,7 +499,7 @@ namespace FarthorlPacMan
 
                     if (base.DrawingCoordinatesY == ((base.PositionQuadrantY + 1) * Global.QuadrantSize) + 4)
                     {
-                        DrawBlackPolygon();
+                        //DrawBlackPolygon();
 
                         base.PositionQuadrantY += 1;
                         this.MoveNext();
