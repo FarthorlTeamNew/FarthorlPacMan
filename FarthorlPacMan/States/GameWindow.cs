@@ -36,24 +36,36 @@ namespace FarthorlPacMan
         // Game starts when any up, down, left, right key is pressed
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 39) //If press right arrow
+            if (e.KeyCode == Keys.Right) //If press right arrow
             {
                 game.ChangeDirection("Right");
             }
 
-            if (e.KeyValue == 37)
+            if (e.KeyCode == Keys.Left)
             {
                 game.ChangeDirection("Left"); //If press left arrow 
             }
 
-            if (e.KeyValue == 38)
+            if (e.KeyCode == Keys.Up)
             {
                 game.ChangeDirection("Up"); //If press up arrow
             }
 
-            if (e.KeyValue == 40)
+            if (e.KeyCode == Keys.Down)
             {
                 game.ChangeDirection("Down"); //If press down arrow
+            }
+            if (e.KeyCode == Keys.P) //If press down arrow
+            {
+                if (Engine.Run == false)
+                {
+                    game.ResumeGame(); ;
+                }
+                else
+                {
+                    SoundPlayer.Play("pause");
+                    game.PauseGame();
+                }
             }
         }
 

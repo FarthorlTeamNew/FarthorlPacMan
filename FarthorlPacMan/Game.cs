@@ -34,6 +34,11 @@ namespace FarthorlPacMan
             graphicEngine.PauseGame();
         }
 
+        public void ResumeGame()
+        {
+            graphicEngine.ResumeGame();
+        }
+
         public void stopGame()
         {
             this.graphicEngine.StopGame();
