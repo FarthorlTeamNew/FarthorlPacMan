@@ -19,7 +19,6 @@
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
         public Task TaskRenderingFruit { get; private set; }
-        public Task TaskCheckCollision { get; private set; }
         public static string[,] PathsMatrix { get; private set; }
         public static int XMax { get; private set; }
         public static int YMax { get; private set; }
@@ -70,7 +69,6 @@
                 this.TaskRenderingPacMan = new Task(this.RenderPacMan);
                 this.TaskRenderingGhost = new Task(this.RenderGhost);
                 this.TaskRenderingFruit = new Task(this.GenerateFruit);
-                this.TaskCheckCollision = new Task(this.CheckForCollision);
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
                 for (int i = 0; i < this.GhostElements; i++)
@@ -80,7 +78,6 @@
 
                 this.TaskRenderingPacMan.Start();
                 this.TaskRenderingGhost.Start();
-                this.TaskCheckCollision.Start();
                 this.TaskRenderingFruit.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
@@ -266,6 +263,13 @@
         {
             while (Run)
             {
+                if (Ghosts.Count(g =>
+                   Enumerable.Range(g.DrawingCoordinatesX, g.DrawingCoordinatesX + 42).Contains(PacMan.DrawingCoordinatesX) &&
+                   Enumerable.Range(g.DrawingCoordinatesY, g.DrawingCoordinatesY + 42).Contains(PacMan.DrawingCoordinatesY)) > 0)
+                {
+                   
+                    GameOver();
+                }
                 foreach (var ghost in Ghosts)
                 {
                     if (Run)
@@ -293,10 +297,12 @@
             this.DrawPaths();
         }
 
-        public void StopGame()
+        public void GameOver()
         {
+            SoundPlayer.Play("death");
             Run = false;
-            Dispose();
+            //Dispose();
+            Environment.Exit(1);
         }
 
         public void PauseGame()
@@ -312,11 +318,9 @@
             this.TaskRenderingPacMan = new Task(this.RenderPacMan);
             this.TaskRenderingGhost = new Task(this.RenderGhost);
             this.TaskRenderingFruit = new Task(this.GenerateFruit);
-            this.TaskCheckCollision = new Task(this.CheckForCollision);
             this.TaskRenderingPacMan.Start();
             this.TaskRenderingGhost.Start();
             this.TaskRenderingFruit.Start();
-            this.TaskCheckCollision.Start();
         }
 
         public bool IsPaused()
@@ -396,9 +400,6 @@
 
                 this.TaskRenderingFruit.Wait();
                 this.TaskRenderingFruit?.Dispose();
-
-                this.TaskCheckCollision.Wait();
-                this.TaskCheckCollision?.Dispose();
 
                 Buffer?.Dispose();
             }

@@ -41,7 +41,7 @@
 
         public void StopGame()
         {
-            this.graphicEngine.StopGame();
+            this.graphicEngine.GameOver();
         }
 
         public void Dispose()
