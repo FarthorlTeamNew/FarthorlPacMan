@@ -7,8 +7,8 @@ namespace FarthorlPacMan
     public partial class GameWindow : Form
     {
         public static string Level;
-        private Game _game = new Game();
-        private bool _isInicialize = false;
+        private Game game = new Game();
+        private bool isInicialize = false;
       
         //1. Initialize the Windows Forms Properties. menus, etc...
         public GameWindow()
@@ -18,17 +18,18 @@ namespace FarthorlPacMan
 
         private void pacMan_Paint(object sender, PaintEventArgs e)
         {
-            if (!this._isInicialize)
+            if (!isInicialize)
             {
-                Graphics graphics = this.pacMan.CreateGraphics();
-                Graphics graphicsGhost = this.pacMan.CreateGraphics();
-                Graphics pointsGraphics = this.pacMan.CreateGraphics();
-                if (Level!=null)
+                Graphics graphics = pacMan.CreateGraphics();
+                Graphics graphicsGhost = pacMan.CreateGraphics();
+                Graphics pointsGraphics = pacMan.CreateGraphics();
+                Graphics graphicsFruit = pacMan.CreateGraphics();
+                if (Level != null)
                 {
-                    this._game.SetNewLevel(Level);
+                    game.SetNewLevel(Level);
                 }
-                this._game.StartDraw(graphics, graphicsGhost, pointsGraphics, this);
-                this._isInicialize = true;
+                this.game.startDraw(graphics, graphicsGhost, pointsGraphics, graphicsFruit, this);
+                this.isInicialize = true;
             }
 
         }
@@ -38,33 +39,33 @@ namespace FarthorlPacMan
         {
             if (e.KeyCode == Keys.Right) //If press right arrow
             {
-                this._game.ChangeDirection("Right");
+                this.game.ChangeDirection("Right");
             }
 
             if (e.KeyCode == Keys.Left)
             {
-                this._game.ChangeDirection("Left"); //If press left arrow 
+                this.game.ChangeDirection("Left"); //If press left arrow 
             }
 
             if (e.KeyCode == Keys.Up)
             {
-                this._game.ChangeDirection("Up"); //If press up arrow
+                this.game.ChangeDirection("Up"); //If press up arrow
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                this._game.ChangeDirection("Down"); //If press down arrow
+                this.game.ChangeDirection("Down"); //If press down arrow
             }
             if (e.KeyCode == Keys.P) //If press down arrow
             {
                 if (Engine.Run == false)
                 {
-                    this._game.ResumeGame(); ;
+                    this.game.ResumeGame(); ;
                 }
                 else
                 {
                     SoundPlayer.Play("pause");
-                    this._game.PauseGame();
+                    this.game.PauseGame();
                 }
             }
         }
@@ -83,22 +84,22 @@ namespace FarthorlPacMan
         //2. Checks whether the level is drawn and initialized
         private void GameWindow_Move(object sender, EventArgs e)
         {
-            if (this._isInicialize)
+            if (this.isInicialize)
             {
                 SoundPlayer.Play("pause");
-                this._game.PauseGame();
+                this.game.PauseGame();
             }
         }
 
         private void GameWindow_Closed(object sender, FormClosedEventArgs e)
         {
             Engine.Run = true;
-            this._isInicialize = false;
+            this.isInicialize = false;
         }
 
         public void StopGame()
         {
-            this._game.StopGame();
+            this.game.StopGame();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace FarthorlPacMan
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
+        public Task TaskRenderingFruit { get; private set; }
         public Task TaskCheckCollision { get; private set; }
         public static string[,] PathsMatrix { get; private set; }
         public static int XMax { get; private set; }
@@ -39,10 +40,11 @@ namespace FarthorlPacMan
         private string Level { get; set; }
         public Fruit Fruit { get; set; }
 
-        public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game, string level)
+        public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
         {
             this.GraphicsPacMan = graphicPacMan;
             this.GraphicsGhost = graphicsGhost;
+            this.GraphicsFruit = graphicsFruit;
             PointsGraphics = pointsGraphics;
             Game = game;
             Buffer = new Bitmap(1200, 650);
@@ -70,6 +72,7 @@ namespace FarthorlPacMan
 
                 this.TaskRenderingPacMan = new Task(this.RenderPacMan);
                 this.TaskRenderingGhost = new Task(this.RenderGhost);
+                this.TaskRenderingFruit = new Task(GenerateFruit);
                 this.TaskCheckCollision = new Task(this.CheckForCollision);
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
@@ -81,6 +84,7 @@ namespace FarthorlPacMan
                 this.TaskRenderingPacMan.Start();
                 this.TaskRenderingGhost.Start();
                 this.TaskCheckCollision.Start();
+                this.TaskRenderingFruit.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -104,6 +108,28 @@ namespace FarthorlPacMan
                         SoundPlayer.Play("death");
                     }
                 }
+            }
+        }
+
+        private void GenerateFruit()
+        {
+            while (Run)
+            {
+                //Should be implemented by randomly dropping the fruits on coordinates that have points on them, and then the points are removed
+                //Fruit apple = new Fruit(2, 3, GraphicsFruit, this);
+                //apple.DrawApple();
+                //Fruit banana = new Fruit(6, 8, GraphicsFruit, this);
+                //banana.DrawBanana();
+                //Fruit brezel = new Fruit(15, 6, GraphicsFruit, this);
+                //brezel.DrawBrezel();
+                //Fruit cherry = new Fruit(19, 2, GraphicsFruit, this);
+                //cherry.DrawCherry();
+                //Fruit peach = new Fruit(13, 4, GraphicsFruit, this);
+                //peach.DrawPeach();
+                //Fruit pear = new Fruit(11, 12, GraphicsFruit, this);
+                //pear.DrawPear();
+                //Fruit strawberry = new Fruit(4, 10, GraphicsFruit, this);
+                //strawberry.DrawStrawberry();
             }
         }
 
@@ -264,10 +290,14 @@ namespace FarthorlPacMan
         {
             Game.PausePanel.Visible = false;
             Run = true;
-            this.TaskRenderingPacMan = new Task(this.RenderPacMan);
-            this.TaskRenderingGhost = new Task(this.RenderGhost);
-            this.TaskRenderingPacMan.Start();
-            this.TaskRenderingGhost.Start();
+            TaskRenderingPacMan = new Task(RenderPacMan);
+            TaskRenderingGhost = new Task(RenderGhost);
+            TaskRenderingFruit = new Task(GenerateFruit);
+            TaskCheckCollision = new Task(CheckForCollision);
+            TaskRenderingPacMan.Start();
+            TaskRenderingGhost.Start();
+            TaskRenderingFruit.Start();
+            TaskCheckCollision.Start();
         }
 
         public bool IsPaused()
@@ -339,14 +369,23 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (this.TaskRenderingPacMan != null)
+                if (TaskRenderingPacMan != null)
                 {
-                    this.TaskRenderingPacMan.Dispose();
+                    TaskRenderingPacMan.Dispose();
                 }
 
-                if (this.TaskRenderingGhost != null)
+                if (TaskRenderingGhost != null)
                 {
-                    this.TaskRenderingGhost.Dispose();
+                    TaskRenderingGhost.Dispose();
+                }
+
+                if (TaskRenderingFruit != null)
+                {
+                    TaskRenderingFruit.Dispose();
+                }
+                if (TaskCheckCollision != null)
+                {
+                    TaskCheckCollision.Dispose();
                 }
 
                 if (Buffer != null)
