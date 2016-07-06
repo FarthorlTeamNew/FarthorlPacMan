@@ -428,13 +428,8 @@
 
                     if (this.DrawingCoordinatesX == (this.PositionQuadrantX + 1) * Global.QuadrantSize + 8)
                     {
-<<<<<<< .mine
-||||||| .r192
                         //DrawBlackPolygon();
-
-=======
                         //DrawBlackPolygon();
->>>>>>> .r197
                         this.PositionQuadrantX += 1;
                         this.MoveNext();
                     }

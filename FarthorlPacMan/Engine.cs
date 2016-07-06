@@ -277,7 +277,7 @@
         public void StopGame()
         {
             Run = false;
-            //Dispose();
+            Dispose();
         }
 
         public void PauseGame()
