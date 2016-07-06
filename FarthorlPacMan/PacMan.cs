@@ -7,101 +7,101 @@ namespace FarthorlPacMan
     public class PacMan : Participant
     {
         private const int PacManDiameter = 35;
-        private int eatPoints;
+        private int _eatPoints;
         //private string stopDirection = String.Empty;
-        private int animateCoeficent;
-        private Color pacManColor = Color.Yellow;
-        public Boolean isAlive = true;
-        private Graphics graphics;
+        private int _animateCoeficent;
+        private Color _pacManColor = Color.Yellow;
+        public Boolean IsAlive = true;
+        private Graphics _graphics;
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
         {
-            base.DrawingCoordinatesX = base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2;
-            base.DrawingCoordinatesY = base.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2;
-            this.graphics = graphics;
-            this.initializePacMan();
+            this.DrawingCoordinatesX = this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2;
+            this.DrawingCoordinatesY = this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2;
+            this._graphics = graphics;
+            this.InitializePacMan();
         }
 
-        private void initializePacMan()
+        private void InitializePacMan()
         {
-            EatPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+            this.EatPoint(this.PositionQuadrantX, this.PositionQuadrantY);
         }
 
         private void TryMoveThere(string[] quadrantToMove, string toDirection)
         {
-            if (isAlive && quadrantToMove[0] == "0")
+            if (this.IsAlive && quadrantToMove[0] == "0")
             {
-                base.PreviousDirection = toDirection;
-                base.MovedDirection = toDirection;
+                this.PreviousDirection = toDirection;
+                this.MovedDirection = toDirection;
                // stopDirection = String.Empty;
             }
             else if (quadrantToMove[0] == "1")
             {
-                MoveCheck();
+                this.MoveCheck();
             }
         }
 
         private void MoveCheck()
         {
-            if (base.MovedDirection == String.Empty)
+            if (this.MovedDirection == String.Empty)
             {
-                base.PreviousDirection = String.Empty;
+                this.PreviousDirection = String.Empty;
                // stopDirection = base.MovedDirection;
             }
-            base.MovedDirection = String.Empty;
-            this.Move(base.PreviousDirection);
+            this.MovedDirection = String.Empty;
+            this.Move(this.PreviousDirection);
         }
 
         public void Move(string direction)
         {
-            if (!string.IsNullOrEmpty(direction) && isAlive /*&& direction != stopDirection*/)
+            if (!string.IsNullOrEmpty(direction) && this.IsAlive /*&& direction != stopDirection*/)
             {
                 if (direction == "Right")
                 {
-                    if (base.PositionQuadrantX < Engine.XMax - 1)
+                    if (this.PositionQuadrantX < Engine.XMax - 1)
                     {
-                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX + 1, base.PositionQuadrantY);
-                        TryMoveThere(quadrantToMove, direction);
+                        string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY);
+                        this.TryMoveThere(quadrantToMove, direction);
                     }
                     else
                     {
-                        MoveCheck();
+                        this.MoveCheck();
                     }
                 }
                 else if (direction == "Left")
                 {
-                    if (base.PositionQuadrantX > 0)
+                    if (this.PositionQuadrantX > 0)
                     {
-                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX - 1, base.PositionQuadrantY);
-                        TryMoveThere(quadrantToMove, direction);
+                        string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX - 1, this.PositionQuadrantY);
+                        this.TryMoveThere(quadrantToMove, direction);
                     }
                     else
                     {
-                        MoveCheck();
+                        this.MoveCheck();
                     }
                 }
                 else if (direction == "Up")
                 {
-                    if (base.PositionQuadrantY > 0)
+                    if (this.PositionQuadrantY > 0)
                     {
-                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY - 1);
-                        TryMoveThere(quadrantToMove, direction);
+                        string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY - 1);
+                        this.TryMoveThere(quadrantToMove, direction);
                     }
                     else
                     {
-                        MoveCheck();
+                        this.MoveCheck();
                     }
                 }
                 else if (direction == "Down")
                 {
-                    if (base.PositionQuadrantY < Engine.YMax - 1)
+                    if (this.PositionQuadrantY < Engine.YMax - 1)
                     {
-                        string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY + 1);
-                        TryMoveThere(quadrantToMove, direction);
+                        string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1);
+                        this.TryMoveThere(quadrantToMove, direction);
                     }
                     else
                     {
-                        MoveCheck();
+                        this.MoveCheck();
                     }
                 }
             }
@@ -109,89 +109,89 @@ namespace FarthorlPacMan
 
         public void ChangeDirection(string newDirection)
         {
-            base.MovedDirection = newDirection;
+            this.MovedDirection = newDirection;
 
-            if (String.IsNullOrEmpty(base.PreviousDirection))
+            if (string.IsNullOrEmpty(this.PreviousDirection))
             {
-                base.PreviousDirection = base.MovedDirection;
+                this.PreviousDirection = this.MovedDirection;
             }
 
-            Move(base.MovedDirection);
+            this.Move(this.MovedDirection);
         }
 
         public async Task<bool> Run(string direction)
         {
-            if (base.DrawingCoordinatesX == base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2
-                && base.DrawingCoordinatesY == base.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
+            if (this.DrawingCoordinatesX == this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2
+                && this.DrawingCoordinatesY == this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2)
             {
-                Move(direction);
+                this.Move(direction);
             }
 
-            if (Engine.isDirectionChanged(base.MovedDirection) && isAlive)
+            if (Engine.IsDirectionChanged(this.MovedDirection) && this.IsAlive)
             {
-                base.MovedDirection = Engine.MoveDirection;
+                this.MovedDirection = Engine.MoveDirection;
                 // next we try to return to the same quadrant we have been. This prevent bug to pass throught walls.
-                string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY);
-                TryMoveThere(quadrantToMove, base.MovedDirection);
+                string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY);
+                this.TryMoveThere(quadrantToMove, this.MovedDirection);
             }
 
-            if (!isAlive)
+            if (!this.IsAlive)
             {
                 this.MovedDirection = string.Empty;
             }
 
-            switch (base.MovedDirection)
+            switch (this.MovedDirection)
             {
                 case "Right":
 
-                    if (base.DrawingCoordinatesX < (Engine.XMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesX < (Engine.XMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
-                        base.DrawingCoordinatesX += 1;
+                        this.DrawingCoordinatesX += 1;
                     }
 
-                    graphics.DrawEllipse(
+                    this._graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            base.DrawingCoordinatesX - 1 - (PacManDiameter / 2),
-                            (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                            this.DrawingCoordinatesX - 1 - (PacManDiameter / 2),
+                            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                             PacManDiameter,
                             PacManDiameter
                             )
                         );
 
-                    graphics.FillEllipse(
-                           new SolidBrush(pacManColor),
-                           base.DrawingCoordinatesX - (PacManDiameter / 2),
-                           (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                    this._graphics.FillEllipse(
+                           new SolidBrush(this._pacManColor),
+                           this.DrawingCoordinatesX - (PacManDiameter / 2),
+                           (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                            PacManDiameter,
                            PacManDiameter
                            );
 
-                    graphics.FillEllipse(
+                    this._graphics.FillEllipse(
                        new SolidBrush(Color.Black),
-                       base.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
-                       (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+                       this.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
+                       (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
                        PacManDiameter / 5,
                        PacManDiameter / 5
                        );
 
-                    graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
-                                new System.Drawing.Point(base.DrawingCoordinatesX, (base.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                                new System.Drawing.Point(base.DrawingCoordinatesX + Global.QuadrantSize/2, (base.PositionQuadrantY * Global.QuadrantSize)+15+animateCoeficent),
-                                new System.Drawing.Point(base.DrawingCoordinatesX + Global.QuadrantSize/2, (base.PositionQuadrantY * Global.QuadrantSize)+35-animateCoeficent),
-                                new System.Drawing.Point(base.DrawingCoordinatesX, (base.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this._animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this._animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
                             });
 
-                    ChangeCoefficient();
+                    this.ChangeCoefficient();
 
-                    if (base.DrawingCoordinatesX == (base.PositionQuadrantX + 1) * Global.QuadrantSize + Global.QuadrantSize / 2 - 22)
+                    if (this.DrawingCoordinatesX == (this.PositionQuadrantX + 1) * Global.QuadrantSize + Global.QuadrantSize / 2 - 22)
                     {
-                        EatPoint(base.PositionQuadrantX + 1, base.PositionQuadrantY);
+                        this.EatPoint(this.PositionQuadrantX + 1, this.PositionQuadrantY);
                     }
 
-                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX + 1) * Global.QuadrantSize) + 25)
+                    if (this.DrawingCoordinatesX == ((this.PositionQuadrantX + 1) * Global.QuadrantSize) + 25)
                     {
-                        base.PositionQuadrantX = base.PositionQuadrantX + 1;
+                        this.PositionQuadrantX = this.PositionQuadrantX + 1;
 
                     }
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
@@ -199,53 +199,53 @@ namespace FarthorlPacMan
 
                 case "Left":
 
-                    if (base.DrawingCoordinatesX > (base.PositionQuadrantX - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && base.DrawingCoordinatesX > Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesX > (this.PositionQuadrantX - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && this.DrawingCoordinatesX > Global.QuadrantSize / 2)
                     {
-                        base.DrawingCoordinatesX -= 1;
+                        this.DrawingCoordinatesX -= 1;
                     }
 
-                    graphics.DrawEllipse(
+                    this._graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            base.DrawingCoordinatesX + 1 - (PacManDiameter / 2),
-                            (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                            this.DrawingCoordinatesX + 1 - (PacManDiameter / 2),
+                            (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                             PacManDiameter,
                             PacManDiameter
                             )
                         );
 
-                    graphics.FillEllipse(
-                        new SolidBrush(pacManColor), base.DrawingCoordinatesX - (PacManDiameter / 2),
-                        (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                    this._graphics.FillEllipse(
+                        new SolidBrush(this._pacManColor), this.DrawingCoordinatesX - (PacManDiameter / 2),
+                        (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    graphics.FillEllipse(
+                    this._graphics.FillEllipse(
                         new SolidBrush(Color.Black),
-                        base.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
-                        (base.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
+                        this.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
+                        (this.PositionQuadrantY * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5),
                         PacManDiameter / 5,
                         PacManDiameter / 5
                         );
 
-                    graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
-                            new System.Drawing.Point(base.DrawingCoordinatesX, (base.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                            new System.Drawing.Point(base.DrawingCoordinatesX-Global.QuadrantSize/2+2, (base.PositionQuadrantY * Global.QuadrantSize)+15+animateCoeficent),
-                            new System.Drawing.Point(base.DrawingCoordinatesX-Global.QuadrantSize/2+2, (base.PositionQuadrantY * Global.QuadrantSize)+35-animateCoeficent),
-                            new System.Drawing.Point(base.DrawingCoordinatesX, (base.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this._animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this._animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
                         });
 
-                    ChangeCoefficient();
+                    this.ChangeCoefficient();
 
-                    if (base.DrawingCoordinatesX == (base.PositionQuadrantX - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 + 22)
+                    if (this.DrawingCoordinatesX == (this.PositionQuadrantX - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 + 22)
                     {
-                        EatPoint(base.PositionQuadrantX - 1, base.PositionQuadrantY);
+                        this.EatPoint(this.PositionQuadrantX - 1, this.PositionQuadrantY);
                     }
 
-                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX - 1) * Global.QuadrantSize) + 25)
+                    if (this.DrawingCoordinatesX == ((this.PositionQuadrantX - 1) * Global.QuadrantSize) + 25)
                     {
-                        base.PositionQuadrantX -= 1;
+                        this.PositionQuadrantX -= 1;
                     }
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
@@ -253,53 +253,53 @@ namespace FarthorlPacMan
 
                 case "Up":
 
-                    if (base.DrawingCoordinatesY > (base.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && base.DrawingCoordinatesY > Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesY > (this.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && this.DrawingCoordinatesY > Global.QuadrantSize / 2)
                     {
-                        base.DrawingCoordinatesY -= 1;
+                        this.DrawingCoordinatesY -= 1;
                     }
 
-                    graphics.DrawEllipse(
+                    this._graphics.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
-                            (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                            base.DrawingCoordinatesY + 1 - (PacManDiameter / 2),
+                            (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                            this.DrawingCoordinatesY + 1 - (PacManDiameter / 2),
                             PacManDiameter,
                             PacManDiameter
                             )
                         );
 
-                    graphics.FillEllipse(
-                        new SolidBrush(pacManColor),
-                        (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                        base.DrawingCoordinatesY - (PacManDiameter / 2),
+                    this._graphics.FillEllipse(
+                        new SolidBrush(this._pacManColor),
+                        (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                        this.DrawingCoordinatesY - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    graphics.FillEllipse(
+                    this._graphics.FillEllipse(
                     new SolidBrush(Color.Black),
-                    (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), base.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
+                    (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
                     PacManDiameter / 5,
                     PacManDiameter / 5
                     );
 
-                    graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, base.DrawingCoordinatesY),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + 15+animateCoeficent, base.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + 35-animateCoeficent, base.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, base.DrawingCoordinatesY)
+                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this._animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35-this._animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
                             });
 
-                    ChangeCoefficient();
+                    this.ChangeCoefficient();
 
-                    if (base.DrawingCoordinatesY == (base.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 + 22)
+                    if (this.DrawingCoordinatesY == (this.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 + 22)
                     {
-                        EatPoint(base.PositionQuadrantX, base.PositionQuadrantY - 1);
+                        this.EatPoint(this.PositionQuadrantX, this.PositionQuadrantY - 1);
                     }
 
-                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY - 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesY == ((this.PositionQuadrantY - 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
                     {
-                        base.PositionQuadrantY -= 1;
+                        this.PositionQuadrantY -= 1;
                     }
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
@@ -307,54 +307,54 @@ namespace FarthorlPacMan
 
                 case "Down":
 
-                    if (base.DrawingCoordinatesY < (Engine.YMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesY < (Engine.YMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
-                        base.DrawingCoordinatesY += 1;
+                        this.DrawingCoordinatesY += 1;
                     }
 
-                    graphics.DrawEllipse(
+                    this._graphics.DrawEllipse(
                          new Pen(Color.Black),
                          new Rectangle(
-                             (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                             base.DrawingCoordinatesY - 1 - (PacManDiameter / 2),
+                             (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                             this.DrawingCoordinatesY - 1 - (PacManDiameter / 2),
                              PacManDiameter,
                              PacManDiameter
                              )
                          );
 
-                    graphics.FillEllipse(
-                        new SolidBrush(pacManColor),
-                        (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
-                        base.DrawingCoordinatesY - (PacManDiameter / 2),
+                    this._graphics.FillEllipse(
+                        new SolidBrush(this._pacManColor),
+                        (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2),
+                        this.DrawingCoordinatesY - (PacManDiameter / 2),
                         PacManDiameter,
                         PacManDiameter
                         );
 
-                    graphics.FillEllipse(
+                    this._graphics.FillEllipse(
                        new SolidBrush(Color.Black),
-                       (base.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), base.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
+                       (this.PositionQuadrantX * Global.QuadrantSize) + (Global.QuadrantSize / 2) - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
                        PacManDiameter / 5,
                        PacManDiameter / 5
                        );
 
 
-                    graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, base.DrawingCoordinatesY),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + 15+animateCoeficent, base.DrawingCoordinatesY + Global.QuadrantSize/2),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize+ 35-animateCoeficent, base.DrawingCoordinatesY + Global.QuadrantSize/2  ),
-                                new System.Drawing.Point(base.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, base.DrawingCoordinatesY)
+                    this._graphics.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[] {
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this._animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize+ 35-this._animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2  ),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
                             });
 
-                    ChangeCoefficient();
+                    this.ChangeCoefficient();
 
-                    if (base.DrawingCoordinatesY == (base.PositionQuadrantY + 1) * Global.QuadrantSize + Global.QuadrantSize / 2 - 22)
+                    if (this.DrawingCoordinatesY == (this.PositionQuadrantY + 1) * Global.QuadrantSize + Global.QuadrantSize / 2 - 22)
                     {
-                        EatPoint(base.PositionQuadrantX, base.PositionQuadrantY + 1);
+                        this.EatPoint(this.PositionQuadrantX, this.PositionQuadrantY + 1);
                     }
 
-                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY + 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesY == ((this.PositionQuadrantY + 1) * Global.QuadrantSize) + Global.QuadrantSize / 2)
                     {
-                        base.PositionQuadrantY = base.PositionQuadrantY + 1;
+                        this.PositionQuadrantY = this.PositionQuadrantY + 1;
                     }
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
                     break;
@@ -365,34 +365,27 @@ namespace FarthorlPacMan
 
         private void ChangeCoefficient()
         {
-            animateCoeficent += 1;
-            if (animateCoeficent == 12)
+            this._animateCoeficent += 1;
+            if (this._animateCoeficent == 12)
             {
-                animateCoeficent = 0;
+                this._animateCoeficent = 0;
             }
         }
 
         public void DrawPacMan()
         {
-            try
-            {
-                graphics.FillEllipse(
-                    new SolidBrush(pacManColor),
-                    (base.DrawingCoordinatesX) - (PacManDiameter / 2),
-                    ((base.DrawingCoordinatesY) - (PacManDiameter / 2)),
-                    PacManDiameter,
-                    PacManDiameter
-             );
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            this._graphics.FillEllipse(
+                new SolidBrush(this._pacManColor),
+                (this.DrawingCoordinatesX) - (PacManDiameter / 2),
+                ((this.DrawingCoordinatesY) - (PacManDiameter / 2)),
+                PacManDiameter,
+                PacManDiameter
+                );
         }
 
-        public int getScore()
+        public int GetScore()
         {
-            return this.eatPoints;
+            return this._eatPoints;
         }
 
         public int GetPositionX()
@@ -407,7 +400,7 @@ namespace FarthorlPacMan
 
         public string GetDirection()
         {
-            return base.MovedDirection;
+            return this.MovedDirection;
         }
 
         public void EatPoint(int quadrantX, int quadrantY) // TODO make drawing of points
@@ -416,7 +409,7 @@ namespace FarthorlPacMan
 
             if (elements[1] == "1")
             {
-                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
+                this._eatPoints = this._eatPoints + int.Parse(elements[1]);
                 elements[1] = "0";
                 SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);

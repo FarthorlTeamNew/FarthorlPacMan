@@ -7,55 +7,55 @@ namespace FarthorlPacMan.States
 {
     public partial class LevelsWindow : Form
     {
-        private Dictionary<string, string> levelsFilePaths;
+        private Dictionary<string, string> _levelsFilePaths;
 
         public LevelsWindow()
         {
-            InitializeComponent();
-            this.levelsFilePaths = new ExtractAllLevels().ExctractLevels();
+            this.InitializeComponent();
+            this._levelsFilePaths = new ExtractAllLevels().ExctractLevels();
         }
 
         private void CsharpLevel_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["CSharpLove"];
-            Close();
+            GameWindow.Level = this._levelsFilePaths["CSharpLove"];
+            this.Close();
         }
         private void Labirint_Level_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Labirint"];
-            Close();
+            GameWindow.Level = this._levelsFilePaths["Labirint"];
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Labirint2"];
-            Close();
+            GameWindow.Level = this._levelsFilePaths["Labirint2"];
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            GameWindow.Level = levelsFilePaths["Euro2016"];
-            Close();
+            GameWindow.Level = this._levelsFilePaths["Euro2016"];
+            this.Close();
         }
 
         private void Labirint_Level_MouseHover(object sender, EventArgs e)
         {
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.LabirintImage;
+            this.pictureBox1.BackgroundImage = Properties.Resources.LabirintImage;
         }
 
         private void Labirint2_MouseHover(object sender, EventArgs e)
         {
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Labirint2Image;
+            this.pictureBox1.BackgroundImage = Properties.Resources.Labirint2Image;
         }
 
         private void CsharpLevel_MouseHover(object sender, EventArgs e)
         {
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.CsharpImage;
+            this.pictureBox1.BackgroundImage = Properties.Resources.CsharpImage;
         }
 
         private void EuroLevel_MouseHover(object sender, EventArgs e)
         {
-            this.pictureBox1.BackgroundImage = global::FarthorlPacMan.Properties.Resources.EuroLevelImage;
+            this.pictureBox1.BackgroundImage = Properties.Resources.EuroLevelImage;
         }
     }
 }

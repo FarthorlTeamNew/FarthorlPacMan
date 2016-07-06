@@ -7,28 +7,28 @@ namespace FarthorlPacMan
     public partial class GameWindow : Form
     {
         public static string Level;
-        private Game game = new Game();
-        private bool isInicialize = false;
+        private Game _game = new Game();
+        private bool _isInicialize = false;
       
         //1. Initialize the Windows Forms Properties. menus, etc...
         public GameWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void pacMan_Paint(object sender, PaintEventArgs e)
         {
-            if (!isInicialize)
+            if (!this._isInicialize)
             {
-                Graphics graphics = pacMan.CreateGraphics();
-                Graphics graphicsGhost = pacMan.CreateGraphics();
-                Graphics pointsGraphics = pacMan.CreateGraphics();
+                Graphics graphics = this.pacMan.CreateGraphics();
+                Graphics graphicsGhost = this.pacMan.CreateGraphics();
+                Graphics pointsGraphics = this.pacMan.CreateGraphics();
                 if (Level!=null)
                 {
-                    game.SetNewLevel(Level);
+                    this._game.SetNewLevel(Level);
                 }
-                this.game.startDraw(graphics, graphicsGhost, pointsGraphics, this);
-                this.isInicialize = true;
+                this._game.StartDraw(graphics, graphicsGhost, pointsGraphics, this);
+                this._isInicialize = true;
             }
 
         }
@@ -38,67 +38,67 @@ namespace FarthorlPacMan
         {
             if (e.KeyCode == Keys.Right) //If press right arrow
             {
-                game.ChangeDirection("Right");
+                this._game.ChangeDirection("Right");
             }
 
             if (e.KeyCode == Keys.Left)
             {
-                game.ChangeDirection("Left"); //If press left arrow 
+                this._game.ChangeDirection("Left"); //If press left arrow 
             }
 
             if (e.KeyCode == Keys.Up)
             {
-                game.ChangeDirection("Up"); //If press up arrow
+                this._game.ChangeDirection("Up"); //If press up arrow
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                game.ChangeDirection("Down"); //If press down arrow
+                this._game.ChangeDirection("Down"); //If press down arrow
             }
             if (e.KeyCode == Keys.P) //If press down arrow
             {
                 if (Engine.Run == false)
                 {
-                    game.ResumeGame(); ;
+                    this._game.ResumeGame(); ;
                 }
                 else
                 {
                     SoundPlayer.Play("pause");
-                    game.PauseGame();
+                    this._game.PauseGame();
                 }
             }
         }
 
         public void UpdateScores(int score)
         {
-            ScoreLabel.Text = $"Points: {score}";
+            this.ScoreLabel.Text = $"Points: {score}";
 
         }
 
         public void UpdateLeftScore(int score)
         {
-            LeftScore.Text = $"Points Left: {score}";
+            this.LeftScore.Text = $"Points Left: {score}";
         }
 
         //2. Checks whether the level is drawn and initialized
         private void GameWindow_Move(object sender, EventArgs e)
         {
-            if (isInicialize)
+            if (this._isInicialize)
             {
                 SoundPlayer.Play("pause");
-                game.PauseGame();
+                this._game.PauseGame();
             }
         }
 
         private void GameWindow_Closed(object sender, FormClosedEventArgs e)
         {
             Engine.Run = true;
-            this.isInicialize = false;
+            this._isInicialize = false;
         }
 
-        public void stopGame()
+        public void StopGame()
         {
-            game.stopGame();
+            this._game.StopGame();
         }
     }
 }

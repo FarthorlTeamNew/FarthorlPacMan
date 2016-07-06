@@ -9,32 +9,32 @@ namespace FarthorlPacMan
     {
         private const int PacManDistanceX = 3;
         private const int PacManDistanceY = 0;
-        private Random random = new Random();
-        private int positionPacManQaundarntX;
-        private int positionPacManQaundarntY;
-        private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
-        private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
-        private Graphics graphicsGhost;
-        private Graphics graphicsFruit;
+        private Random _random = new Random();
+        private int _positionPacManQaundarntX;
+        private int _positionPacManQaundarntY;
+        private Dictionary<string, bool> _existDirections = new Dictionary<string, bool>();
+        private static Image _image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
+        private Graphics _graphicsGhost;
+        private Graphics _graphicsFruit;
 
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost) : base()
         {
-            this.positionPacManQaundarntX = positionPacManQaundarntX;
-            this.positionPacManQaundarntY = positionPacManQaundarntY;
-            this.graphicsGhost = graphicsGhost;
+            this._positionPacManQaundarntX = positionPacManQaundarntX;
+            this._positionPacManQaundarntY = positionPacManQaundarntY;
+            this._graphicsGhost = graphicsGhost;
             this.InicializeGhost();
         }
 
         public Ghost(Graphics graphicsGhost, int positionQuadrantX, int positionQuadrantY) : base(positionQuadrantX, positionQuadrantY)
         {
-            this.graphicsGhost = graphicsGhost;
+            this._graphicsGhost = graphicsGhost;
         }
 
-        private Dictionary<string, int> createCoordinatesXY(int pacManX, int pacManY)
+        private Dictionary<string, int> CreateCoordinatesXy(int pacManX, int pacManY)
         {
             List<int[]> ghostMatrix = new List<int[]>();
-            Dictionary<string, int> resultXY = new Dictionary<string, int>();
-            System.Threading.Thread.Sleep(random.Next(100, 500));
+            Dictionary<string, int> resultXy = new Dictionary<string, int>();
+            System.Threading.Thread.Sleep(this._random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
             for (int y = 0; y < Engine.YMax - 1; y++)
@@ -55,71 +55,71 @@ namespace FarthorlPacMan
                     }
                 }
             }
-            int quadrantIndex = random.Next(0, ghostMatrix.Count - 1);
+            int quadrantIndex = this._random.Next(0, ghostMatrix.Count - 1);
 
-            if (Engine.isExistGhost(ghostMatrix[quadrantIndex][0], ghostMatrix[quadrantIndex][1]))
+            if (Engine.IsExistGhost(ghostMatrix[quadrantIndex][0], ghostMatrix[quadrantIndex][1]))
             {
-                createCoordinatesXY(pacManX, pacManY);
+                this.CreateCoordinatesXy(pacManX, pacManY);
             }
-            resultXY.Add("QuadrantX", ghostMatrix[quadrantIndex][0]);
-            resultXY.Add("QuadrantY", ghostMatrix[quadrantIndex][1]);
+            resultXy.Add("QuadrantX", ghostMatrix[quadrantIndex][0]);
+            resultXy.Add("QuadrantY", ghostMatrix[quadrantIndex][1]);
 
-            return resultXY;
+            return resultXy;
         }
 
         private void InicializeGhost()
         {
-            var getCoordinates = this.createCoordinatesXY(positionPacManQaundarntX, positionPacManQaundarntY);
-            base.PositionQuadrantX = getCoordinates["QuadrantX"];
-            base.PositionQuadrantY = getCoordinates["QuadrantY"];
+            var getCoordinates = this.CreateCoordinatesXy(this._positionPacManQaundarntX, this._positionPacManQaundarntY);
+            this.PositionQuadrantX = getCoordinates["QuadrantX"];
+            this.PositionQuadrantY = getCoordinates["QuadrantY"];
 
-            base.DrawingCoordinatesX = base.PositionQuadrantX * 50 + 8;
-            base.DrawingCoordinatesY = base.PositionQuadrantY * 50 + 4;
+            this.DrawingCoordinatesX = this.PositionQuadrantX * 50 + 8;
+            this.DrawingCoordinatesY = this.PositionQuadrantY * 50 + 4;
 
-            existDirections.Add("Up", false);
-            existDirections.Add("Down", false);
-            existDirections.Add("Left", false);
-            existDirections.Add("Right", false);
-            CheckExistDirections();
-            SelectRandomDirection();
+            this._existDirections.Add("Up", false);
+            this._existDirections.Add("Down", false);
+            this._existDirections.Add("Left", false);
+            this._existDirections.Add("Right", false);
+            this.CheckExistDirections();
+            this.SelectRandomDirection();
         }
 
         private void CheckExistDirections()
         {
-            if (base.PositionQuadrantY > 0 && Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY - 1)[0] == "0")
+            if (this.PositionQuadrantY > 0 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY - 1)[0] == "0")
             {
-                existDirections["Up"] = true;
+                this._existDirections["Up"] = true;
             }
             else
             {
-                existDirections["Up"] = false;
+                this._existDirections["Up"] = false;
             }
 
-            if (base.PositionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY + 1)[0] == "0")
+            if (this.PositionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1)[0] == "0")
             {
-                existDirections["Down"] = true;
+                this._existDirections["Down"] = true;
             }
             else
             {
-                existDirections["Down"] = false;
+                this._existDirections["Down"] = false;
             }
 
-            if (base.PositionQuadrantX > 0 && Engine.GetQuadrantElements(base.PositionQuadrantX - 1, base.PositionQuadrantY)[0] == "0")
+            if (this.PositionQuadrantX > 0 && Engine.GetQuadrantElements(this.PositionQuadrantX - 1, this.PositionQuadrantY)[0] == "0")
             {
-                existDirections["Left"] = true;
+                this._existDirections["Left"] = true;
             }
             else
             {
-                existDirections["Left"] = false;
+                this._existDirections["Left"] = false;
             }
 
-            if (base.PositionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(base.PositionQuadrantX + 1, base.PositionQuadrantY)[0] == "0")
+            if (this.PositionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY)[0] == "0")
             {
-                existDirections["Right"] = true;
+                this._existDirections["Right"] = true;
             }
             else
             {
-                existDirections["Right"] = false;
+                this._existDirections["Right"] = false;
             }
         }
 
@@ -127,7 +127,7 @@ namespace FarthorlPacMan
         {
 
             List<string> existRoads = new List<string>();
-            foreach (var exist in existDirections)
+            foreach (var exist in this._existDirections)
             {
                 if (exist.Value == true)
                 {
@@ -135,9 +135,9 @@ namespace FarthorlPacMan
                 }
             }
 
-            var index = random.Next(0, existRoads.Count - 1);
-            base.MovedDirection = existRoads[index];
-            base.PreviousDirection = base.MovedDirection;
+            var index = this._random.Next(0, existRoads.Count - 1);
+            this.MovedDirection = existRoads[index];
+            this.PreviousDirection = this.MovedDirection;
 
         }
 
@@ -164,7 +164,7 @@ namespace FarthorlPacMan
             }
 
 
-            foreach (var exist in existDirections)
+            foreach (var exist in this._existDirections)
             {
                 if (exist.Key != notEqualDirection && exist.Value == true)
                 {
@@ -174,7 +174,7 @@ namespace FarthorlPacMan
 
             if (existRoads.Count > 0)
             {
-                int randomIndex = random.Next(0, existRoads.Count - 1);
+                int randomIndex = this._random.Next(0, existRoads.Count - 1);
 
                 return existRoads[randomIndex];
             }
@@ -183,325 +183,325 @@ namespace FarthorlPacMan
 
         private void MoveNext()
         {
-            CheckExistDirections();
-            var newDirection = SelectRandomRoad(base.MovedDirection);
+            this.CheckExistDirections();
+            var newDirection = this.SelectRandomRoad(this.MovedDirection);
 
             if (!string.IsNullOrEmpty(newDirection))
             {
-                if (base.MovedDirection == "Right")
+                if (this.MovedDirection == "Right")
                 {
-                    tryMoveRight();
+                    this.TryMoveRight();
                 }
-                else if (base.MovedDirection == "Left")
+                else if (this.MovedDirection == "Left")
                 {
-                    tryMoveLeft();
+                    this.TryMoveLeft();
                 }
-                else if (base.MovedDirection == "Up")
+                else if (this.MovedDirection == "Up")
                 {
-                    tryMoveUp();
+                    this.TryMoveUp();
                 }
-                else if (base.MovedDirection == "Down")
+                else if (this.MovedDirection == "Down")
                 {
-                    tryMoveDown();
+                    this.TryMoveDown();
                 }
             }
         }
 
-        private void tryMoveRight()
+        private void TryMoveRight()
         {
-            if (base.PositionQuadrantX < Engine.YMax - 1)
+            if (this.PositionQuadrantX < Engine.YMax - 1)
             {
-                int nextQuandrantX = base.PositionQuadrantX + 1;
-                int nextQuadrantY = base.PositionQuadrantY;
+                int nextQuandrantX = this.PositionQuadrantX + 1;
+                int nextQuadrantY = this.PositionQuadrantY;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    base.PreviousDirection = "Right";
-                    base.MovedDirection = "Right";
+                    this.PreviousDirection = "Right";
+                    this.MovedDirection = "Right";
                     //await moveGhost(nextQuandrantX, nextQuadrantY, "Right");
                 }
                 else
                 {
-                    GetNewDirectionRight();
+                    this.GetNewDirectionRight();
                 }
 
             }
             else
             {
-                GetNewDirectionRight();
+                this.GetNewDirectionRight();
             }
         }
 
         private void GetNewDirectionRight()
         {
-            CheckExistDirections();
-            var newDirection = SelectRandomRoad("Right");
+            this.CheckExistDirections();
+            var newDirection = this.SelectRandomRoad("Right");
             if (!string.IsNullOrEmpty(newDirection))
             {
                 if (newDirection == "Left")
                 {
-                    tryMoveLeft();
+                    this.TryMoveLeft();
                 }
                 else if (newDirection == "Up")
                 {
-                    tryMoveUp();
+                    this.TryMoveUp();
                 }
                 else if (newDirection == "Down")
                 {
-                    tryMoveDown();
+                    this.TryMoveDown();
                 }
             }
         }
 
-        private void tryMoveLeft()
+        private void TryMoveLeft()
         {
-            if (base.PositionQuadrantX > 0)
+            if (this.PositionQuadrantX > 0)
             {
-                int nextQuandrantX = base.PositionQuadrantX - 1;
-                int nextQuadrantY = base.PositionQuadrantY;
+                int nextQuandrantX = this.PositionQuadrantX - 1;
+                int nextQuadrantY = this.PositionQuadrantY;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    base.PreviousDirection = "Left";
-                    base.MovedDirection = "Left";
+                    this.PreviousDirection = "Left";
+                    this.MovedDirection = "Left";
                 }
                 else
                 {
-                    GetNewDirectionLeft();
+                    this.GetNewDirectionLeft();
                 }
             }
             else
             {
-                GetNewDirectionLeft();
+                this.GetNewDirectionLeft();
             }
         }
 
         private void GetNewDirectionLeft()
         {
-            CheckExistDirections();
-            var newDirection = SelectRandomRoad("Left");
+            this.CheckExistDirections();
+            var newDirection = this.SelectRandomRoad("Left");
             if (!string.IsNullOrEmpty(newDirection))
             {
                 if (newDirection == "Right")
                 {
-                    tryMoveRight();
+                    this.TryMoveRight();
                 }
                 else if (newDirection == "Up")
                 {
-                    tryMoveUp();
+                    this.TryMoveUp();
                 }
                 else if (newDirection == "Down")
                 {
-                    tryMoveDown();
+                    this.TryMoveDown();
                 }
             }
         }
 
-        private void tryMoveUp()
+        private void TryMoveUp()
         {
-            if (base.PositionQuadrantY > 0)
+            if (this.PositionQuadrantY > 0)
             {
-                int nextQuandrantX = base.PositionQuadrantX;
-                int nextQuadrantY = base.PositionQuadrantY - 1;
+                int nextQuandrantX = this.PositionQuadrantX;
+                int nextQuadrantY = this.PositionQuadrantY - 1;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    base.PreviousDirection = "Up";
-                    base.MovedDirection = "Up";
+                    this.PreviousDirection = "Up";
+                    this.MovedDirection = "Up";
                 }
                 else
                 {
-                    GetNewDirectionUp();
+                    this.GetNewDirectionUp();
                 }
             }
             else
             {
-                GetNewDirectionUp();
+                this.GetNewDirectionUp();
             }
         }
 
         private void GetNewDirectionUp()
         {
-            CheckExistDirections();
-            var newDirection = SelectRandomRoad("Up");
+            this.CheckExistDirections();
+            var newDirection = this.SelectRandomRoad("Up");
             if (!string.IsNullOrEmpty(newDirection))
             {
                 if (newDirection == "Right")
                 {
-                    tryMoveRight();
+                    this.TryMoveRight();
                 }
                 else if (newDirection == "Left")
                 {
-                    tryMoveLeft();
+                    this.TryMoveLeft();
                 }
                 else if (newDirection == "Down")
                 {
-                    tryMoveDown();
+                    this.TryMoveDown();
                 }
             }
         }
 
-        private void tryMoveDown()
+        private void TryMoveDown()
         {
-            if (base.PositionQuadrantY < Engine.YMax - 1)
+            if (this.PositionQuadrantY < Engine.YMax - 1)
             {
-                int nextQuandrantX = base.PositionQuadrantX;
-                int nextQuadrantY = base.PositionQuadrantY + 1;
+                int nextQuandrantX = this.PositionQuadrantX;
+                int nextQuadrantY = this.PositionQuadrantY + 1;
                 string[] elements = Engine.GetQuadrantElements(nextQuandrantX, nextQuadrantY);
 
                 if (elements[0] == "0")
                 {
-                    base.PreviousDirection = "Down";
-                    base.MovedDirection = "Down";
+                    this.PreviousDirection = "Down";
+                    this.MovedDirection = "Down";
                 }
                 else
                 {
-                    GetNewDirectionDown();
+                    this.GetNewDirectionDown();
                 }
             }
             else
             {
-                GetNewDirectionDown();
+                this.GetNewDirectionDown();
             }
         }
 
         private void GetNewDirectionDown()
         {
-            CheckExistDirections();
-            var newDirection = SelectRandomRoad("Down");
+            this.CheckExistDirections();
+            var newDirection = this.SelectRandomRoad("Down");
             if (!string.IsNullOrEmpty(newDirection))
             {
                 if (newDirection == "Right")
                 {
-                    tryMoveRight();
+                    this.TryMoveRight();
                 }
                 else if (newDirection == "Left")
                 {
-                    tryMoveLeft();
+                    this.TryMoveLeft();
                 }
                 else if (newDirection == "Up")
                 {
-                    tryMoveUp();
+                    this.TryMoveUp();
                 }
             }
         }
 
         public void Draw()
         {
-            graphicsGhost.DrawImage(image, (base.PositionQuadrantX * Global.QuadrantSize) + 8, base.PositionQuadrantY * Global.QuadrantSize + 4);
+            this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.PositionQuadrantY * Global.QuadrantSize + 4);
         }
 
         public async Task<bool> Move()
         {
-            string moving = base.MovedDirection;
+            string moving = this.MovedDirection;
 
             switch (moving)
             {
                 case "Right":
 
-                    if (base.DrawingCoordinatesX == 0)
+                    if (this.DrawingCoordinatesX == 0)
                     {
                         this.MoveNext();
                     }
 
-                    base.DrawingCoordinatesX += 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), base.DrawingCoordinatesX - 1, (base.PositionQuadrantY * Global.QuadrantSize) + 1, base.DrawingCoordinatesX - 1, (base.PositionQuadrantY * Global.QuadrantSize) + 49);
-                    if (base.DrawingCoordinatesX > (base.PositionQuadrantX * Global.QuadrantSize) + 20)
+                    this.DrawingCoordinatesX += 1;
+                    this._graphicsGhost.DrawLine(new Pen(Color.Black), this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 1, this.DrawingCoordinatesX - 1, (this.PositionQuadrantY * Global.QuadrantSize) + 49);
+                    if (this.DrawingCoordinatesX > (this.PositionQuadrantX * Global.QuadrantSize) + 20)
                     {
-                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+                        Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (base.DrawingCoordinatesX), base.PositionQuadrantY * Global.QuadrantSize + 4);
+                    this._graphicsGhost.DrawImage(_image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX + 1) * Global.QuadrantSize) + 8)
+                    if (this.DrawingCoordinatesX == ((this.PositionQuadrantX + 1) * Global.QuadrantSize) + 8)
                     {
                         //DrawBlackPolygon();
 
-                        base.PositionQuadrantX += 1;
+                        this.PositionQuadrantX += 1;
                         this.MoveNext();
                     }
                     break;
 
                 case "Left":
-                    if (base.DrawingCoordinatesX == 0)
+                    if (this.DrawingCoordinatesX == 0)
                     {
                         this.MoveNext();
                     }
-                    base.DrawingCoordinatesX -= 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.DrawingCoordinatesX + image.Width) + 1,
-                        (base.PositionQuadrantY * Global.QuadrantSize) + 1,
-                        (base.DrawingCoordinatesX + image.Width) + 1,
-                        (base.PositionQuadrantY * Global.QuadrantSize) + 49);
+                    this.DrawingCoordinatesX -= 1;
+                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.DrawingCoordinatesX + _image.Width) + 1,
+                        (this.PositionQuadrantY * Global.QuadrantSize) + 1,
+                        (this.DrawingCoordinatesX + _image.Width) + 1,
+                        (this.PositionQuadrantY * Global.QuadrantSize) + 49);
 
-                    if (base.DrawingCoordinatesX < (base.PositionQuadrantX * Global.QuadrantSize) + 20)
+                    if (this.DrawingCoordinatesX < (this.PositionQuadrantX * Global.QuadrantSize) + 20)
                     {
-                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+                        Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (base.DrawingCoordinatesX), base.PositionQuadrantY * Global.QuadrantSize + 4);
+                    this._graphicsGhost.DrawImage(_image, (this.DrawingCoordinatesX), this.PositionQuadrantY * Global.QuadrantSize + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (base.DrawingCoordinatesX == ((base.PositionQuadrantX - 1) * Global.QuadrantSize) + 8)
+                    if (this.DrawingCoordinatesX == ((this.PositionQuadrantX - 1) * Global.QuadrantSize) + 8)
                     {
                         //DrawBlackPolygon();
 
-                        base.PositionQuadrantX -= 1;
+                        this.PositionQuadrantX -= 1;
                         this.MoveNext();
                     }
                     break;
 
                 case "Up":
-                    if (base.DrawingCoordinatesY == 0)
+                    if (this.DrawingCoordinatesY == 0)
                     {
                         this.MoveNext();
                     }
 
-                    base.DrawingCoordinatesY -= 1;
+                    this.DrawingCoordinatesY -= 1;
 
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.PositionQuadrantX * Global.QuadrantSize) + 1, (base.DrawingCoordinatesY + 4 + image.Height) + 1, (base.PositionQuadrantX * Global.QuadrantSize) + 49, (base.DrawingCoordinatesY + 4 + image.Height) + 1);
-                    if (base.DrawingCoordinatesY < (base.PositionQuadrantY * Global.QuadrantSize) - 11)
+                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4 + _image.Height) + 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4 + _image.Height) + 1);
+                    if (this.DrawingCoordinatesY < (this.PositionQuadrantY * Global.QuadrantSize) - 11)
                     {
-                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+                        Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (base.PositionQuadrantX * Global.QuadrantSize) + 8, base.DrawingCoordinatesY + 4);
+                    this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY - 1) * Global.QuadrantSize) + 4)
+                    if (this.DrawingCoordinatesY == ((this.PositionQuadrantY - 1) * Global.QuadrantSize) + 4)
                     {
                         //DrawBlackPolygon();
 
-                        base.PositionQuadrantY -= 1;
+                        this.PositionQuadrantY -= 1;
                         this.MoveNext();
                     }
                     break;
                 case "Down":
-                    if (base.DrawingCoordinatesY == 0)
+                    if (this.DrawingCoordinatesY == 0)
                     {
                         this.MoveNext();
                     }
 
-                    base.DrawingCoordinatesY += 1;
-                    graphicsGhost.DrawLine(new Pen(Color.Black), (base.PositionQuadrantX * Global.QuadrantSize) + 1, (base.DrawingCoordinatesY + 4) - 1, (base.PositionQuadrantX * Global.QuadrantSize) + 49, (base.DrawingCoordinatesY + 4) - 1);
-                    if (base.DrawingCoordinatesY > (base.PositionQuadrantY * Global.QuadrantSize) + 20)
+                    this.DrawingCoordinatesY += 1;
+                    this._graphicsGhost.DrawLine(new Pen(Color.Black), (this.PositionQuadrantX * Global.QuadrantSize) + 1, (this.DrawingCoordinatesY + 4) - 1, (this.PositionQuadrantX * Global.QuadrantSize) + 49, (this.DrawingCoordinatesY + 4) - 1);
+                    if (this.DrawingCoordinatesY > (this.PositionQuadrantY * Global.QuadrantSize) + 20)
                     {
-                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+                        Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
                     }
 
-                    graphicsGhost.DrawImage(image, (base.PositionQuadrantX * Global.QuadrantSize) + 8, base.DrawingCoordinatesY + 4);
+                    this._graphicsGhost.DrawImage(_image, (this.PositionQuadrantX * Global.QuadrantSize) + 8, this.DrawingCoordinatesY + 4);
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
-                    if (base.DrawingCoordinatesY == ((base.PositionQuadrantY + 1) * Global.QuadrantSize) + 4)
+                    if (this.DrawingCoordinatesY == ((this.PositionQuadrantY + 1) * Global.QuadrantSize) + 4)
                     {
                         //DrawBlackPolygon();
 
-                        base.PositionQuadrantY += 1;
+                        this.PositionQuadrantY += 1;
                         this.MoveNext();
                     }
                     break;
@@ -511,29 +511,29 @@ namespace FarthorlPacMan
 
         private void DrawBlackPolygon()
         {
-            graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
+            this._graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new System.Drawing.Point[]
             {
-                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY),
-                new System.Drawing.Point(base.DrawingCoordinatesX + image.Width, base.DrawingCoordinatesY),
-                new System.Drawing.Point(base.DrawingCoordinatesX + image.Width, base.DrawingCoordinatesY + image.Height),
-                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY + image.Height),
-                new System.Drawing.Point(base.DrawingCoordinatesX, base.DrawingCoordinatesY),
+                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
+                new System.Drawing.Point(this.DrawingCoordinatesX + _image.Width, this.DrawingCoordinatesY),
+                new System.Drawing.Point(this.DrawingCoordinatesX + _image.Width, this.DrawingCoordinatesY + _image.Height),
+                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY + _image.Height),
+                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
             });
         }
 
         public int GetQuadrantX()
         {
-            return base.PositionQuadrantX;
+            return this.PositionQuadrantX;
         }
 
         public int GetQuadrantY()
         {
-            return base.PositionQuadrantY;
+            return this.PositionQuadrantY;
         }
 
-        public string getDirection()
+        public string GetDirection()
         {
-            return base.MovedDirection;
+            return this.MovedDirection;
         }
     }
 }

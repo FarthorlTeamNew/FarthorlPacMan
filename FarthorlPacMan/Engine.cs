@@ -36,7 +36,7 @@ namespace FarthorlPacMan
         private PacMan PacMan { get; set; }
         public static List<Point> Points { get; private set; }
         private static List<Ghost> Ghosts { get; set; }
-        private string level { get; set; }
+        private string Level { get; set; }
         public Fruit Fruit { get; set; }
 
         public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, GameWindow game, string level)
@@ -50,37 +50,37 @@ namespace FarthorlPacMan
             XMax = 24;
             YMax = 13;
             this.GhostElements = 4;
-            Engine.Run = true;
+            Run = true;
             this.WallColor = Color.Cyan;
             this.IsInicialize = false;
             Points = new List<Point>();
             Ghosts = new List<Ghost>();
-            this.level = level;
+            this.Level = level;
         }
 
         public void Initialize()
         {
             //Initialize game if started for the first time
-            if (IsInicialize == false)
+            if (this.IsInicialize == false)
             {
                 this.IsInicialize = true;
-                this.initializeMatrix();
+                this.InitializeMatrix();
                 this.DrawContent();
-                this.inicializeLeftScores();
+                this.InicializeLeftScores();
 
-                TaskRenderingPacMan = new Task(RenderPacMan);
-                TaskRenderingGhost = new Task(RenderGhost);
-                TaskCheckCollision = new Task(CheckForCollision);
-                PacMan = new PacMan(0, 0, this.GraphicsPacMan);
+                this.TaskRenderingPacMan = new Task(this.RenderPacMan);
+                this.TaskRenderingGhost = new Task(this.RenderGhost);
+                this.TaskCheckCollision = new Task(this.CheckForCollision);
+                this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
 
-                for (int i = 0; i < GhostElements; i++)
+                for (int i = 0; i < this.GhostElements; i++)
                 {
-                    Ghosts.Add(new Ghost(PacMan.GetPositionX(), PacMan.GetPositionY(), GraphicsGhost));
+                    Ghosts.Add(new Ghost(this.PacMan.GetPositionX(), this.PacMan.GetPositionY(), this.GraphicsGhost));
                 }
 
-                TaskRenderingPacMan.Start();
-                TaskRenderingGhost.Start();
-                TaskCheckCollision.Start();
+                this.TaskRenderingPacMan.Start();
+                this.TaskRenderingGhost.Start();
+                this.TaskCheckCollision.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -96,10 +96,10 @@ namespace FarthorlPacMan
             {
                 foreach (var ghost in Ghosts)
                 {
-                    if (PacMan.GetPositionX() == ghost.GetQuadrantX()
-                        && PacMan.GetPositionY() == ghost.GetQuadrantY())
+                    if (this.PacMan.GetPositionX() == ghost.GetQuadrantX()
+                        && this.PacMan.GetPositionY() == ghost.GetQuadrantY())
                     {
-                        PacMan.isAlive = false;
+                        this.PacMan.IsAlive = false;
                         Run = false;
                         SoundPlayer.Play("death");
                     }
@@ -120,7 +120,7 @@ namespace FarthorlPacMan
         {
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.DrawRectangle(new Pen(WallColor), 0, 0, XMax * 50, YMax * 50);
+                drawing.DrawRectangle(new Pen(this.WallColor), 0, 0, XMax * 50, YMax * 50);
                 Game.pacMan.BackgroundImage = Buffer;
             }
 
@@ -137,8 +137,8 @@ namespace FarthorlPacMan
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
 
-                            drawing.DrawRectangle(new Pen(WallColor), (x * 50), (y * 50), 50, 50);
-                            drawing.FillRectangle(new SolidBrush(WallColor), (x * 50), (y * 50), 50, 50);
+                            drawing.DrawRectangle(new Pen(this.WallColor), (x * 50), (y * 50), 50, 50);
+                            drawing.FillRectangle(new SolidBrush(this.WallColor), (x * 50), (y * 50), 50, 50);
                             Game.pacMan.BackgroundImage = Buffer;
 
                         }
@@ -160,11 +160,11 @@ namespace FarthorlPacMan
             }
         }
 
-        private void initializeMatrix()
+        private void InitializeMatrix()
         {
             try
             {
-                using (var fileMatrix = new StreamReader(this.level))
+                using (var fileMatrix = new StreamReader(this.Level))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)
@@ -173,7 +173,7 @@ namespace FarthorlPacMan
                         var splitLine = inputLine.Trim().Split('=');
 
                         //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
-                        var arrayXYValues = splitLine[0].Trim().Split(',');
+                        var arrayXyValues = splitLine[0].Trim().Split(',');
                         int arrayX;
                         int arrayY;
 
@@ -181,8 +181,8 @@ namespace FarthorlPacMan
                         string arrayValue = splitLine[1];
                         try
                         {
-                            arrayX = int.Parse(arrayXYValues[0]);
-                            arrayY = int.Parse(arrayXYValues[1]);
+                            arrayX = int.Parse(arrayXyValues[0]);
+                            arrayY = int.Parse(arrayXyValues[1]);
                         }
                         catch (Exception)
                         {
@@ -200,7 +200,7 @@ namespace FarthorlPacMan
             }
         }
 
-        private void inicializeLeftScores()
+        private void InicializeLeftScores()
         {
             int scores = Points.Count(p => p.IsPointCollected == false);
             LeftScore = scores;
@@ -212,8 +212,8 @@ namespace FarthorlPacMan
         {
             while (Run)
             {
-                PacMan.DrawPacMan();
-                await PacMan.Run(MoveDirection);
+                this.PacMan.DrawPacMan();
+                await this.PacMan.Run(MoveDirection);
             }
         }
 
@@ -244,8 +244,8 @@ namespace FarthorlPacMan
 
         public void DrawContent()
         {
-            DrawFontColor();
-            DrawPaths();
+            this.DrawFontColor();
+            this.DrawPaths();
         }
 
         public void StopGame()
@@ -264,10 +264,10 @@ namespace FarthorlPacMan
         {
             Game.PausePanel.Visible = false;
             Run = true;
-            TaskRenderingPacMan = new Task(RenderPacMan);
-            TaskRenderingGhost = new Task(RenderGhost);
-            TaskRenderingPacMan.Start();
-            TaskRenderingGhost.Start();
+            this.TaskRenderingPacMan = new Task(this.RenderPacMan);
+            this.TaskRenderingGhost = new Task(this.RenderGhost);
+            this.TaskRenderingPacMan.Start();
+            this.TaskRenderingGhost.Start();
         }
 
         public bool IsPaused()
@@ -311,7 +311,7 @@ namespace FarthorlPacMan
             }
         }
 
-        public static bool isDirectionChanged(string myDirection)
+        public static bool IsDirectionChanged(string myDirection)
         {
 
             if ( myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up"
@@ -323,14 +323,14 @@ namespace FarthorlPacMan
             return false;
         }
 
-        public static bool isExistGhost(int quadrantX, int quadrantY)
+        public static bool IsExistGhost(int quadrantX, int quadrantY)
         {
             return Convert.ToBoolean(Ghosts.FirstOrDefault(g => g.GetQuadrantX() == quadrantX && g.GetQuadrantY() == quadrantY));
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -339,14 +339,14 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (TaskRenderingPacMan != null)
+                if (this.TaskRenderingPacMan != null)
                 {
-                    TaskRenderingPacMan.Dispose();
+                    this.TaskRenderingPacMan.Dispose();
                 }
 
-                if (TaskRenderingGhost != null)
+                if (this.TaskRenderingGhost != null)
                 {
-                    TaskRenderingGhost.Dispose();
+                    this.TaskRenderingGhost.Dispose();
                 }
 
                 if (Buffer != null)

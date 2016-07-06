@@ -6,12 +6,12 @@ namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
-        public GameWindow gameWindow ;
-        private LevelsWindow levelWindow;
+        public GameWindow GameWindow ;
+        private LevelsWindow _levelWindow;
 
         public InitialWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Exit_Button(object sender, EventArgs e)
@@ -22,15 +22,15 @@ namespace FarthorlPacMan
 
         private void button4_Click(object sender, EventArgs e)
         {
-            gameWindow = new GameWindow();
-            gameWindow.FormClosed += new FormClosedEventHandler(gameWindow_FormClosed);
-            Hide();
+            this.GameWindow = new GameWindow();
+            this.GameWindow.FormClosed += new FormClosedEventHandler(this.gameWindow_FormClosed);
+            this.Hide();
             
-            gameWindow.Show();
+            this.GameWindow.Show();
         }
         private void gameWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            gameWindow.stopGame();
+            this.GameWindow.StopGame();
             this.Show();
         }
 
@@ -43,14 +43,14 @@ namespace FarthorlPacMan
         //Change level 
         private void Change_Level_Click(object sender, EventArgs e)
         {
-            levelWindow = new LevelsWindow();
-            levelWindow.FormClosed += new FormClosedEventHandler(levelWindow_FormClosed);
-            Hide();
-            levelWindow.Show();
+            this._levelWindow = new LevelsWindow();
+            this._levelWindow.FormClosed += new FormClosedEventHandler(this.levelWindow_FormClosed);
+            this.Hide();
+            this._levelWindow.Show();
         }
         private void levelWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            levelWindow.Hide();
+            this._levelWindow.Hide();
             this.Show();
         }
     }
