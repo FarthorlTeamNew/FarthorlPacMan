@@ -88,29 +88,6 @@
             }
         }
 
-        private async void CheckForCollision()
-        {
-            while (Run)
-            {
-                foreach (var ghost in Ghosts)
-                {
-                    await ColisionCheck(ghost);
-                }
-            }
-        }
-
-        private async Task<bool> ColisionCheck(Ghost ghost)
-        {
-            if (PacMan.PositionQuadrantX == ghost.PositionQuadrantX
-                && PacMan.PositionQuadrantY == ghost.PositionQuadrantY)
-            {
-                this.PacMan.IsAlive = false;
-                Run = false;
-                SoundPlayer.Play("death");
-            }
-            return true;
-        }
-
         private void GenerateFruit()
         {
             Fruit apple = new Apple(2, 3, this.GraphicsFruit, this);
