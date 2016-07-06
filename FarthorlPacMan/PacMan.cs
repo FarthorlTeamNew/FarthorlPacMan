@@ -8,7 +8,7 @@ namespace FarthorlPacMan
     {
         private const int PacManDiameter = 35;
         private int eatPoints;
-        private string stopDirection = String.Empty;
+        //private string stopDirection = String.Empty;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
         private Boolean isAlive = true;
@@ -33,7 +33,7 @@ namespace FarthorlPacMan
             {
                 base.PreviousDirection = toDirection;
                 base.MovedDirection = toDirection;
-                stopDirection = String.Empty;
+               // stopDirection = String.Empty;
             }
             else if (quadrantToMove[0] == "1")
             {
@@ -46,7 +46,7 @@ namespace FarthorlPacMan
             if (base.MovedDirection == String.Empty)
             {
                 base.PreviousDirection = String.Empty;
-                stopDirection = base.MovedDirection;
+               // stopDirection = base.MovedDirection;
             }
             base.MovedDirection = String.Empty;
             this.Move(base.PreviousDirection);
@@ -54,7 +54,7 @@ namespace FarthorlPacMan
 
         public void Move(string direction)
         {
-            if (!string.IsNullOrEmpty(direction) && direction != stopDirection)
+            if (!string.IsNullOrEmpty(direction) /*&& direction != stopDirection*/)
             {
                 if (direction == "Right")
                 {
