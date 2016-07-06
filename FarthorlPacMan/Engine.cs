@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using FarthorlPacMan.Fruits;
 using FarthorlPacMan.States;
 
 namespace FarthorlPacMan
@@ -113,24 +114,22 @@ namespace FarthorlPacMan
 
         private void GenerateFruit()
         {
-            while (Run)
-            {
-                //Should be implemented by randomly dropping the fruits on coordinates that have points on them, and then the points are removed
-                //Fruit apple = new Fruit(2, 3, GraphicsFruit, this);
-                //apple.DrawApple();
-                //Fruit banana = new Fruit(6, 8, GraphicsFruit, this);
-                //banana.DrawBanana();
-                //Fruit brezel = new Fruit(15, 6, GraphicsFruit, this);
-                //brezel.DrawBrezel();
-                //Fruit cherry = new Fruit(19, 2, GraphicsFruit, this);
-                //cherry.DrawCherry();
-                //Fruit peach = new Fruit(13, 4, GraphicsFruit, this);
-                //peach.DrawPeach();
-                //Fruit pear = new Fruit(11, 12, GraphicsFruit, this);
-                //pear.DrawPear();
-                //Fruit strawberry = new Fruit(4, 10, GraphicsFruit, this);
-                //strawberry.DrawStrawberry();
-            }
+            Fruit apple = new Apple(2, 3, GraphicsFruit, this);
+            Fruit banana = new Banana(6, 8, GraphicsFruit, this);
+            Fruit brezel = new Brezel(15, 6, GraphicsFruit, this);
+            Fruit cherry = new Cherry(19, 2, GraphicsFruit, this);
+            Fruit peach = new Peach(13, 4, GraphicsFruit, this);
+            Fruit pear = new Pear(11, 12, GraphicsFruit, this);
+            Fruit strawberry = new Strawberry(4, 10, GraphicsFruit, this);
+
+            List<Fruit> fruits = new List<Fruit> {apple, banana, brezel, cherry, peach, pear, strawberry};
+            //while (Run)
+            //{
+            //    foreach (var fruit in fruits)
+            //    {
+            //        fruit.DrawFruit();
+            //    }
+            //}
         }
 
         private void DrawFontColor()

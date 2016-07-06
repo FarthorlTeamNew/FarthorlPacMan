@@ -48,6 +48,13 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="Fruit.cs" />
+    <Compile Include="Fruits\Apple.cs" />
+    <Compile Include="Fruits\Banana.cs" />
+    <Compile Include="Fruits\Brezel.cs" />
+    <Compile Include="Fruits\Cherry.cs" />
+    <Compile Include="Fruits\Peach.cs" />
+    <Compile Include="Fruits\Pear.cs" />
+    <Compile Include="Fruits\Strawberry.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Participant.cs" />
