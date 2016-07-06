@@ -7,11 +7,15 @@ namespace FarthorlPacMan
     public class PacMan : Participant
     {
         private const int PacManDiameter = 35;
+        private const string Left = "Left";
+        private const string Up = "Up";
+        private const string Right = "Right";
+        private const string Down = "Down";
         private int eatPoints;
         //private string stopDirection = String.Empty;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
-        public Boolean IsAlive = true;
+        public bool IsAlive = true;
         private Graphics graphics;
 
         public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
@@ -43,12 +47,12 @@ namespace FarthorlPacMan
 
         private void MoveCheck()
         {
-            if (this.MovedDirection == String.Empty)
+            if (this.MovedDirection == string.Empty)
             {
-                this.PreviousDirection = String.Empty;
+                this.PreviousDirection = string.Empty;
                // stopDirection = base.MovedDirection;
             }
-            this.MovedDirection = String.Empty;
+            this.MovedDirection = string.Empty;
             this.Move(this.PreviousDirection);
         }
 
@@ -56,7 +60,7 @@ namespace FarthorlPacMan
         {
             if (!string.IsNullOrEmpty(direction) && this.IsAlive /*&& direction != stopDirection*/)
             {
-                if (direction == "Right")
+                if (direction == Right)
                 {
                     this.MovePacManRight();
                     if (this.PositionQuadrantX < Engine.XMax - 1)
@@ -69,7 +73,7 @@ namespace FarthorlPacMan
                         this.MoveCheck();
                     }
                 }
-                else if (direction == "Left")
+                else if (direction == Left)
                 {
                     this.MovePacManLeft();
                     if (this.PositionQuadrantX > 0)
@@ -82,7 +86,7 @@ namespace FarthorlPacMan
                         this.MoveCheck();
                     }
                 }
-                else if (direction == "Up")
+                else if (direction == Up)
                 {
                     this.MovePacManUp();
 
@@ -96,7 +100,7 @@ namespace FarthorlPacMan
                         this.MoveCheck();
                     }
                 }
-                else if (direction == "Down")
+                else if (direction == Down)
                 {
                     this.MovePacManDown();
 
@@ -290,7 +294,7 @@ namespace FarthorlPacMan
 
             switch (this.MovedDirection)
             {
-                case "Right":
+                case Right:
 
                     if (this.DrawingCoordinatesX < (Engine.XMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
@@ -318,7 +322,7 @@ namespace FarthorlPacMan
                    this.MovePacManRight();
                     break;
 
-                case "Left":
+                case Left:
 
                     if (this.DrawingCoordinatesX > (this.PositionQuadrantX - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && this.DrawingCoordinatesX > Global.QuadrantSize / 2)
                     {
@@ -345,7 +349,7 @@ namespace FarthorlPacMan
                    this.MovePacManLeft();
                     break;
 
-                case "Up":
+                case Up:
 
                     if (this.DrawingCoordinatesY > (this.PositionQuadrantY - 1) * Global.QuadrantSize + Global.QuadrantSize / 2 && this.DrawingCoordinatesY > Global.QuadrantSize / 2)
                     {
@@ -365,7 +369,7 @@ namespace FarthorlPacMan
                    this.MovePacManUp();
                    break;
 
-                case "Down":
+                case Down:
 
                     if (this.DrawingCoordinatesY < (Engine.YMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
