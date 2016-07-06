@@ -4,14 +4,14 @@ namespace FarthorlPacMan.Fruits
 {
     public class Brezel : Fruit
     {
-        private static Image brezel = Image.FromFile(@"DataFiles\Images\Fruit\Brezel.bmp");
-        public Brezel(int X, int Y, Graphics graphicsFruit, Engine engine) : base(X, Y, graphicsFruit, engine)
+        private static Image _brezel = Image.FromFile(@"DataFiles\Images\Fruit\Brezel.bmp");
+        public Brezel(int x, int y, Graphics graphicsFruit, Engine engine) : base(x, y, graphicsFruit, engine)
         {
         }
 
         public override void DrawFruit()
         {
-            this.graphicsFruit.DrawImage(brezel, this.fruitPositionX * this.QuadrantDimension, this.fruitPositionY * this.QuadrantDimension);
+            this.GraphicsFruit.DrawImage(_brezel, this.FruitPositionX * this.QuadrantDimension, this.FruitPositionY * this.QuadrantDimension);
         }
     }
 }

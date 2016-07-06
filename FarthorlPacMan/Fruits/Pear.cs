@@ -4,14 +4,14 @@ namespace FarthorlPacMan.Fruits
 {
     public class Pear : Fruit
     {
-        private static Image pear = Image.FromFile(@"DataFiles\Images\Fruit\Pear.bmp");
-        public Pear(int X, int Y, Graphics graphicsFruit, Engine engine) : base(X, Y, graphicsFruit, engine)
+        private static Image _pear = Image.FromFile(@"DataFiles\Images\Fruit\Pear.bmp");
+        public Pear(int x, int y, Graphics graphicsFruit, Engine engine) : base(x, y, graphicsFruit, engine)
         {
         }
 
         public override void DrawFruit()
         {
-            this.graphicsFruit.DrawImage(pear, this.fruitPositionX *this.QuadrantDimension, this.fruitPositionY *this.QuadrantDimension);
+            this.GraphicsFruit.DrawImage(_pear, this.FruitPositionX *this.QuadrantDimension, this.FruitPositionY *this.QuadrantDimension);
         }
     }
 }
