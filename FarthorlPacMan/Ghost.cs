@@ -17,7 +17,6 @@
         private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Graphics graphicsGhost;
         private Graphics graphicsFruit;
-
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost) : base()
         {
             this.positionPacManQaundarntX = positionPacManQaundarntX;
