@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System;
+    using System.Drawing;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public class Ghost : Participant
     {
         private const int PacManDistanceX = 3;

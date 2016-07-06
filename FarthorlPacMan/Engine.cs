@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using FarthorlPacMan.Fruits;
-using FarthorlPacMan.States;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Drawing;
+    using System.Linq;
+    using System.Windows.Forms;
+    using System.Threading.Tasks;
+    using Fruits;
 
     public class Engine : IDisposable
     {

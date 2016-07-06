@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.Threading.Tasks;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System.Drawing;
+    using System.Threading.Tasks;
+    
     public class PacMan : Participant
     {
         private const int PacManDiameter = 35;

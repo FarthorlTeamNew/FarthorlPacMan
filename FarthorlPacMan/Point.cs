@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System.Drawing;
+
     public class Point
     {
         public static int PointDiameter { get; private set; }

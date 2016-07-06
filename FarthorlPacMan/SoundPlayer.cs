@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Media;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System;
+    using System.Collections.Generic;
+
     public class SoundPlayer : IDisposable
     {
         private static System.Media.SoundPlayer soundPlayer { get; set; }

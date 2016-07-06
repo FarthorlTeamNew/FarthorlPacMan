@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System.Drawing;
+
     public abstract class Fruit
     {
         protected Engine engine;

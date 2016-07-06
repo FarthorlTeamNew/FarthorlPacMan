@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace FarthorlPacMan
+﻿namespace FarthorlPacMan
 {
+    using System;
+    using System.Windows.Forms;
+
     public static class Startup
     {
         // Game starts from here
