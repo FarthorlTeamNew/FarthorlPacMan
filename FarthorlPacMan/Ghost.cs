@@ -10,6 +10,7 @@
         private const int PacManDistanceX = 3;
         private const int PacManDistanceY = 0;
         private Random random = new Random();
+        private int randomIndex;
         private int positionPacManQaundarntX;
         private int positionPacManQaundarntY;
         private Dictionary<string, bool> existDirections = new Dictionary<string, bool>();
@@ -121,6 +122,8 @@
             {
                 this.existDirections["Right"] = false;
             }
+
+            SelectRandomRoad(MovedDirection);
         }
 
         private void SelectRandomDirection()
@@ -141,24 +144,25 @@
 
         }
 
-        private string SelectRandomRoad(string existDirection)
+        private void SelectRandomRoad(string direction)
         {
             List<string> existRoads = new List<string>();
+            string logString="";
             string notEqualDirection = "";
 
-            if (existDirection == "Up")
+            if (direction == "Up")
             {
                 notEqualDirection = "Down";
             }
-            else if (existDirection == "Down")
+            else if (direction == "Down")
             {
                 notEqualDirection = "Up";
             }
-            else if (existDirection == "Right")
+            else if (direction == "Right")
             {
                 notEqualDirection = "Left";
             }
-            else if (existDirection == "Left")
+            else if (direction == "Left")
             {
                 notEqualDirection = "Right";
             }
@@ -169,24 +173,32 @@
                 if (exist.Key != notEqualDirection && exist.Value == true)
                 {
                     existRoads.Add(exist.Key);
+                    logString += exist.Key + " / ";
                 }
             }
 
             if (existRoads.Count > 0)
             {
-                int randomIndex = this.random.Next(0, existRoads.Count - 1);
 
-                return existRoads[randomIndex];
+                if (this.randomIndex>existRoads.Count-1)
+                {
+                    randomIndex = existRoads.Count - 1;
+                }
+
+                //Log.LogText(logString + " - select: " + existRoads[randomIndex]);
+                MovedDirection = existRoads[randomIndex];
+
             }
-            return notEqualDirection;
+            else
+            {
+                MovedDirection = notEqualDirection;
+            }
         }
 
         private void MoveNext()
         {
             this.CheckExistDirections();
-            var newDirection = this.SelectRandomRoad(this.MovedDirection);
-
-            if (!string.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(MovedDirection))
             {
                 if (this.MovedDirection == "Right")
                 {
@@ -235,18 +247,17 @@
         private void GetNewDirectionRight()
         {
             this.CheckExistDirections();
-            var newDirection = this.SelectRandomRoad("Right");
-            if (!string.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(MovedDirection))
             {
-                if (newDirection == "Left")
+                if (MovedDirection == "Left")
                 {
                     this.TryMoveLeft();
                 }
-                else if (newDirection == "Up")
+                else if (MovedDirection == "Up")
                 {
                     this.TryMoveUp();
                 }
-                else if (newDirection == "Down")
+                else if (MovedDirection == "Down")
                 {
                     this.TryMoveDown();
                 }
@@ -280,18 +291,17 @@
         private void GetNewDirectionLeft()
         {
             this.CheckExistDirections();
-            var newDirection = this.SelectRandomRoad("Left");
-            if (!string.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(MovedDirection))
             {
-                if (newDirection == "Right")
+                if (MovedDirection == "Right")
                 {
                     this.TryMoveRight();
                 }
-                else if (newDirection == "Up")
+                else if (MovedDirection == "Up")
                 {
                     this.TryMoveUp();
                 }
-                else if (newDirection == "Down")
+                else if (MovedDirection == "Down")
                 {
                     this.TryMoveDown();
                 }
@@ -325,18 +335,17 @@
         private void GetNewDirectionUp()
         {
             this.CheckExistDirections();
-            var newDirection = this.SelectRandomRoad("Up");
-            if (!string.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(MovedDirection))
             {
-                if (newDirection == "Right")
+                if (MovedDirection == "Right")
                 {
                     this.TryMoveRight();
                 }
-                else if (newDirection == "Left")
+                else if (MovedDirection == "Left")
                 {
                     this.TryMoveLeft();
                 }
-                else if (newDirection == "Down")
+                else if (MovedDirection == "Down")
                 {
                     this.TryMoveDown();
                 }
@@ -370,18 +379,17 @@
         private void GetNewDirectionDown()
         {
             this.CheckExistDirections();
-            var newDirection = this.SelectRandomRoad("Down");
-            if (!string.IsNullOrEmpty(newDirection))
+            if (!string.IsNullOrEmpty(MovedDirection))
             {
-                if (newDirection == "Right")
+                if (MovedDirection == "Right")
                 {
                     this.TryMoveRight();
                 }
-                else if (newDirection == "Left")
+                else if (MovedDirection == "Left")
                 {
                     this.TryMoveLeft();
                 }
-                else if (newDirection == "Up")
+                else if (MovedDirection == "Up")
                 {
                     this.TryMoveUp();
                 }
@@ -395,6 +403,7 @@
 
         public async Task<bool> Move()
         {
+            randomIndex = random.Next(0, 3);
             string moving = this.MovedDirection;
 
             switch (moving)
@@ -419,7 +428,13 @@
 
                     if (this.DrawingCoordinatesX == (this.PositionQuadrantX + 1) * Global.QuadrantSize + 8)
                     {
+<<<<<<< .mine
+||||||| .r192
                         //DrawBlackPolygon();
+
+=======
+                        //DrawBlackPolygon();
+>>>>>>> .r197
                         this.PositionQuadrantX += 1;
                         this.MoveNext();
                     }
@@ -447,8 +462,6 @@
 
                     if (this.DrawingCoordinatesX == (this.PositionQuadrantX - 1) * Global.QuadrantSize + 8)
                     {
-                        //DrawBlackPolygon();
-
                         this.PositionQuadrantX -= 1;
                         this.MoveNext();
                     }
@@ -473,8 +486,6 @@
 
                     if (this.DrawingCoordinatesY == (this.PositionQuadrantY - 1) * Global.QuadrantSize + 4)
                     {
-                        //DrawBlackPolygon();
-
                         this.PositionQuadrantY -= 1;
                         this.MoveNext();
                     }
@@ -497,7 +508,6 @@
 
                     if (this.DrawingCoordinatesY == (this.PositionQuadrantY + 1) * Global.QuadrantSize + 4)
                     {
-                        //DrawBlackPolygon();
 
                         this.PositionQuadrantY += 1;
                         this.MoveNext();
@@ -505,18 +515,6 @@
                     break;
             }
             return true;
-        }
-
-        private void DrawBlackPolygon()
-        {
-            this.graphicsGhost.FillPolygon(new SolidBrush(Color.Black), new[]
-            {
-                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
-                new System.Drawing.Point(this.DrawingCoordinatesX + image.Width, this.DrawingCoordinatesY),
-                new System.Drawing.Point(this.DrawingCoordinatesX + image.Width, this.DrawingCoordinatesY + image.Height),
-                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY + image.Height),
-                new System.Drawing.Point(this.DrawingCoordinatesX, this.DrawingCoordinatesY),
-            });
         }
 
         public string GetDirection()
