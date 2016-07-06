@@ -57,6 +57,7 @@
     <Compile Include="Fruits\Strawberry.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Participant.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -155,6 +156,9 @@
     <Content Include="DataFiles\Images\PacMan.ico" />
     <Content Include="DataFiles\Levels\Labirint2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataFiles\Logs\log.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Sounds\munch.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

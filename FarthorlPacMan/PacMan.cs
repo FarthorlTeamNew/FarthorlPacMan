@@ -12,17 +12,18 @@
         private const string Down = "Down";
         private const string TouchWall = "1";
         private const string FreeDirection = "0";
-        private int eatPoints;
         private int animateCoeficent;
         private Color pacManColor = Color.Yellow;
         public bool IsAlive = true;
-        private Graphics graphics;
+        private Graphics graphicsPacMan;
 
-        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphics) : base(positionXQaundarnt, positionYQuadrant)
+        public int EatPoints { get; private set; }
+
+        public PacMan(int positionXQaundarnt, int positionYQuadrant, Graphics graphicsPacMan) : base(positionXQaundarnt, positionYQuadrant)
         {
             this.DrawingCoordinatesX = this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2;
             this.DrawingCoordinatesY = this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2;
-            this.graphics = graphics;
+            this.graphicsPacMan = graphicsPacMan;
             this.InitializePacMan();
         }
 
@@ -117,7 +118,7 @@
 
         private void MovePacManDown()
         {
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
                 new SolidBrush(this.pacManColor),
                 this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                 this.DrawingCoordinatesY - PacManDiameter / 2,
@@ -125,7 +126,7 @@
                 PacManDiameter
                 );
 
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
                new SolidBrush(Color.Black),
                this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 17),
                PacManDiameter / 5,
@@ -133,7 +134,7 @@
                );
 
 
-            this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+            this.graphicsPacMan.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize / 2),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize / 2),
@@ -156,7 +157,7 @@
 
         private void MovePacManUp()
         {
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
             new SolidBrush(this.pacManColor),
             this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
             this.DrawingCoordinatesY - PacManDiameter / 2,
@@ -164,14 +165,14 @@
             PacManDiameter
             );
 
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
             new SolidBrush(Color.Black),
             this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5), this.DrawingCoordinatesY - (PacManDiameter / 2 - 10),
             PacManDiameter / 5,
             PacManDiameter / 5
             );
 
-            this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+            this.graphicsPacMan.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize / 2 + 2),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize / 2 + 2),
@@ -195,7 +196,7 @@
 
         private void MovePacManLeft()
         {
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
                  new SolidBrush(Color.Black),
                  this.DrawingCoordinatesX - (PacManDiameter / 2 - 10),
                  this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5),
@@ -203,7 +204,7 @@
                  PacManDiameter / 5
                  );
 
-            this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+            this.graphicsPacMan.FillPolygon(new SolidBrush(Color.Black), new[] {
                             new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2),
                             new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, this.PositionQuadrantY * Global.QuadrantSize + 15 + this.animateCoeficent),
                             new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, this.PositionQuadrantY * Global.QuadrantSize + 35 - this.animateCoeficent),
@@ -227,7 +228,7 @@
 
         private void MovePacManRight()
         {
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
             new SolidBrush(Color.Black),
             this.DrawingCoordinatesX - (PacManDiameter / 2 - 20),
             this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - (PacManDiameter / 2 - 5),
@@ -235,7 +236,7 @@
             PacManDiameter / 5
             );
 
-            this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
+            this.graphicsPacMan.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2),
                                 new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, this.PositionQuadrantY * Global.QuadrantSize + 15 + this.animateCoeficent),
                                 new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, this.PositionQuadrantY * Global.QuadrantSize + 35 - this.animateCoeficent),
@@ -299,7 +300,7 @@
                         this.DrawingCoordinatesX += 1;
                     }
 
-                    this.graphics.DrawEllipse(
+                    this.graphicsPacMan.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             this.DrawingCoordinatesX - 1 - PacManDiameter / 2,
@@ -309,7 +310,7 @@
                             )
                         );
 
-                    this.graphics.FillEllipse(
+                    this.graphicsPacMan.FillEllipse(
                            new SolidBrush(this.pacManColor),
                            this.DrawingCoordinatesX - PacManDiameter / 2,
                            this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
@@ -327,7 +328,7 @@
                         this.DrawingCoordinatesX -= 1;
                     }
 
-                    this.graphics.DrawEllipse(
+                    this.graphicsPacMan.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             this.DrawingCoordinatesX + 1 - PacManDiameter / 2,
@@ -337,7 +338,7 @@
                             )
                         );
 
-                    this.graphics.FillEllipse(
+                    this.graphicsPacMan.FillEllipse(
                         new SolidBrush(this.pacManColor), this.DrawingCoordinatesX - PacManDiameter / 2,
                         this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                         PacManDiameter,
@@ -354,7 +355,7 @@
                         this.DrawingCoordinatesY -= 1;
                     }
 
-                    this.graphics.DrawEllipse(
+                    this.graphicsPacMan.DrawEllipse(
                         new Pen(Color.Black),
                         new Rectangle(
                             this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
@@ -374,7 +375,7 @@
                         this.DrawingCoordinatesY += 1;
                     }
 
-                    this.graphics.DrawEllipse(
+                    this.graphicsPacMan.DrawEllipse(
                          new Pen(Color.Black),
                          new Rectangle(
                              this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
@@ -384,7 +385,7 @@
                              )
                          );
 
-                    this.graphics.FillEllipse(
+                    this.graphicsPacMan.FillEllipse(
                         new SolidBrush(this.pacManColor),
                         this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                         this.DrawingCoordinatesY - PacManDiameter / 2,
@@ -410,7 +411,7 @@
 
         public void DrawPacMan()
         {
-            this.graphics.FillEllipse(
+            this.graphicsPacMan.FillEllipse(
                 new SolidBrush(this.pacManColor),
                 this.DrawingCoordinatesX - PacManDiameter / 2,
                 this.DrawingCoordinatesY - PacManDiameter / 2,
@@ -419,23 +420,13 @@
                 );
         }
 
-        public int GetScore()
-        {
-            return this.eatPoints;
-        }
-
-        public string GetDirection()
-        {
-            return this.MovedDirection;
-        }
-
         public void EatPoint(int quadrantX, int quadrantY) // TODO make drawing of points
         {
             string[] elements = Engine.GetQuadrantElements(quadrantX, quadrantY);
 
             if (elements[1] == TouchWall)
             {
-                this.eatPoints = this.eatPoints + int.Parse(elements[1]);
+                this.EatPoints = this.EatPoints + int.Parse(elements[1]);
                 elements[1] = FreeDirection;
                 SoundPlayer.Play("eatfruit");
                 Engine.EatPointAndUpdateMatrix(quadrantX, quadrantY, elements);
