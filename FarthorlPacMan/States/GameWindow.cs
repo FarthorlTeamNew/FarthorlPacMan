@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace FarthorlPacMan
 {
@@ -91,10 +93,16 @@ namespace FarthorlPacMan
             }
         }
 
-        private void GameWindow_Closed(object sender, FormClosedEventArgs e)
+        public void GameWindow_Closed(object sender, FormClosedEventArgs e)
         {
             Engine.Run = true;
-            this._isInicialize = false;
+            _isInicialize = false;
+           
+        }
+
+        public void Close()
+        {
+            this.Close();
         }
 
         public void StopGame()

@@ -1,4 +1,6 @@
-﻿namespace FarthorlPacMan
+﻿using System;
+
+namespace FarthorlPacMan
 {
     using System.Drawing;
     using System.Threading.Tasks;

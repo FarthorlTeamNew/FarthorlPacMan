@@ -400,7 +400,7 @@
             this.graphicsGhost.DrawImage(image, this.PositionQuadrantX * Global.QuadrantSize + 8, this.PositionQuadrantY * Global.QuadrantSize + 4);
         }
 
-        public async Task<bool> Move()
+        public async Task<bool>   Move()
         {
             randomIndex = random.Next(0, 3);
             string moving = this.MovedDirection;
@@ -415,13 +415,13 @@
                     }
 
                     this.DrawingCoordinatesX += 1;
-                    this.graphicsGhost.DrawLine(new Pen(Color.Black), this.DrawingCoordinatesX - 1, this.PositionQuadrantY * Global.QuadrantSize + 1, this.DrawingCoordinatesX - 1, this.PositionQuadrantY * Global.QuadrantSize + 49);
-                    if (this.DrawingCoordinatesX > this.PositionQuadrantX * Global.QuadrantSize + 20)
+                    this.graphicsGhost.DrawLine(new Pen(Color.Black), base.DrawingCoordinatesX - 1, base.PositionQuadrantY * Global.QuadrantSize + 1, base.DrawingCoordinatesX - 1, this.PositionQuadrantY * Global.QuadrantSize + 49);
+                    if (base.DrawingCoordinatesX > base.PositionQuadrantX * Global.QuadrantSize + 20)
                     {
-                        Engine.DrawPoint(this.PositionQuadrantX, this.PositionQuadrantY);
+                        Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
                     }
 
-                    this.graphicsGhost.DrawImage(image, this.DrawingCoordinatesX, this.PositionQuadrantY * Global.QuadrantSize + 4);
+                    this.graphicsGhost.DrawImage(image, base.DrawingCoordinatesX, base.PositionQuadrantY * Global.QuadrantSize + 4);
 
                     System.Threading.Thread.Sleep(Global.DrawingSpeed);
 
