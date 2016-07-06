@@ -4,10 +4,12 @@
 
     public abstract class Fruit
     {
-        protected Engine Engine;
         protected Graphics GraphicsFruit;
-        protected int fruitPositionX;
-        protected int fruitPositionY;
+        public int fruitPositionX;
+        public int fruitPositionY;
+        public int fruitWidth = 20;
+        public int fruitHeigt = 20;
+        public Image Image { get; protected set; }
 
         public int FruitPositionX
         {
@@ -28,15 +30,17 @@
 
         protected int QuadrantDimension = Global.QuadrantSize;
 
-        protected Fruit(int x, int y, Graphics graphicsFruit, Engine engine)
+        protected Fruit(int x, int y, Graphics graphicsFruit)
         {
             this.FruitPositionX = x;
             this.FruitPositionY = y;
-            this.Engine = engine;
             this.GraphicsFruit = graphicsFruit;
         }
 
         // graphicsFruit.DrawImage(apple, fruitPositionX * QuadrantDimension, fruitPositionY * QuadrantDimension);
-        public abstract void DrawFruit();
+
+        public virtual void DrawFruit()
+        {
+        }
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace FarthorlPacMan.Fruits
 {
     public class Apple : Fruit
     {
-        private static  Image apple = Image.FromFile(@"DataFiles\Images\Fruit\Apple.bmp");
-
-        public Apple(int x, int y, Graphics graphicsFruit, Engine engine) : base(x, y, graphicsFruit, engine)
-        {            
-        }
-
-        public override void DrawFruit()
+        public Apple(int x, int y, Graphics graphicsFruit) : base(x, y, graphicsFruit)
         {
-            this.GraphicsFruit.DrawImage(apple, this.FruitPositionX * this.QuadrantDimension, this.FruitPositionY * this.QuadrantDimension);
+            base.Image= Image.FromFile(@"DataFiles\Images\Fruit\Apple.bmp");
         }
     }
 }

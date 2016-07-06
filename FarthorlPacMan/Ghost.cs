@@ -419,6 +419,7 @@
                     if (base.DrawingCoordinatesX > base.PositionQuadrantX * Global.QuadrantSize + 20)
                     {
                         Engine.DrawPoint(base.PositionQuadrantX, base.PositionQuadrantY);
+                        //Engine.Dra
                     }
 
                     this.graphicsGhost.DrawImage(image, base.DrawingCoordinatesX, base.PositionQuadrantY * Global.QuadrantSize + 4);
@@ -427,8 +428,6 @@
 
                     if (this.DrawingCoordinatesX == (this.PositionQuadrantX + 1) * Global.QuadrantSize + 8)
                     {
-                        //DrawBlackPolygon();
-                        //DrawBlackPolygon();
                         this.PositionQuadrantX += 1;
                         this.MoveNext();
                     }

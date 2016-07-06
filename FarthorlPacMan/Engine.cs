@@ -18,7 +18,6 @@
         public static Bitmap Buffer { get; private set; }
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
-        public Task TaskRenderingFruit { get; private set; }
         public static string[,] PathsMatrix { get; private set; }
         public static int XMax { get; private set; }
         public static int YMax { get; private set; }
@@ -63,22 +62,24 @@
             {
                 this.IsInicialize = true;
                 this.InitializeMatrix();
+                this.InicializeFruits();
                 this.DrawContent();
                 this.InicializeLeftScores();
 
                 this.TaskRenderingPacMan = new Task(this.RenderPacMan);
                 this.TaskRenderingGhost = new Task(this.RenderGhost);
-                this.TaskRenderingFruit = new Task(this.GenerateFruit);
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
+                
 
                 for (int i = 0; i < this.GhostElements; i++)
                 {
                     Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, this.GraphicsGhost));
                 }
 
+                
+
                 this.TaskRenderingPacMan.Start();
                 this.TaskRenderingGhost.Start();
-                this.TaskRenderingFruit.Start();
 
                 Control.CheckForIllegalCrossThreadCalls = false;
             }
@@ -86,44 +87,6 @@
             {
                 this.DrawContent();
             }
-        }
-
-        private void GenerateFruit()
-        {
-            Fruit apple = new Apple(2, 3, this.GraphicsFruit, this);
-            Fruit banana = new Banana(6, 8, this.GraphicsFruit, this);
-            Fruit brezel = new Brezel(15, 6, this.GraphicsFruit, this);
-            Fruit cherry = new Cherry(19, 2, this.GraphicsFruit, this);
-            Fruit peach = new Peach(13, 4, this.GraphicsFruit, this);
-            Fruit pear = new Pear(11, 12, this.GraphicsFruit, this);
-            Fruit strawberry = new Strawberry(4, 10, this.GraphicsFruit, this);
-
-            fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
-
-            fruits.RemoveAll(x => x.FruitPositionX >= XMax || x.FruitPositionY >= YMax);
-
-            while (Run)
-            {
-                Fruit fruitToDelete = null;
-                foreach (var fruit in fruits)
-                {
-                    fruit.DrawFruit();
-
-                    if (fruit.FruitPositionX == PacMan.PositionQuadrantX
-                    && fruit.FruitPositionY == PacMan.PositionQuadrantY)
-                    {
-                        fruitToDelete = fruit;
-                    }
-                }
-                if (fruitToDelete != null)
-                {
-                    fruits.Remove(fruitToDelete);
-                    // give player 10 points
-                    PacManEatScores += 10;
-                    Game.UpdateScores(PacManEatScores);
-                }
-            }
-
         }
 
         private void DrawFontColor()
@@ -236,24 +199,55 @@
             }
         }
 
+        private void InicializeFruits()
+        {
+            Fruit apple = new Apple(2, 3, this.GraphicsFruit);
+            Fruit banana = new Banana(6, 8, this.GraphicsFruit);
+            Fruit brezel = new Brezel(15, 6, this.GraphicsFruit);
+            Fruit cherry = new Cherry(19, 2, this.GraphicsFruit);
+            Fruit peach = new Peach(13, 4, this.GraphicsFruit);
+            Fruit pear = new Pear(11, 12, this.GraphicsFruit);
+            Fruit strawberry = new Strawberry(4, 10, this.GraphicsFruit);
+
+            fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
+
+            fruits.RemoveAll(x => x.FruitPositionX >= XMax || x.FruitPositionY >= YMax);
+        }
+
+        private void DrawFruits()
+        {
+            Fruit fruitToDelete = null;
+            foreach (var fruit in fruits)
+            {
+                using (Graphics drawing = Graphics.FromImage(Buffer))
+                {
+                    drawing.DrawImage(fruit.Image, fruit.FruitPositionX * Global.QuadrantSize + (Global.QuadrantSize / 2 - fruit.fruitWidth / 2), fruit.FruitPositionY * Global.QuadrantSize + (Global.QuadrantSize / 2 - fruit.fruitHeigt / 2), fruit.fruitWidth, fruit.fruitHeigt);
+                    Game.pacMan.BackgroundImage = Buffer;
+                }
+
+            }
+
+        }
+
         private async void RenderGhost()
         {
             while (Run)
             {
-                if (Ghosts.Count(g =>
-                   Enumerable.Range(g.DrawingCoordinatesX, g.DrawingCoordinatesX + 42).Contains(PacMan.DrawingCoordinatesX) &&
-                   Enumerable.Range(g.DrawingCoordinatesY, g.DrawingCoordinatesY + 42).Contains(PacMan.DrawingCoordinatesY)) > 0)
-                {
-                   
-                    GameOver();
-                }
                 foreach (var ghost in Ghosts)
                 {
+                    if (PacMan.DrawingCoordinatesX > ghost.DrawingCoordinatesX && 
+                        PacMan.DrawingCoordinatesX< ghost.DrawingCoordinatesX+42 && 
+                        PacMan.DrawingCoordinatesY > ghost.DrawingCoordinatesY && 
+                        PacMan.DrawingCoordinatesY< ghost.DrawingCoordinatesY+42)
+                    {
+
+                        GameOver();
+                    }
                     if (Run)
                     {
                         await ghost.Move();
                     }
-                    
+
                 }
             }
         }
@@ -270,8 +264,12 @@
 
         public void DrawContent()
         {
+            
             this.DrawFontColor();
             this.DrawPaths();
+            this.DrawFruits();
+
+
         }
 
         public void GameOver()
@@ -294,10 +292,8 @@
             Run = true;
             this.TaskRenderingPacMan = new Task(this.RenderPacMan);
             this.TaskRenderingGhost = new Task(this.RenderGhost);
-            this.TaskRenderingFruit = new Task(this.GenerateFruit);
             this.TaskRenderingPacMan.Start();
             this.TaskRenderingGhost.Start();
-            this.TaskRenderingFruit.Start();
         }
 
         public bool IsPaused()
@@ -341,10 +337,23 @@
             }
         }
 
+/*        public static void DrawFruit(int quadrantX, int quandrantY)
+        {
+            if (GetQuadrantElements(quadrantX, quandrantY)[1] == "1")
+            {
+                PointsGraphics.FillEllipse(new SolidBrush(Point.PointFillColor), quadrantX * 50 + 25 - Point.PointDiameter / 2, quandrantY * 50 + 25 - Point.PointDiameter / 2, Point.PointDiameter, Point.PointDiameter);
+            }
+
+            if (fruits.Count(f=>f.FruitPositionX+10)>0)
+            {
+                
+            }
+        }*/
+
         public static bool IsDirectionChanged(string myDirection)
         {
 
-            if ( myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up"
+            if (myDirection == "Up" && MoveDirection == "Down" || myDirection == "Down" && MoveDirection == "Up"
                || myDirection == "Right" && MoveDirection == "Left" || myDirection == "Left" && MoveDirection == "Right")
             {
                 return true;
@@ -375,8 +384,6 @@
                 this.TaskRenderingGhost.Wait();
                 this.TaskRenderingGhost?.Dispose();
 
-                this.TaskRenderingFruit.Wait();
-                this.TaskRenderingFruit?.Dispose();
 
                 Buffer?.Dispose();
             }
