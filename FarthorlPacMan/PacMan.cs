@@ -130,7 +130,7 @@ namespace FarthorlPacMan
             if (Engine.isDirectionChanged(base.MovedDirection))
             {
                 base.MovedDirection = Engine.MoveDirection;
-                // next we try to return to the same quadrant we have been. This prevent bug to pass throught wals.
+                // next we try to return to the same quadrant we have been. This prevent bug to pass throught walls.
                 string[] quadrantToMove = Engine.GetQuadrantElements(base.PositionQuadrantX, base.PositionQuadrantY);
                 TryMoveThere(quadrantToMove, base.MovedDirection);
             }
