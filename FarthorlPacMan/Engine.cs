@@ -73,7 +73,7 @@ namespace FarthorlPacMan
 
                 for (int i = 0; i < GhostElements; i++)
                 {
-                    Ghosts.Add(new Ghost(PacMan.GetQuadrantX(), PacMan.GetQuadrantY(), GraphicsGhost));
+                    Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, GraphicsGhost));
                 }
 
                 TaskRenderingPacMan.Start();
