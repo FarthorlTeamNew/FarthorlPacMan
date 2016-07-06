@@ -368,29 +368,19 @@ namespace FarthorlPacMan
             if (disposing)
             {
                 // free managed resources
-                if (this.TaskRenderingPacMan != null)
-                {
-                    this.TaskRenderingPacMan.Dispose();
-                }
+                this.TaskRenderingPacMan.Wait();
+                this.TaskRenderingPacMan?.Dispose();
 
-                if (this.TaskRenderingGhost != null)
-                {
-                    this.TaskRenderingGhost.Dispose();
-                }
+                this.TaskRenderingGhost.Wait();
+                this.TaskRenderingGhost?.Dispose();
 
-                if (this.TaskRenderingFruit != null)
-                {
-                    this.TaskRenderingFruit.Dispose();
-                }
-                if (this.TaskCheckCollision != null)
-                {
-                    this.TaskCheckCollision.Dispose();
-                }
+                this.TaskRenderingFruit.Wait();
+                this.TaskRenderingFruit?.Dispose();
 
-                if (Buffer != null)
-                {
-                    Buffer.Dispose();
-                }
+                this.TaskCheckCollision.Wait();
+                this.TaskCheckCollision?.Dispose();
+
+                Buffer?.Dispose();
             }
         }
     }
