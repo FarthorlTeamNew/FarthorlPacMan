@@ -35,7 +35,6 @@
         public static List<Point> Points { get; private set; }
         private static List<Ghost> Ghosts { get; set; }
         private string Level { get; set; }
-        public Fruit Fruit { get; set; }
 
         public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
         {
@@ -91,21 +90,27 @@
             }
         }
 
-        private void CheckForCollision()
+        private async void CheckForCollision()
         {
             while (Run)
             {
                 foreach (var ghost in Ghosts)
                 {
-                    if (PacMan.PositionQuadrantX == ghost.PositionQuadrantX
-                        && PacMan.PositionQuadrantY == ghost.PositionQuadrantY)
-                    {
-                        this.PacMan.IsAlive = false;
-                        Run = false;
-                        SoundPlayer.Play("death");
-                    }
+                    await ColisionCheck(ghost);
                 }
             }
+        }
+
+        private async Task<bool> ColisionCheck(Ghost ghost)
+        {
+            if (PacMan.PositionQuadrantX == ghost.PositionQuadrantX
+                && PacMan.PositionQuadrantY == ghost.PositionQuadrantY)
+            {
+                this.PacMan.IsAlive = false;
+                Run = false;
+                SoundPlayer.Play("death");
+            }
+            return true;
         }
 
         private void GenerateFruit()
