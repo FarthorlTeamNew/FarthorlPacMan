@@ -136,10 +136,10 @@ namespace FarthorlPacMan
 
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize+ 35-this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize/2  ),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize / 2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY + Global.QuadrantSize / 2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY)
                             });
 
             this.ChangeCoefficient();
@@ -174,9 +174,9 @@ namespace FarthorlPacMan
             );
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15+this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
-                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35-this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2, this.DrawingCoordinatesY),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 15 + this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
+                                new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + 35 - this.animateCoeficent, this.DrawingCoordinatesY - Global.QuadrantSize/2+2),
                                 new System.Drawing.Point(this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize/2, this.DrawingCoordinatesY)
                             });
 
@@ -206,10 +206,10 @@ namespace FarthorlPacMan
                  );
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
-                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
-                            new System.Drawing.Point(this.DrawingCoordinatesX-Global.QuadrantSize/2+2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
-                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize) + Global.QuadrantSize / 2),
+                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, (this.PositionQuadrantY * Global.QuadrantSize) + 15 + this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX - Global.QuadrantSize / 2 + 2, (this.PositionQuadrantY * Global.QuadrantSize) + 35- this.animateCoeficent),
+                            new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize / 2)
                         });
 
             this.ChangeCoefficient();
@@ -239,9 +239,9 @@ namespace FarthorlPacMan
 
             this.graphics.FillPolygon(new SolidBrush(Color.Black), new[] {
                                 new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+15+this.animateCoeficent),
-                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize/2, (this.PositionQuadrantY * Global.QuadrantSize)+35-this.animateCoeficent),
-                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize)+Global.QuadrantSize/2)
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, (this.PositionQuadrantY * Global.QuadrantSize) + 15 + this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX + Global.QuadrantSize / 2, (this.PositionQuadrantY * Global.QuadrantSize) + 35 - this.animateCoeficent),
+                                new System.Drawing.Point(this.DrawingCoordinatesX, (this.PositionQuadrantY * Global.QuadrantSize) + Global.QuadrantSize / 2)
                             });
 
             this.ChangeCoefficient();

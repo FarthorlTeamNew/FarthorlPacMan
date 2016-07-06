@@ -60,7 +60,7 @@ namespace FarthorlPacMan
             {
                 if (Engine.Run == false)
                 {
-                    this.game.ResumeGame(); ;
+                    this.game.ResumeGame();
                 }
                 else
                 {
