@@ -9,5 +9,10 @@ namespace FarthorlPacMan.Fruits
         {
             base.Image= Image.FromFile(@"DataFiles\Images\Fruit\Apple.bmp");
         }
+
+        public override void ActivatePowerup()
+        {
+           
+        }
     }
 }

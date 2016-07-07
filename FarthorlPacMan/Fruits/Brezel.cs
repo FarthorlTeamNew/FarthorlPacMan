@@ -8,6 +8,9 @@ namespace FarthorlPacMan.Fruits
         {
             base.Image= Image.FromFile(@"DataFiles\Images\Fruit\Brezel.bmp");
         }
+        public override void ActivatePowerup()
+        {
 
+        }
     }
 }

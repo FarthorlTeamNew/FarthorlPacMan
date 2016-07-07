@@ -14,7 +14,7 @@
         public int FruitPositionX
         {
             get { return fruitPositionX; }
-            protected set
+            set
             {
                 fruitPositionX = value;
             }
@@ -22,7 +22,7 @@
         public int FruitPositionY
         {
             get { return fruitPositionY; }
-            protected set
+            set
             {
                 fruitPositionY = value;
             }
@@ -37,10 +37,10 @@
             this.GraphicsFruit = graphicsFruit;
         }
 
-        // graphicsFruit.DrawImage(apple, fruitPositionX * QuadrantDimension, fruitPositionY * QuadrantDimension);
-
         public virtual void DrawFruit()
         {
         }
+
+        public abstract void ActivatePowerup();
     }
 }

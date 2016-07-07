@@ -114,7 +114,6 @@
                             drawing.DrawRectangle(new Pen(Global.WallColor), x * 50, y * 50, 50, 50);
                             drawing.FillRectangle(new SolidBrush(Global.WallColor), x * 50, y * 50, 50, 50);
                             Game.pacMan.BackgroundImage = Buffer;
-
                         }
                     }
 
@@ -203,7 +202,34 @@
 
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
+            //foreach (var fruit in fruits)
+            //{
+            //    string[] placeAvailable = AvailableFruitXY().Split();
+            //    int placeFruitX = int.Parse(placeAvailable[0]);
+            //    int placeFruitY = int.Parse(placeAvailable[1]);
+            //    fruit.FruitPositionX = placeFruitX;
+            //    fruit.FruitPositionY = placeFruitY;
+            //}
+
             fruits.RemoveAll(x => x.FruitPositionX >= Global.XMax || x.FruitPositionY >= Global.YMax);
+        }
+
+        private string AvailableFruitXY()
+        {
+            Random randomX = new Random(10);
+            Random randomY = new Random(10);
+            while (true)
+            {
+                int tryX = randomX.Next(24);
+                int tryY = randomY.Next(13);
+                var elements = PathsMatrix[tryX, tryY].Trim().Split(',');
+                int placeAvailable = int.Parse(elements[1]);
+                if (placeAvailable == 1)
+                {
+                    PathsMatrix[tryX, tryY] = "0,0";
+                    return $"{tryX} {tryY}";
+                }
+            }
         }
 
         private void DrawFruits()

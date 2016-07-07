@@ -9,7 +9,7 @@ namespace FarthorlPacMan
         public const int XMax = 24;
         public const int YMax = 13;
         public const int GhostElements = 4;
-        public static Color WallColor = Color.Cyan;
-        public static Color pacManColor = Color.Yellow;
+        public static Color WallColor {get { return Color.Cyan; } }
+        public static Color pacManColor {get { return Color.Yellow; } }
     }
 }
