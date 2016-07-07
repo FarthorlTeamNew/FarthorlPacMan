@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelsWindow));
             this.Labirint_Level = new System.Windows.Forms.Button();
             this.CsharpLevel = new System.Windows.Forms.Button();
             this.Labirint2 = new System.Windows.Forms.Button();
@@ -104,7 +103,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Navy;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::FarthorlPacMan.Properties.Resources.Change_level_background;
             this.ClientSize = new System.Drawing.Size(584, 408);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.EuroLevel);

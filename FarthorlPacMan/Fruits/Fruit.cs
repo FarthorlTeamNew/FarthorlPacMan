@@ -37,10 +37,6 @@ namespace FarthorlPacMan
             }
         }
 
-        public virtual void DrawFruit()
-        {
-        }
-
         public abstract void ActivatePowerup();
     }
 }

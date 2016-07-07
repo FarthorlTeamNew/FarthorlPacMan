@@ -125,7 +125,6 @@ namespace FarthorlPacMan
                         }
                     }
                 }
-
             }
         }
 
@@ -238,7 +237,6 @@ namespace FarthorlPacMan
                 }
 
             }
-
         }
 
         private async void RenderGhost()
@@ -274,8 +272,7 @@ namespace FarthorlPacMan
         }
 
         public void DrawContent()
-        {
-            
+        { 
             this.DrawFontColor();
             this.DrawPaths();
             this.DrawFruits();
@@ -285,7 +282,6 @@ namespace FarthorlPacMan
         {
             Run = false;
             SoundPlayer.PlaySync("death");
-            //Dispose();
             Environment.Exit(1);
         }
 
@@ -389,7 +385,6 @@ namespace FarthorlPacMan
 
                 this.TaskRenderingGhost.Wait();
                 this.TaskRenderingGhost?.Dispose();
-
 
                 Buffer?.Dispose();
             }
