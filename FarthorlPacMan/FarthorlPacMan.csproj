@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine.cs" />
-    <Compile Include="Fruit.cs" />
+    <Compile Include="Fruits\Fruit.cs" />
     <Compile Include="Fruits\Apple.cs" />
     <Compile Include="Fruits\Banana.cs" />
     <Compile Include="Fruits\Brezel.cs" />
