@@ -1,28 +1,5 @@
-﻿
-Features to add in the future:
-
-- Enemies (add them now, or in the next part of the course?) - When they come across an intersection, they should randomly choose a direction to go to. Starting poing - Opposite diagonal corner?
-
-- Add more lives for Pacman - 3 or 5?
-
-- Increased difficulty level - Enemies are more likely to follow the direction of Pacman, and are just a bit faster than before (maybe same speed as Pacman?). They also spawn at random places in the beginning of the game.
-
-- Add the Powerups, which allow Pacman to eat the enemies.
-
-- Multiplayer mode - Two players compete to get more points than the other. Limited time - better with no enemies to get in the way?
-
-- Add more level designs
-- Add sound effects - the famous Pacman Waka-Waka eating sound - https://www.youtube.com/watch?v=xbR_-kVEYQ0 . Sound speeds up when Pacman eats a Powerup. Seperate sound for eating an enemy, and for dying.
-
-- Some animations maybe? - Pacman moving his mouth. When Pacman dies, he shrinks into oblivion
-
-Feel free to add more ideas, report any bugs and work on the code to improve it.
-
-
-
-
-
-
-
-
-- Various Powerups to spice up the old-fashioned gameplay - -Fruits will temporary change the gameplay. For Example - Invincibility, Extra Speed, Directions get flipped around (when you press Left, you actuall turn Right, powerup could be visualized as some kind of alchohol?), Teleport at random place on the map (5-6 blocks away from enemies). Powerups could pop-up every once in a while, for a limited time, and if the player doesn't reach them, they disappead, and pop back up later again
+﻿- Improved pathfinding with increased difficulty
+- make a factory class for the fruit
+- add automatic level change
+- create abstract class for ghost, with different colours (maybe different abilities)
+- maybe add a game menu to select different skins for the ghosts (add all kind of interesting skins - spongebob, some kind of animals
