@@ -37,9 +37,9 @@
             System.Threading.Thread.Sleep(this.random.Next(100, 500));
 
             //Check and remove quandrant if the pacMan is near from 6 quadrants left or right by X
-            for (int y = 0; y < Engine.YMax - 1; y++)
+            for (int y = 0; y < Global.YMax - 1; y++)
             {
-                for (int x = 0; x < Engine.XMax - 1; x++)
+                for (int x = 0; x < Global.XMax - 1; x++)
                 {
                     if (x <= pacManX - PacManDistanceX && y <= pacManY - PacManDistanceY || x >= pacManX + PacManDistanceX && y >= pacManY + PacManDistanceY)
                     {
@@ -95,7 +95,7 @@
                 this.existDirections["Up"] = false;
             }
 
-            if (this.PositionQuadrantY < Engine.YMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1)[0] == "0")
+            if (this.PositionQuadrantY < Global.YMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1)[0] == "0")
             {
                 this.existDirections["Down"] = true;
             }
@@ -113,7 +113,7 @@
                 this.existDirections["Left"] = false;
             }
 
-            if (this.PositionQuadrantX < Engine.XMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY)[0] == "0")
+            if (this.PositionQuadrantX < Global.XMax - 1 && Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY)[0] == "0")
             {
                 this.existDirections["Right"] = true;
             }
@@ -220,7 +220,7 @@
 
         private void TryMoveRight()
         {
-            if (this.PositionQuadrantX < Engine.YMax - 1)
+            if (this.PositionQuadrantX < Global.YMax - 1)
             {
                 int nextQuandrantX = this.PositionQuadrantX + 1;
                 int nextQuadrantY = this.PositionQuadrantY;
@@ -353,7 +353,7 @@
 
         private void TryMoveDown()
         {
-            if (this.PositionQuadrantY < Engine.YMax - 1)
+            if (this.PositionQuadrantY < Global.YMax - 1)
             {
                 int nextQuandrantX = this.PositionQuadrantX;
                 int nextQuadrantY = this.PositionQuadrantY + 1;

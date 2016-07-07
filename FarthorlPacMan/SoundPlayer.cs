@@ -23,6 +23,15 @@
             soundPlayer = new System.Media.SoundPlayer(sounds[sound]);
             soundPlayer.Play();
         }
+        public static void PlaySync(string sound)
+        {
+            if (!sounds.ContainsKey(sound))
+            {
+                throw new KeyNotFoundException("The current sound is not added in the playlist");
+            }
+            soundPlayer = new System.Media.SoundPlayer(sounds[sound]);
+            soundPlayer.PlaySync();
+        }
 
         public void Dispose()
         {

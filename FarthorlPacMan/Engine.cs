@@ -19,14 +19,10 @@
         public Task TaskRenderingPacMan { get; private set; }
         public Task TaskRenderingGhost { get; private set; }
         public static string[,] PathsMatrix { get; private set; }
-        public static int XMax { get; private set; }
-        public static int YMax { get; private set; }
         public static int LeftScore { get; private set; }
-        public int GhostElements { get; private set; }
         public static int PacManEatScores { get; private set; }
         public static bool Run { get; set; }
         public static string MoveDirection { get; set; }
-        public Color WallColor { get; private set; }
         public static GameWindow Game { get; private set; }
         public bool IsInicialize { get; private set; }
         private PacMan PacMan { get; set; }
@@ -44,11 +40,7 @@
             Game = game;
             Buffer = new Bitmap(1200, 650);
             PathsMatrix = new string[24, 13];
-            XMax = 24;
-            YMax = 13;
-            this.GhostElements = 4;
             Run = true;
-            this.WallColor = Color.Cyan;
             this.IsInicialize = false;
             Points = new List<Point>();
             Ghosts = new List<Ghost>();
@@ -71,7 +63,7 @@
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
                 
 
-                for (int i = 0; i < this.GhostElements; i++)
+                for (int i = 0; i < Global.GhostElements; i++)
                 {
                     Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, this.GraphicsGhost));
                 }
@@ -102,13 +94,13 @@
         {
             using (Graphics drawing = Graphics.FromImage(Buffer))
             {
-                drawing.DrawRectangle(new Pen(this.WallColor), 0, 0, XMax * 50, YMax * 50);
+                drawing.DrawRectangle(new Pen(Global.WallColor), 0, 0, Global.XMax * 50, Global.YMax * 50);
                 Game.pacMan.BackgroundImage = Buffer;
             }
 
-            for (int y = 0; y < YMax; y++)
+            for (int y = 0; y < Global.YMax; y++)
             {
-                for (int x = 0; x < XMax; x++)
+                for (int x = 0; x < Global.XMax; x++)
                 {
                     var elements = PathsMatrix[x, y].Trim().Split(',');
                     int quadrant = int.Parse(elements[0]);
@@ -119,8 +111,8 @@
                         using (Graphics drawing = Graphics.FromImage(Buffer))
                         {
 
-                            drawing.DrawRectangle(new Pen(this.WallColor), x * 50, y * 50, 50, 50);
-                            drawing.FillRectangle(new SolidBrush(this.WallColor), x * 50, y * 50, 50, 50);
+                            drawing.DrawRectangle(new Pen(Global.WallColor), x * 50, y * 50, 50, 50);
+                            drawing.FillRectangle(new SolidBrush(Global.WallColor), x * 50, y * 50, 50, 50);
                             Game.pacMan.BackgroundImage = Buffer;
 
                         }
@@ -211,7 +203,7 @@
 
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
-            fruits.RemoveAll(x => x.FruitPositionX >= XMax || x.FruitPositionY >= YMax);
+            fruits.RemoveAll(x => x.FruitPositionX >= Global.XMax || x.FruitPositionY >= Global.YMax);
         }
 
         private void DrawFruits()
@@ -240,7 +232,6 @@
                         PacMan.DrawingCoordinatesY > ghost.DrawingCoordinatesY && 
                         PacMan.DrawingCoordinatesY< ghost.DrawingCoordinatesY+42)
                     {
-
                         GameOver();
                     }
                     if (Run)
@@ -268,14 +259,12 @@
             this.DrawFontColor();
             this.DrawPaths();
             this.DrawFruits();
-
-
         }
 
         public void GameOver()
         {
-            SoundPlayer.Play("death");
             Run = false;
+            SoundPlayer.PlaySync("death");
             //Dispose();
             Environment.Exit(1);
         }

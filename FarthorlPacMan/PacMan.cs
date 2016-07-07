@@ -15,7 +15,6 @@ namespace FarthorlPacMan
         private const string TouchWall = "1";
         private const string FreeDirection = "0";
         private int animateCoeficent;
-        private Color pacManColor = Color.Yellow;
         public bool IsAlive = true;
         private Graphics graphicsPacMan;
 
@@ -64,7 +63,7 @@ namespace FarthorlPacMan
                 if (direction == Right)
                 {
                     this.MovePacManRight();
-                    if (this.PositionQuadrantX < Engine.XMax - 1)
+                    if (this.PositionQuadrantX < Global.XMax - 1)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX + 1, this.PositionQuadrantY);
                         this.TryMoveThere(quadrantToMove, direction);
@@ -105,7 +104,7 @@ namespace FarthorlPacMan
                 {
                     this.MovePacManDown();
 
-                    if (this.PositionQuadrantY < Engine.YMax - 1)
+                    if (this.PositionQuadrantY < Global.YMax - 1)
                     {
                         string[] quadrantToMove = Engine.GetQuadrantElements(this.PositionQuadrantX, this.PositionQuadrantY + 1);
                         this.TryMoveThere(quadrantToMove, direction);
@@ -121,7 +120,7 @@ namespace FarthorlPacMan
         private void MovePacManDown()
         {
             this.graphicsPacMan.FillEllipse(
-                new SolidBrush(this.pacManColor),
+                new SolidBrush(Global.pacManColor),
                 this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                 this.DrawingCoordinatesY - PacManDiameter / 2,
                 PacManDiameter,
@@ -160,7 +159,7 @@ namespace FarthorlPacMan
         private void MovePacManUp()
         {
             this.graphicsPacMan.FillEllipse(
-            new SolidBrush(this.pacManColor),
+            new SolidBrush(Global.pacManColor),
             this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
             this.DrawingCoordinatesY - PacManDiameter / 2,
             PacManDiameter,
@@ -297,7 +296,7 @@ namespace FarthorlPacMan
             {
                 case Right:
 
-                    if (this.DrawingCoordinatesX < (Engine.XMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesX < (Global.XMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
                         this.DrawingCoordinatesX += 1;
                     }
@@ -313,7 +312,7 @@ namespace FarthorlPacMan
                         );
 
                     this.graphicsPacMan.FillEllipse(
-                           new SolidBrush(this.pacManColor),
+                           new SolidBrush(Global.pacManColor),
                            this.DrawingCoordinatesX - PacManDiameter / 2,
                            this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                            PacManDiameter,
@@ -341,7 +340,7 @@ namespace FarthorlPacMan
                         );
 
                     this.graphicsPacMan.FillEllipse(
-                        new SolidBrush(this.pacManColor), this.DrawingCoordinatesX - PacManDiameter / 2,
+                        new SolidBrush(Global.pacManColor), this.DrawingCoordinatesX - PacManDiameter / 2,
                         this.PositionQuadrantY * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                         PacManDiameter,
                         PacManDiameter
@@ -372,7 +371,7 @@ namespace FarthorlPacMan
 
                 case Down:
 
-                    if (this.DrawingCoordinatesY < (Engine.YMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
+                    if (this.DrawingCoordinatesY < (Global.YMax - 1) * Global.QuadrantSize + Global.QuadrantSize / 2)
                     {
                         this.DrawingCoordinatesY += 1;
                     }
@@ -388,7 +387,7 @@ namespace FarthorlPacMan
                          );
 
                     this.graphicsPacMan.FillEllipse(
-                        new SolidBrush(this.pacManColor),
+                        new SolidBrush(Global.pacManColor),
                         this.PositionQuadrantX * Global.QuadrantSize + Global.QuadrantSize / 2 - PacManDiameter / 2,
                         this.DrawingCoordinatesY - PacManDiameter / 2,
                         PacManDiameter,
@@ -414,7 +413,7 @@ namespace FarthorlPacMan
         public void DrawPacMan()
         {
             this.graphicsPacMan.FillEllipse(
-                new SolidBrush(this.pacManColor),
+                new SolidBrush(Global.pacManColor),
                 this.DrawingCoordinatesX - PacManDiameter / 2,
                 this.DrawingCoordinatesY - PacManDiameter / 2,
                 PacManDiameter,
