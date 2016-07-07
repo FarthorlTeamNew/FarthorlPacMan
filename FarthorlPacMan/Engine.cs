@@ -216,12 +216,12 @@
 
         private string AvailableFruitXY()
         {
-            Random randomX = new Random(10);
-            Random randomY = new Random(10);
+            Random randomX = new Random(0);
+            Random randomY = new Random(0);
             while (true)
             {
-                int tryX = randomX.Next(24);
-                int tryY = randomY.Next(13);
+                int tryX = randomX.Next(1, 24);
+                int tryY = randomY.Next(1, 13);
                 var elements = PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
