@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace FarthorlPacMan
 {
     public partial class GameWindow : Form
     {
-        public static string Level;
+        private static string Level;
         private Game _game = new Game();
         private bool _isInicialize = false;
       

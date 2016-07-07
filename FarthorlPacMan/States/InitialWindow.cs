@@ -6,7 +6,7 @@ namespace FarthorlPacMan
 {
     public partial class InitialWindow : Form
     {
-        public GameWindow GameWindow;
+        private GameWindow GameWindow;
         private LevelsWindow _levelWindow;
 
         public InitialWindow()
@@ -16,7 +16,6 @@ namespace FarthorlPacMan
 
         private void Exit_Button(object sender, EventArgs e)
         {
-            Application.Exit();
             Environment.Exit(0);
         }
 
