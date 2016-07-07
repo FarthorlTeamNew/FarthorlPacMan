@@ -202,26 +202,24 @@
 
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
-            //foreach (var fruit in fruits)
-            //{
-            //    string[] placeAvailable = AvailableFruitXY().Split();
-            //    int placeFruitX = int.Parse(placeAvailable[0]);
-            //    int placeFruitY = int.Parse(placeAvailable[1]);
-            //    fruit.FruitPositionX = placeFruitX;
-            //    fruit.FruitPositionY = placeFruitY;
-            //}
+            foreach (var fruit in fruits)
+            {
+                string[] placeAvailable = AvailableFruitXY().Split();
+                int placeFruitX = int.Parse(placeAvailable[0]);
+                int placeFruitY = int.Parse(placeAvailable[1]);
+                fruit.FruitPositionX = placeFruitX;
+                fruit.FruitPositionY = placeFruitY;
+            }
 
             fruits.RemoveAll(x => x.FruitPositionX >= Global.XMax || x.FruitPositionY >= Global.YMax);
         }
 
         private string AvailableFruitXY()
         {
-            Random randomX = new Random(0);
-            Random randomY = new Random(0);
             while (true)
             {
-                int tryX = randomX.Next(1, 24);
-                int tryY = randomY.Next(1, 13);
+                int tryX = new Random(DateTime.Now.Millisecond).Next(1, 24);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(1, 13);
                 var elements = PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)

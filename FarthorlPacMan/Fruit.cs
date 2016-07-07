@@ -7,8 +7,8 @@
         protected Graphics GraphicsFruit;
         public int fruitPositionX;
         public int fruitPositionY;
-        public int fruitWidth = 20;
-        public int fruitHeigt = 20;
+        public int fruitWidth = 35;
+        public int fruitHeigt = 35;
         public Image Image { get; protected set; }
 
         public int FruitPositionX
