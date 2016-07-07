@@ -1,8 +1,8 @@
-﻿namespace FarthorlPacMan
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace FarthorlPacMan
+{
     public class SoundPlayer : IDisposable
     {
         private static System.Media.SoundPlayer soundPlayer { get; set; }

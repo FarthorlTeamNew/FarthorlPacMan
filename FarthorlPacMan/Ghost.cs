@@ -1,10 +1,10 @@
-﻿namespace FarthorlPacMan
-{
-    using System;
-    using System.Drawing;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Drawing;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
+namespace FarthorlPacMan
+{
     public class Ghost : Participant
     {
         private const int PacManDistanceX = 3;
@@ -17,6 +17,7 @@
         private static Image image = Image.FromFile(@"DataFiles\Images\Ghost.bmp");
         private Graphics graphicsGhost;
         private Graphics graphicsFruit;
+
         public Ghost(int positionPacManQaundarntX, int positionPacManQaundarntY, Graphics graphicsGhost) : base()
         {
             this.positionPacManQaundarntX = positionPacManQaundarntX;

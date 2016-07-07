@@ -1,16 +1,32 @@
-﻿namespace FarthorlPacMan
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Drawing;
-    using System.Linq;
-    using System.Windows.Forms;
-    using System.Threading.Tasks;
-    using Fruits;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using System.Threading.Tasks;
+using FarthorlPacMan.Fruits;
 
+namespace FarthorlPacMan
+{
     public class Engine : IDisposable
     {
+        public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
+        {
+            this.GraphicsPacMan = graphicPacMan;
+            this.GraphicsGhost = graphicsGhost;
+            GraphicsFruit = graphicsFruit;
+            PointsGraphics = pointsGraphics;
+            Game = game;
+            Buffer = new Bitmap(1200, 650);
+            PathsMatrix = new string[24, 13];
+            Run = true;
+            this.IsInicialize = false;
+            Points = new List<Point>();
+            Ghosts = new List<Ghost>();
+            this.Level = level;
+        }
+
         public Graphics GraphicsPacMan { get; private set; }
         public Graphics GraphicsGhost { get; private set; }
         public static Graphics PointsGraphics { get; private set; }
@@ -30,23 +46,6 @@
         private static List<Ghost> Ghosts { get; set; }
         private string Level { get; set; }
         static List<Fruit> fruits = new List<Fruit>();
-
-        public Engine(Graphics graphicPacMan, Graphics graphicsGhost, Graphics pointsGraphics, Graphics graphicsFruit, GameWindow game, string level)
-        {
-            this.GraphicsPacMan = graphicPacMan;
-            this.GraphicsGhost = graphicsGhost;
-            GraphicsFruit = graphicsFruit;
-            PointsGraphics = pointsGraphics;
-            Game = game;
-            Buffer = new Bitmap(1200, 650);
-            PathsMatrix = new string[24, 13];
-            Run = true;
-            this.IsInicialize = false;
-            Points = new List<Point>();
-            Ghosts = new List<Ghost>();
-            this.Level = level;
-        }
-
         public void Initialize()
         {
             //Initialize game if started for the first time
@@ -62,13 +61,10 @@
                 this.TaskRenderingGhost = new Task(this.RenderGhost);
                 this.PacMan = new PacMan(0, 0, this.GraphicsPacMan);
                 
-
                 for (int i = 0; i < Global.GhostElements; i++)
                 {
                     Ghosts.Add(new Ghost(PacMan.PositionQuadrantX, PacMan.PositionQuadrantY, this.GraphicsGhost));
                 }
-
-                
 
                 this.TaskRenderingPacMan.Start();
                 this.TaskRenderingGhost.Start();

@@ -1,16 +1,9 @@
-﻿namespace FarthorlPacMan
-{
-    using System.Drawing;
+﻿using System.Drawing;
 
+namespace FarthorlPacMan
+{
     public class Point
     {
-        public static int PointDiameter { get; private set; }
-        public int CenterX { get; private set; }
-        public int CenterY { get; private set; }
-        public Color PointColor { get; private set; }
-        public static Color PointFillColor { get; private set; }
-        public bool IsPointCollected { get; private set; }
-
         public Point()
         {
             this.PointColor = Color.Blue;
@@ -24,6 +17,13 @@
             this.CenterX = centerX;
             this.CenterY = centerY;
         }
+
+        public static int PointDiameter { get; private set; }
+        public int CenterX { get; private set; }
+        public int CenterY { get; private set; }
+        public Color PointColor { get; private set; }
+        public static Color PointFillColor { get; private set; }
+        public bool IsPointCollected { get; private set; }
 
         public void EatPoint()
         {

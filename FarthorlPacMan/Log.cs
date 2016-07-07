@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
-
 
 namespace FarthorlPacMan
 {
@@ -13,7 +11,7 @@ namespace FarthorlPacMan
         {
             using (var fileLog = new StreamWriter(logFile, true))
             {
-                string recordLine =count + ". " + DateTime.Now.ToString() + ":" + text;
+                string recordLine =count + ". " + DateTime.Now + ":" + text;
                 fileLog.WriteLine(recordLine);
                 count++;
             }
