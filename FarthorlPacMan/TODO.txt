@@ -3,3 +3,4 @@
 - add automatic level change
 - create abstract class for ghost, with different colours (maybe different abilities)
 - maybe add a game menu to select different skins for the ghosts (add all kind of interesting skins - spongebob, some kind of animals
+- implement the logging of errors
