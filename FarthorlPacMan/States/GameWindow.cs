@@ -6,7 +6,7 @@ namespace FarthorlPacMan
 {
     public partial class GameWindow : Form
     {
-        private static string Level;
+        public static string Level;
         private Game _game = new Game();
         private bool _isInicialize = false;
       
