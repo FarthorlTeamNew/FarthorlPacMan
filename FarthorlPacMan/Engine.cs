@@ -250,6 +250,8 @@ namespace FarthorlPacMan
                         PacMan.DrawingCoordinatesY > ghost.DrawingCoordinatesY && 
                         PacMan.DrawingCoordinatesY< ghost.DrawingCoordinatesY+42)
                     {
+                        // Die by ghost
+                        SoundPlayer.PlaySync("death");
                         GameOver();
                     }
                     if (Run)
@@ -281,8 +283,8 @@ namespace FarthorlPacMan
         public void GameOver()
         {
             Run = false;
-            SoundPlayer.PlaySync("death");
-            Environment.Exit(1);
+            //SoundPlayer.PlaySync("death");
+            //Environment.Exit(1);
         }
 
         public void PauseGame()

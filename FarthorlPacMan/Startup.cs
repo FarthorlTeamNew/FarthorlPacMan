@@ -6,7 +6,7 @@ namespace FarthorlPacMan
     public static class Startup
     {
         // Game starts from here
-        [STAThread]
+        //[STAThread]
         public static void Main()
         {
             Application.EnableVisualStyles();
