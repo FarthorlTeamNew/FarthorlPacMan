@@ -95,12 +95,6 @@ namespace FarthorlPacMan
         {
             Engine.Run = true;
             _isInicialize = false;
-           
-        }
-
-        public void Close()
-        {
-            this.Close();
         }
 
         public void StopGame()

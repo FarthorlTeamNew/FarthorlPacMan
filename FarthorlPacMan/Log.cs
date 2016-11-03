@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FarthorlPacMan
 {
-    public class Log
+    public static class Log
     {
         private static string logFile= @"DataFiles\Logs\log.txt";
         private static int count = 1;
